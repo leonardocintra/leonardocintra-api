@@ -19,3 +19,17 @@ model WhatsappGroups {
   name            String  @db.VarChar(100)
   transcribeAudio Boolean @default(true)
 }
+
+model WhatsAppAudioToText {
+  id            Int      @id @default(autoincrement())
+  name          String   @db.VarChar(100)
+  phone         String   @db.VarChar(20)
+  ownerPhone    String?  @db.VarChar(20)
+  sendBy        String   @db.VarChar(20)
+  message       String   @db.Text
+  messageType   String   @default("text") @db.VarChar(10)
+  audioDuration Int      @default(0) @db.Integer
+  audioMimetype String   @default("text") @db.VarChar(40)
+  isGroup       Boolean  @default(false) @db.Boolean
+  createdAt     DateTime @default(now())
+}
