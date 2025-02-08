@@ -33,3 +33,12 @@ model WhatsAppAudioToText {
   isGroup       Boolean  @default(false) @db.Boolean
   createdAt     DateTime @default(now())
 }
+
+model Leads {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(100)
+  phone     String   @unique @db.VarChar(20)
+  email     String?  @db.VarChar(100)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
