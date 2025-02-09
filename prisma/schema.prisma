@@ -35,10 +35,23 @@ model WhatsAppAudioToText {
 }
 
 model Leads {
-  id        Int      @id @default(autoincrement())
-  name      String   @db.VarChar(100)
-  phone     String   @unique @db.VarChar(20)
-  email     String?  @db.VarChar(100)
-  active    Boolean  @default(true)
-  createdAt DateTime @default(now())
+  id                         Int                          @id @default(autoincrement())
+  name                       String                       @db.VarChar(100)
+  phone                      String                       @unique @db.VarChar(20)
+  email                      String?                      @db.VarChar(100)
+  active                     Boolean                      @default(true)
+  createdAt                  DateTime                     @default(now())
+  WhatsAppAudioToTextAccount WhatsAppAudioToTextAccount[]
+}
+
+model WhatsAppAudioToTextAccount {
+  id           Int      @id @default(autoincrement())
+  lead         Leads    @relation(fields: [leadId], references: [id])
+  leadId       Int
+  instanceName String   @unique @db.VarChar(60)
+  instanceId   String   @unique @db.VarChar(50)
+  hash         String   @unique @db.VarChar(50)
+  active       Boolean  @default(true)
+  integration  String   @default("WHATSAPP-BAILEYS") @db.VarChar(50)
+  createdAt    DateTime @default(now())
 }
