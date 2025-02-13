@@ -45,15 +45,17 @@ model Leads {
 }
 
 model WhatsAppAudioToTextAccount {
-  id                   Int      @id @default(autoincrement())
-  lead                 Leads    @relation(fields: [leadId], references: [id])
+  id                   Int       @id @default(autoincrement())
+  lead                 Leads     @relation(fields: [leadId], references: [id])
   leadId               Int
-  instanceName         String   @unique @db.VarChar(60)
-  instanceId           String   @unique @db.VarChar(50)
-  hash                 String   @unique @db.VarChar(50)
-  active               Boolean  @default(true)
-  integration          String   @default("WHATSAPP-BAILEYS") @db.VarChar(50)
-  createdAt            DateTime @default(now())
-  notifiedSuccessfully Boolean  @default(true)
-  retry                Int      @default(0) @db.Integer
+  instanceName         String    @unique @db.VarChar(60)
+  instanceId           String    @unique @db.VarChar(50)
+  hash                 String    @unique @db.VarChar(50)
+  active               Boolean   @default(true)
+  integration          String    @default("WHATSAPP-BAILEYS") @db.VarChar(50)
+  createdAt            DateTime  @default(now())
+  notifiedSuccessfully Boolean   @default(true)
+  pairingCode          String?   @db.VarChar(20)
+  pairingCodeExpiresAt DateTime?
+  retry                Int       @default(0) @db.Integer
 }
