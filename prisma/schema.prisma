@@ -51,11 +51,13 @@ model WhatsAppAudioToTextAccount {
   instanceName         String    @unique @db.VarChar(60)
   instanceId           String    @unique @db.VarChar(50)
   hash                 String    @unique @db.VarChar(50)
-  active               Boolean   @default(true)
+  active               Boolean   @default(false)
   integration          String    @default("WHATSAPP-BAILEYS") @db.VarChar(50)
   createdAt            DateTime  @default(now())
   notifiedSuccessfully Boolean   @default(true)
+  instructionsSent     Boolean   @default(false)
   pairingCode          String?   @db.VarChar(20)
   pairingCodeExpiresAt DateTime?
+  pairingCodeManual    Boolean   @default(false)
   retry                Int       @default(0) @db.Integer
 }
