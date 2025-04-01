@@ -35,13 +35,14 @@ model WhatsAppAudioToText {
 }
 
 model Leads {
-  id                         Int                          @id @default(autoincrement())
-  name                       String                       @db.VarChar(100)
-  phone                      String                       @unique @db.VarChar(20)
-  email                      String?                      @db.VarChar(100)
-  active                     Boolean                      @default(true)
-  createdAt                  DateTime                     @default(now())
-  WhatsAppAudioToTextAccount WhatsAppAudioToTextAccount[]
+  id                              Int                               @id @default(autoincrement())
+  name                            String                            @db.VarChar(100)
+  phone                           String                            @unique @db.VarChar(20)
+  email                           String?                           @db.VarChar(100)
+  active                          Boolean                           @default(true)
+  createdAt                       DateTime                          @default(now())
+  WhatsAppAudioToTextAccount      WhatsAppAudioToTextAccount[]
+  WhatsAppAudioToTextAccountUsage WhatsAppAudioToTextAccountUsage[]
 }
 
 model WhatsAppAudioToTextAccount {
@@ -60,4 +61,14 @@ model WhatsAppAudioToTextAccount {
   pairingCodeExpiresAt DateTime?
   pairingCodeManual    Boolean   @default(false)
   retry                Int       @default(0) @db.Integer
+}
+
+model WhatsAppAudioToTextAccountUsage {
+  id               Int      @id @default(autoincrement())
+  lead             Leads    @relation(fields: [leadId], references: [id])
+  leadId           Int
+  duration         Int
+  messageId        String   @db.VarChar(20)
+  messageTimestamp Int
+  createdAt        DateTime @default(now())
 }
