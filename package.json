@@ -1,8 +1,8 @@
 {
   "name": "leonardocintra-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
-  "author": "",
+  "author": "Leonardo Nascimento Cintra",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

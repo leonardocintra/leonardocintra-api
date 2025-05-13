@@ -68,7 +68,7 @@ model WhatsAppAudioToTextAccountUsage {
   lead             Leads    @relation(fields: [leadId], references: [id])
   leadId           Int
   duration         Int
-  messageId        String   @db.VarChar(20)
+  messageId        String   @db.VarChar(100)
   messageTimestamp Int
   createdAt        DateTime @default(now())
 }
