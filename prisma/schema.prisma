@@ -13,6 +13,39 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(100)
+  description String?  @db.Text
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  plans       Plan[]
+}
+
+model Plan {
+  id            Int            @id @default(autoincrement())
+  name          String         @db.VarChar(100)
+  description   String?
+  price         Decimal        @db.Decimal()
+  product       Product        @relation(fields: [productId], references: [id])
+  productId     Int
+  active        Boolean        @default(true)
+  createdAt     DateTime       @default(now())
+  config        Json
+  subscriptions Subscription[]
+}
+
+model Subscription {
+  id              Int           @id @default(autoincrement())
+  lead            Leads         @relation(fields: [leadId], references: [id])
+  leadId          Int
+  plan            Plan          @relation(fields: [planId], references: [id])
+  planId          Int
+  paymentMethod   PaymentMethod @default(PIX)
+  nextBillingDate DateTime?
+  createdAt       DateTime      @default(now())
+}
+
 model WhatsappGroups {
   id              Int     @id @default(autoincrement())
   groupId         String  @db.VarChar(100)
@@ -43,6 +76,7 @@ model Leads {
   createdAt                       DateTime                          @default(now())
   WhatsAppAudioToTextAccount      WhatsAppAudioToTextAccount[]
   WhatsAppAudioToTextAccountUsage WhatsAppAudioToTextAccountUsage[]
+  Subscription                    Subscription[]
 }
 
 model WhatsAppAudioToTextAccount {
@@ -71,4 +105,9 @@ model WhatsAppAudioToTextAccountUsage {
   messageId        String   @db.VarChar(100)
   messageTimestamp Int
   createdAt        DateTime @default(now())
+}
+
+enum PaymentMethod {
+  PIX
+  MERCADO_PAGO_ASSINATURA
 }
