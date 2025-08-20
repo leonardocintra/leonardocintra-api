@@ -5,17 +5,20 @@ import mqtt from 'mqtt';
 export class LampService implements OnModuleInit, OnModuleDestroy {
   private client: mqtt.MqttClient;
   private lampStatus: 'on' | 'off' = 'off';
+  private ativo = false;
 
   onModuleInit() {
+    if (!this.ativo) {
+      return;
+    }
     // Conecta ao broker MQTT HiveMQ Cloud
     const brokerUrl =
       'mqtts://246bc5a388ec4e978794cc3efb0d83b5.s1.eu.hivemq.cloud:8883';
     const options = {
-      username: 'hivemq.webclient.1755443398662', // Substitua pelo seu usuário
-      password: 'Bm,b.?ogdJi8M2!3I6AQ', // Substitua pela sua senha
-      rejectUnauthorized: false, // Aceita certificados autoassinados
+      username: process.env.MQTT_USERNAME,
+      password: process.env.MQTT_PASSWORD,
+      rejectUnauthorized: false,
     };
-
     this.client = mqtt.connect(brokerUrl, options);
 
     this.client.on('connect', () => {
