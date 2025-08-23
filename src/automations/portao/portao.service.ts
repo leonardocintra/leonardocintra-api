@@ -1,17 +1,25 @@
+import { createClerkClient, User } from '@clerk/backend';
 import {
+  ForbiddenException,
   Injectable,
   Logger,
   OnModuleDestroy,
   OnModuleInit,
 } from '@nestjs/common';
 import mqtt from 'mqtt';
+import { LeadsService } from 'src/leads/leads.service';
 
 @Injectable()
 export class PortaoService implements OnModuleInit, OnModuleDestroy {
   private readonly logger = new Logger(PortaoService.name);
 
+  private clerkClient = createClerkClient({
+    secretKey: process.env.CLERK_SECRET_KEY,
+  });
   private client: mqtt.MqttClient;
   private ultimoAcionamento: string | null = null;
+
+  constructor(private readonly leadService: LeadsService) {}
 
   onModuleInit() {
     const brokerUrl =
@@ -87,15 +95,45 @@ export class PortaoService implements OnModuleInit, OnModuleDestroy {
     }
   }
 
-  abrirPortao(): { success: boolean; status: string } {
+  async abrirPortao(userId: string) {
+    await this.isValidUser(userId);
     return this.enviarComandoPortao('abrir', 'abrir');
   }
 
-  fecharPortao(): { success: boolean; status: string } {
+  async fecharPortao(userId: string) {
+    await this.isValidUser(userId);
     return this.enviarComandoPortao('fechar', 'fechar');
   }
 
   getUltimoAcionamento(): { status: string | null } {
     return { status: this.ultimoAcionamento };
+  }
+
+  private async isValidUser(userId: string) {
+    const user = await this.getUserClerk(userId);
+    this.logger.log(
+      `Usuário: ${user.firstName} ${user.lastName}, Email: ${user.emailAddresses[0]?.emailAddress}`,
+    );
+    const email = user.emailAddresses[0]?.emailAddress;
+    if (!email) {
+      this.logger.warn('Usuário sem email');
+      throw new ForbiddenException('Usuário sem email');
+    }
+
+    const lead = await this.leadService.findByEmail(email);
+    if (!lead) {
+      this.logger.warn(`Usuário ${email} não encontrado`);
+      throw new ForbiddenException('Usuário não encontrado');
+    }
+  }
+
+  private async getUserClerk(userId: string): Promise<User> {
+    try {
+      const user = await this.clerkClient.users.getUser(userId);
+      return user;
+    } catch (error) {
+      console.error('Error fetching user from Clerk:', error);
+      throw new Error('Unable to fetch user from Clerk');
+    }
   }
 }
