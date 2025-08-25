@@ -7,6 +7,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { ClerkAuthGuard } from './auth/clerk/clerk.guard';
 import { LeadsModule } from './leads/leads.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { MqttModule } from './mqtt/mqtt.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { PrismaModule } from './prisma/prisma.module';
     PortaoModule,
     LeadsModule,
     PrismaModule,
+    MqttModule,
   ],
   controllers: [AppController],
   providers: [
