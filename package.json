@@ -1,8 +1,15 @@
 {
   "name": "leonardocintra-api",
-  "version": "0.0.2",
-  "description": "",
-  "author": "Leonardo Nascimento Cintra",
+  "version": "0.1.0",
+  "description": "API Geral Leonardo Cintra",
+  "author": {
+    "name": "Leonardo Cintra",
+    "email": "leonardo.ncintra@outlook.com",
+    "url": "https://leonardocintra.com.br"
+  },
+  "engines": {
+    "node": "22"
+  },
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
