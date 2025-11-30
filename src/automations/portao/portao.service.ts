@@ -22,7 +22,7 @@ export class PortaoService {
   ): { success: boolean; status: string } {
     try {
       this.mqttService.publish('casa/portao', comando);
-      this.logger.debug(`Comando enviado: ${acao} portão`);
+      this.logger.log(`Comando enviado: ${acao} portão`);
       return {
         success: true,
         status: 'comando_enviado',

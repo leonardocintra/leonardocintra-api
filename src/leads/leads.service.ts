@@ -7,6 +7,16 @@ export class LeadsService {
 
   constructor(private readonly prisma: PrismaService) {}
 
+  findAll() {
+    this.logger.log('Fetching all leads');
+    return this.prisma.leads.findMany({
+      select: {
+        id: true,
+        name: true,
+      },
+    });
+  }
+
   findByEmail(email: string) {
     this.logger.log(`Finding lead by email: ${email}`);
     return this.prisma.leads.findFirst({
