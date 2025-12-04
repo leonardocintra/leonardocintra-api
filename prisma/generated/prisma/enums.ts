@@ -15,3 +15,14 @@ export const PaymentMethod = {
 } as const
 
 export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
+
+
+export const SalaoStatusReservaEnum = {
+  proposta: 'proposta',
+  reservada: 'reservada',
+  confirmada: 'confirmada',
+  cancelada: 'cancelada',
+  pendente_sinal: 'pendente_sinal'
+} as const
+
+export type SalaoStatusReservaEnum = (typeof SalaoStatusReservaEnum)[keyof typeof SalaoStatusReservaEnum]

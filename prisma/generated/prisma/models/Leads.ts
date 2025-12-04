@@ -227,6 +227,7 @@ export type LeadsWhereInput = {
   Subscription?: Prisma.SubscriptionListRelationFilter
   WhatsAppAudioToTextAccount?: Prisma.WhatsAppAudioToTextAccountListRelationFilter
   WhatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageListRelationFilter
+  salaoReservas?: Prisma.SalaoReservasListRelationFilter
 }
 
 export type LeadsOrderByWithRelationInput = {
@@ -239,6 +240,7 @@ export type LeadsOrderByWithRelationInput = {
   Subscription?: Prisma.SubscriptionOrderByRelationAggregateInput
   WhatsAppAudioToTextAccount?: Prisma.WhatsAppAudioToTextAccountOrderByRelationAggregateInput
   WhatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageOrderByRelationAggregateInput
+  salaoReservas?: Prisma.SalaoReservasOrderByRelationAggregateInput
 }
 
 export type LeadsWhereUniqueInput = Prisma.AtLeast<{
@@ -254,6 +256,7 @@ export type LeadsWhereUniqueInput = Prisma.AtLeast<{
   Subscription?: Prisma.SubscriptionListRelationFilter
   WhatsAppAudioToTextAccount?: Prisma.WhatsAppAudioToTextAccountListRelationFilter
   WhatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageListRelationFilter
+  salaoReservas?: Prisma.SalaoReservasListRelationFilter
 }, "id" | "phone">
 
 export type LeadsOrderByWithAggregationInput = {
@@ -291,6 +294,7 @@ export type LeadsCreateInput = {
   Subscription?: Prisma.SubscriptionCreateNestedManyWithoutLeadInput
   WhatsAppAudioToTextAccount?: Prisma.WhatsAppAudioToTextAccountCreateNestedManyWithoutLeadInput
   WhatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageCreateNestedManyWithoutLeadInput
+  salaoReservas?: Prisma.SalaoReservasCreateNestedManyWithoutLeadInput
 }
 
 export type LeadsUncheckedCreateInput = {
@@ -303,6 +307,7 @@ export type LeadsUncheckedCreateInput = {
   Subscription?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutLeadInput
   WhatsAppAudioToTextAccount?: Prisma.WhatsAppAudioToTextAccountUncheckedCreateNestedManyWithoutLeadInput
   WhatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageUncheckedCreateNestedManyWithoutLeadInput
+  salaoReservas?: Prisma.SalaoReservasUncheckedCreateNestedManyWithoutLeadInput
 }
 
 export type LeadsUpdateInput = {
@@ -314,6 +319,7 @@ export type LeadsUpdateInput = {
   Subscription?: Prisma.SubscriptionUpdateManyWithoutLeadNestedInput
   WhatsAppAudioToTextAccount?: Prisma.WhatsAppAudioToTextAccountUpdateManyWithoutLeadNestedInput
   WhatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageUpdateManyWithoutLeadNestedInput
+  salaoReservas?: Prisma.SalaoReservasUpdateManyWithoutLeadNestedInput
 }
 
 export type LeadsUncheckedUpdateInput = {
@@ -326,6 +332,7 @@ export type LeadsUncheckedUpdateInput = {
   Subscription?: Prisma.SubscriptionUncheckedUpdateManyWithoutLeadNestedInput
   WhatsAppAudioToTextAccount?: Prisma.WhatsAppAudioToTextAccountUncheckedUpdateManyWithoutLeadNestedInput
   WhatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageUncheckedUpdateManyWithoutLeadNestedInput
+  salaoReservas?: Prisma.SalaoReservasUncheckedUpdateManyWithoutLeadNestedInput
 }
 
 export type LeadsCreateManyInput = {
@@ -436,6 +443,20 @@ export type LeadsUpdateOneRequiredWithoutWhatsAppAudioToTextAccountUsageNestedIn
   update?: Prisma.XOR<Prisma.XOR<Prisma.LeadsUpdateToOneWithWhereWithoutWhatsAppAudioToTextAccountUsageInput, Prisma.LeadsUpdateWithoutWhatsAppAudioToTextAccountUsageInput>, Prisma.LeadsUncheckedUpdateWithoutWhatsAppAudioToTextAccountUsageInput>
 }
 
+export type LeadsCreateNestedOneWithoutSalaoReservasInput = {
+  create?: Prisma.XOR<Prisma.LeadsCreateWithoutSalaoReservasInput, Prisma.LeadsUncheckedCreateWithoutSalaoReservasInput>
+  connectOrCreate?: Prisma.LeadsCreateOrConnectWithoutSalaoReservasInput
+  connect?: Prisma.LeadsWhereUniqueInput
+}
+
+export type LeadsUpdateOneRequiredWithoutSalaoReservasNestedInput = {
+  create?: Prisma.XOR<Prisma.LeadsCreateWithoutSalaoReservasInput, Prisma.LeadsUncheckedCreateWithoutSalaoReservasInput>
+  connectOrCreate?: Prisma.LeadsCreateOrConnectWithoutSalaoReservasInput
+  upsert?: Prisma.LeadsUpsertWithoutSalaoReservasInput
+  connect?: Prisma.LeadsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.LeadsUpdateToOneWithWhereWithoutSalaoReservasInput, Prisma.LeadsUpdateWithoutSalaoReservasInput>, Prisma.LeadsUncheckedUpdateWithoutSalaoReservasInput>
+}
+
 export type LeadsCreateWithoutSubscriptionInput = {
   name: string
   phone: string
@@ -444,6 +465,7 @@ export type LeadsCreateWithoutSubscriptionInput = {
   createdAt?: Date | string
   WhatsAppAudioToTextAccount?: Prisma.WhatsAppAudioToTextAccountCreateNestedManyWithoutLeadInput
   WhatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageCreateNestedManyWithoutLeadInput
+  salaoReservas?: Prisma.SalaoReservasCreateNestedManyWithoutLeadInput
 }
 
 export type LeadsUncheckedCreateWithoutSubscriptionInput = {
@@ -455,6 +477,7 @@ export type LeadsUncheckedCreateWithoutSubscriptionInput = {
   createdAt?: Date | string
   WhatsAppAudioToTextAccount?: Prisma.WhatsAppAudioToTextAccountUncheckedCreateNestedManyWithoutLeadInput
   WhatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageUncheckedCreateNestedManyWithoutLeadInput
+  salaoReservas?: Prisma.SalaoReservasUncheckedCreateNestedManyWithoutLeadInput
 }
 
 export type LeadsCreateOrConnectWithoutSubscriptionInput = {
@@ -481,6 +504,7 @@ export type LeadsUpdateWithoutSubscriptionInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   WhatsAppAudioToTextAccount?: Prisma.WhatsAppAudioToTextAccountUpdateManyWithoutLeadNestedInput
   WhatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageUpdateManyWithoutLeadNestedInput
+  salaoReservas?: Prisma.SalaoReservasUpdateManyWithoutLeadNestedInput
 }
 
 export type LeadsUncheckedUpdateWithoutSubscriptionInput = {
@@ -492,6 +516,7 @@ export type LeadsUncheckedUpdateWithoutSubscriptionInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   WhatsAppAudioToTextAccount?: Prisma.WhatsAppAudioToTextAccountUncheckedUpdateManyWithoutLeadNestedInput
   WhatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageUncheckedUpdateManyWithoutLeadNestedInput
+  salaoReservas?: Prisma.SalaoReservasUncheckedUpdateManyWithoutLeadNestedInput
 }
 
 export type LeadsCreateWithoutWhatsAppAudioToTextAccountInput = {
@@ -502,6 +527,7 @@ export type LeadsCreateWithoutWhatsAppAudioToTextAccountInput = {
   createdAt?: Date | string
   Subscription?: Prisma.SubscriptionCreateNestedManyWithoutLeadInput
   WhatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageCreateNestedManyWithoutLeadInput
+  salaoReservas?: Prisma.SalaoReservasCreateNestedManyWithoutLeadInput
 }
 
 export type LeadsUncheckedCreateWithoutWhatsAppAudioToTextAccountInput = {
@@ -513,6 +539,7 @@ export type LeadsUncheckedCreateWithoutWhatsAppAudioToTextAccountInput = {
   createdAt?: Date | string
   Subscription?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutLeadInput
   WhatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageUncheckedCreateNestedManyWithoutLeadInput
+  salaoReservas?: Prisma.SalaoReservasUncheckedCreateNestedManyWithoutLeadInput
 }
 
 export type LeadsCreateOrConnectWithoutWhatsAppAudioToTextAccountInput = {
@@ -539,6 +566,7 @@ export type LeadsUpdateWithoutWhatsAppAudioToTextAccountInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Subscription?: Prisma.SubscriptionUpdateManyWithoutLeadNestedInput
   WhatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageUpdateManyWithoutLeadNestedInput
+  salaoReservas?: Prisma.SalaoReservasUpdateManyWithoutLeadNestedInput
 }
 
 export type LeadsUncheckedUpdateWithoutWhatsAppAudioToTextAccountInput = {
@@ -550,6 +578,7 @@ export type LeadsUncheckedUpdateWithoutWhatsAppAudioToTextAccountInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Subscription?: Prisma.SubscriptionUncheckedUpdateManyWithoutLeadNestedInput
   WhatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageUncheckedUpdateManyWithoutLeadNestedInput
+  salaoReservas?: Prisma.SalaoReservasUncheckedUpdateManyWithoutLeadNestedInput
 }
 
 export type LeadsCreateWithoutWhatsAppAudioToTextAccountUsageInput = {
@@ -560,6 +589,7 @@ export type LeadsCreateWithoutWhatsAppAudioToTextAccountUsageInput = {
   createdAt?: Date | string
   Subscription?: Prisma.SubscriptionCreateNestedManyWithoutLeadInput
   WhatsAppAudioToTextAccount?: Prisma.WhatsAppAudioToTextAccountCreateNestedManyWithoutLeadInput
+  salaoReservas?: Prisma.SalaoReservasCreateNestedManyWithoutLeadInput
 }
 
 export type LeadsUncheckedCreateWithoutWhatsAppAudioToTextAccountUsageInput = {
@@ -571,6 +601,7 @@ export type LeadsUncheckedCreateWithoutWhatsAppAudioToTextAccountUsageInput = {
   createdAt?: Date | string
   Subscription?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutLeadInput
   WhatsAppAudioToTextAccount?: Prisma.WhatsAppAudioToTextAccountUncheckedCreateNestedManyWithoutLeadInput
+  salaoReservas?: Prisma.SalaoReservasUncheckedCreateNestedManyWithoutLeadInput
 }
 
 export type LeadsCreateOrConnectWithoutWhatsAppAudioToTextAccountUsageInput = {
@@ -597,6 +628,7 @@ export type LeadsUpdateWithoutWhatsAppAudioToTextAccountUsageInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Subscription?: Prisma.SubscriptionUpdateManyWithoutLeadNestedInput
   WhatsAppAudioToTextAccount?: Prisma.WhatsAppAudioToTextAccountUpdateManyWithoutLeadNestedInput
+  salaoReservas?: Prisma.SalaoReservasUpdateManyWithoutLeadNestedInput
 }
 
 export type LeadsUncheckedUpdateWithoutWhatsAppAudioToTextAccountUsageInput = {
@@ -608,6 +640,69 @@ export type LeadsUncheckedUpdateWithoutWhatsAppAudioToTextAccountUsageInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Subscription?: Prisma.SubscriptionUncheckedUpdateManyWithoutLeadNestedInput
   WhatsAppAudioToTextAccount?: Prisma.WhatsAppAudioToTextAccountUncheckedUpdateManyWithoutLeadNestedInput
+  salaoReservas?: Prisma.SalaoReservasUncheckedUpdateManyWithoutLeadNestedInput
+}
+
+export type LeadsCreateWithoutSalaoReservasInput = {
+  name: string
+  phone: string
+  email?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  Subscription?: Prisma.SubscriptionCreateNestedManyWithoutLeadInput
+  WhatsAppAudioToTextAccount?: Prisma.WhatsAppAudioToTextAccountCreateNestedManyWithoutLeadInput
+  WhatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageCreateNestedManyWithoutLeadInput
+}
+
+export type LeadsUncheckedCreateWithoutSalaoReservasInput = {
+  id?: number
+  name: string
+  phone: string
+  email?: string | null
+  active?: boolean
+  createdAt?: Date | string
+  Subscription?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutLeadInput
+  WhatsAppAudioToTextAccount?: Prisma.WhatsAppAudioToTextAccountUncheckedCreateNestedManyWithoutLeadInput
+  WhatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageUncheckedCreateNestedManyWithoutLeadInput
+}
+
+export type LeadsCreateOrConnectWithoutSalaoReservasInput = {
+  where: Prisma.LeadsWhereUniqueInput
+  create: Prisma.XOR<Prisma.LeadsCreateWithoutSalaoReservasInput, Prisma.LeadsUncheckedCreateWithoutSalaoReservasInput>
+}
+
+export type LeadsUpsertWithoutSalaoReservasInput = {
+  update: Prisma.XOR<Prisma.LeadsUpdateWithoutSalaoReservasInput, Prisma.LeadsUncheckedUpdateWithoutSalaoReservasInput>
+  create: Prisma.XOR<Prisma.LeadsCreateWithoutSalaoReservasInput, Prisma.LeadsUncheckedCreateWithoutSalaoReservasInput>
+  where?: Prisma.LeadsWhereInput
+}
+
+export type LeadsUpdateToOneWithWhereWithoutSalaoReservasInput = {
+  where?: Prisma.LeadsWhereInput
+  data: Prisma.XOR<Prisma.LeadsUpdateWithoutSalaoReservasInput, Prisma.LeadsUncheckedUpdateWithoutSalaoReservasInput>
+}
+
+export type LeadsUpdateWithoutSalaoReservasInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  Subscription?: Prisma.SubscriptionUpdateManyWithoutLeadNestedInput
+  WhatsAppAudioToTextAccount?: Prisma.WhatsAppAudioToTextAccountUpdateManyWithoutLeadNestedInput
+  WhatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageUpdateManyWithoutLeadNestedInput
+}
+
+export type LeadsUncheckedUpdateWithoutSalaoReservasInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  Subscription?: Prisma.SubscriptionUncheckedUpdateManyWithoutLeadNestedInput
+  WhatsAppAudioToTextAccount?: Prisma.WhatsAppAudioToTextAccountUncheckedUpdateManyWithoutLeadNestedInput
+  WhatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageUncheckedUpdateManyWithoutLeadNestedInput
 }
 
 
@@ -619,12 +714,14 @@ export type LeadsCountOutputType = {
   Subscription: number
   WhatsAppAudioToTextAccount: number
   WhatsAppAudioToTextAccountUsage: number
+  salaoReservas: number
 }
 
 export type LeadsCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Subscription?: boolean | LeadsCountOutputTypeCountSubscriptionArgs
   WhatsAppAudioToTextAccount?: boolean | LeadsCountOutputTypeCountWhatsAppAudioToTextAccountArgs
   WhatsAppAudioToTextAccountUsage?: boolean | LeadsCountOutputTypeCountWhatsAppAudioToTextAccountUsageArgs
+  salaoReservas?: boolean | LeadsCountOutputTypeCountSalaoReservasArgs
 }
 
 /**
@@ -658,6 +755,13 @@ export type LeadsCountOutputTypeCountWhatsAppAudioToTextAccountUsageArgs<ExtArgs
   where?: Prisma.WhatsAppAudioToTextAccountUsageWhereInput
 }
 
+/**
+ * LeadsCountOutputType without action
+ */
+export type LeadsCountOutputTypeCountSalaoReservasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SalaoReservasWhereInput
+}
+
 
 export type LeadsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -669,6 +773,7 @@ export type LeadsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   Subscription?: boolean | Prisma.Leads$SubscriptionArgs<ExtArgs>
   WhatsAppAudioToTextAccount?: boolean | Prisma.Leads$WhatsAppAudioToTextAccountArgs<ExtArgs>
   WhatsAppAudioToTextAccountUsage?: boolean | Prisma.Leads$WhatsAppAudioToTextAccountUsageArgs<ExtArgs>
+  salaoReservas?: boolean | Prisma.Leads$salaoReservasArgs<ExtArgs>
   _count?: boolean | Prisma.LeadsCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["leads"]>
 
@@ -704,6 +809,7 @@ export type LeadsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   Subscription?: boolean | Prisma.Leads$SubscriptionArgs<ExtArgs>
   WhatsAppAudioToTextAccount?: boolean | Prisma.Leads$WhatsAppAudioToTextAccountArgs<ExtArgs>
   WhatsAppAudioToTextAccountUsage?: boolean | Prisma.Leads$WhatsAppAudioToTextAccountUsageArgs<ExtArgs>
+  salaoReservas?: boolean | Prisma.Leads$salaoReservasArgs<ExtArgs>
   _count?: boolean | Prisma.LeadsCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type LeadsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -715,6 +821,7 @@ export type $LeadsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     Subscription: Prisma.$SubscriptionPayload<ExtArgs>[]
     WhatsAppAudioToTextAccount: Prisma.$WhatsAppAudioToTextAccountPayload<ExtArgs>[]
     WhatsAppAudioToTextAccountUsage: Prisma.$WhatsAppAudioToTextAccountUsagePayload<ExtArgs>[]
+    salaoReservas: Prisma.$SalaoReservasPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1120,6 +1227,7 @@ export interface Prisma__LeadsClient<T, Null = never, ExtArgs extends runtime.Ty
   Subscription<T extends Prisma.Leads$SubscriptionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Leads$SubscriptionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   WhatsAppAudioToTextAccount<T extends Prisma.Leads$WhatsAppAudioToTextAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Leads$WhatsAppAudioToTextAccountArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WhatsAppAudioToTextAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   WhatsAppAudioToTextAccountUsage<T extends Prisma.Leads$WhatsAppAudioToTextAccountUsageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Leads$WhatsAppAudioToTextAccountUsageArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WhatsAppAudioToTextAccountUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  salaoReservas<T extends Prisma.Leads$salaoReservasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Leads$salaoReservasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalaoReservasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1612,6 +1720,30 @@ export type Leads$WhatsAppAudioToTextAccountUsageArgs<ExtArgs extends runtime.Ty
   take?: number
   skip?: number
   distinct?: Prisma.WhatsAppAudioToTextAccountUsageScalarFieldEnum | Prisma.WhatsAppAudioToTextAccountUsageScalarFieldEnum[]
+}
+
+/**
+ * Leads.salaoReservas
+ */
+export type Leads$salaoReservasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SalaoReservas
+   */
+  select?: Prisma.SalaoReservasSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SalaoReservas
+   */
+  omit?: Prisma.SalaoReservasOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SalaoReservasInclude<ExtArgs> | null
+  where?: Prisma.SalaoReservasWhereInput
+  orderBy?: Prisma.SalaoReservasOrderByWithRelationInput | Prisma.SalaoReservasOrderByWithRelationInput[]
+  cursor?: Prisma.SalaoReservasWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SalaoReservasScalarFieldEnum | Prisma.SalaoReservasScalarFieldEnum[]
 }
 
 /**

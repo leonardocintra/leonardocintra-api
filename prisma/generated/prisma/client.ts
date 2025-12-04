@@ -77,3 +77,13 @@ export type WhatsAppAudioToTextAccount = Prisma.WhatsAppAudioToTextAccountModel
  * 
  */
 export type WhatsAppAudioToTextAccountUsage = Prisma.WhatsAppAudioToTextAccountUsageModel
+/**
+ * Model SalaoReservas
+ * 
+ */
+export type SalaoReservas = Prisma.SalaoReservasModel
+/**
+ * Model SalaoReservasLog
+ * 
+ */
+export type SalaoReservasLog = Prisma.SalaoReservasLogModel

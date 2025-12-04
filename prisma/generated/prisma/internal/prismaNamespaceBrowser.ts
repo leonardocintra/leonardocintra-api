@@ -58,7 +58,9 @@ export const ModelName = {
   WhatsAppAudioToText: 'WhatsAppAudioToText',
   Leads: 'Leads',
   WhatsAppAudioToTextAccount: 'WhatsAppAudioToTextAccount',
-  WhatsAppAudioToTextAccountUsage: 'WhatsAppAudioToTextAccountUsage'
+  WhatsAppAudioToTextAccountUsage: 'WhatsAppAudioToTextAccountUsage',
+  SalaoReservas: 'SalaoReservas',
+  SalaoReservasLog: 'SalaoReservasLog'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -183,6 +185,37 @@ export const WhatsAppAudioToTextAccountUsageScalarFieldEnum = {
 } as const
 
 export type WhatsAppAudioToTextAccountUsageScalarFieldEnum = (typeof WhatsAppAudioToTextAccountUsageScalarFieldEnum)[keyof typeof WhatsAppAudioToTextAccountUsageScalarFieldEnum]
+
+
+export const SalaoReservasScalarFieldEnum = {
+  id: 'id',
+  leadId: 'leadId',
+  dataEvento: 'dataEvento',
+  horarioInicio: 'horarioInicio',
+  horarioFim: 'horarioFim',
+  tipoLocacao: 'tipoLocacao',
+  convidadosEst: 'convidadosEst',
+  tema: 'tema',
+  sinalPago: 'sinalPago',
+  valorTotal: 'valorTotal',
+  valorSinal: 'valorSinal',
+  status: 'status',
+  criadoEm: 'criadoEm',
+  notas: 'notas'
+} as const
+
+export type SalaoReservasScalarFieldEnum = (typeof SalaoReservasScalarFieldEnum)[keyof typeof SalaoReservasScalarFieldEnum]
+
+
+export const SalaoReservasLogScalarFieldEnum = {
+  id: 'id',
+  reservaId: 'reservaId',
+  evento: 'evento',
+  payload: 'payload',
+  criadoEm: 'criadoEm'
+} as const
+
+export type SalaoReservasLogScalarFieldEnum = (typeof SalaoReservasLogScalarFieldEnum)[keyof typeof SalaoReservasLogScalarFieldEnum]
 
 
 export const SortOrder = {

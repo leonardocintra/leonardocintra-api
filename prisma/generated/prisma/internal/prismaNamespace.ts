@@ -391,7 +391,9 @@ export const ModelName = {
   WhatsAppAudioToText: 'WhatsAppAudioToText',
   Leads: 'Leads',
   WhatsAppAudioToTextAccount: 'WhatsAppAudioToTextAccount',
-  WhatsAppAudioToTextAccountUsage: 'WhatsAppAudioToTextAccountUsage'
+  WhatsAppAudioToTextAccountUsage: 'WhatsAppAudioToTextAccountUsage',
+  SalaoReservas: 'SalaoReservas',
+  SalaoReservasLog: 'SalaoReservasLog'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -407,7 +409,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "product" | "plan" | "subscription" | "whatsappGroups" | "whatsAppAudioToText" | "leads" | "whatsAppAudioToTextAccount" | "whatsAppAudioToTextAccountUsage"
+    modelProps: "product" | "plan" | "subscription" | "whatsappGroups" | "whatsAppAudioToText" | "leads" | "whatsAppAudioToTextAccount" | "whatsAppAudioToTextAccountUsage" | "salaoReservas" | "salaoReservasLog"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1003,6 +1005,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    SalaoReservas: {
+      payload: Prisma.$SalaoReservasPayload<ExtArgs>
+      fields: Prisma.SalaoReservasFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SalaoReservasFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SalaoReservasFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasPayload>
+        }
+        findFirst: {
+          args: Prisma.SalaoReservasFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SalaoReservasFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasPayload>
+        }
+        findMany: {
+          args: Prisma.SalaoReservasFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasPayload>[]
+        }
+        create: {
+          args: Prisma.SalaoReservasCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasPayload>
+        }
+        createMany: {
+          args: Prisma.SalaoReservasCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SalaoReservasCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasPayload>[]
+        }
+        delete: {
+          args: Prisma.SalaoReservasDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasPayload>
+        }
+        update: {
+          args: Prisma.SalaoReservasUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasPayload>
+        }
+        deleteMany: {
+          args: Prisma.SalaoReservasDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SalaoReservasUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SalaoReservasUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasPayload>[]
+        }
+        upsert: {
+          args: Prisma.SalaoReservasUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasPayload>
+        }
+        aggregate: {
+          args: Prisma.SalaoReservasAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSalaoReservas>
+        }
+        groupBy: {
+          args: Prisma.SalaoReservasGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SalaoReservasGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SalaoReservasCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SalaoReservasCountAggregateOutputType> | number
+        }
+      }
+    }
+    SalaoReservasLog: {
+      payload: Prisma.$SalaoReservasLogPayload<ExtArgs>
+      fields: Prisma.SalaoReservasLogFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SalaoReservasLogFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasLogPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SalaoReservasLogFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasLogPayload>
+        }
+        findFirst: {
+          args: Prisma.SalaoReservasLogFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasLogPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SalaoReservasLogFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasLogPayload>
+        }
+        findMany: {
+          args: Prisma.SalaoReservasLogFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasLogPayload>[]
+        }
+        create: {
+          args: Prisma.SalaoReservasLogCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasLogPayload>
+        }
+        createMany: {
+          args: Prisma.SalaoReservasLogCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SalaoReservasLogCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasLogPayload>[]
+        }
+        delete: {
+          args: Prisma.SalaoReservasLogDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasLogPayload>
+        }
+        update: {
+          args: Prisma.SalaoReservasLogUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasLogPayload>
+        }
+        deleteMany: {
+          args: Prisma.SalaoReservasLogDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SalaoReservasLogUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SalaoReservasLogUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasLogPayload>[]
+        }
+        upsert: {
+          args: Prisma.SalaoReservasLogUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoReservasLogPayload>
+        }
+        aggregate: {
+          args: Prisma.SalaoReservasLogAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSalaoReservasLog>
+        }
+        groupBy: {
+          args: Prisma.SalaoReservasLogGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SalaoReservasLogGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SalaoReservasLogCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SalaoReservasLogCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1150,6 +1300,37 @@ export const WhatsAppAudioToTextAccountUsageScalarFieldEnum = {
 export type WhatsAppAudioToTextAccountUsageScalarFieldEnum = (typeof WhatsAppAudioToTextAccountUsageScalarFieldEnum)[keyof typeof WhatsAppAudioToTextAccountUsageScalarFieldEnum]
 
 
+export const SalaoReservasScalarFieldEnum = {
+  id: 'id',
+  leadId: 'leadId',
+  dataEvento: 'dataEvento',
+  horarioInicio: 'horarioInicio',
+  horarioFim: 'horarioFim',
+  tipoLocacao: 'tipoLocacao',
+  convidadosEst: 'convidadosEst',
+  tema: 'tema',
+  sinalPago: 'sinalPago',
+  valorTotal: 'valorTotal',
+  valorSinal: 'valorSinal',
+  status: 'status',
+  criadoEm: 'criadoEm',
+  notas: 'notas'
+} as const
+
+export type SalaoReservasScalarFieldEnum = (typeof SalaoReservasScalarFieldEnum)[keyof typeof SalaoReservasScalarFieldEnum]
+
+
+export const SalaoReservasLogScalarFieldEnum = {
+  id: 'id',
+  reservaId: 'reservaId',
+  evento: 'evento',
+  payload: 'payload',
+  criadoEm: 'criadoEm'
+} as const
+
+export type SalaoReservasLogScalarFieldEnum = (typeof SalaoReservasLogScalarFieldEnum)[keyof typeof SalaoReservasLogScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1288,6 +1469,20 @@ export type ListEnumPaymentMethodFieldRefInput<$PrismaModel> = FieldRefInputType
 
 
 /**
+ * Reference to a field of type 'SalaoStatusReservaEnum'
+ */
+export type EnumSalaoStatusReservaEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SalaoStatusReservaEnum'>
+    
+
+
+/**
+ * Reference to a field of type 'SalaoStatusReservaEnum[]'
+ */
+export type ListEnumSalaoStatusReservaEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SalaoStatusReservaEnum[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -1387,6 +1582,8 @@ export type GlobalOmitConfig = {
   leads?: Prisma.LeadsOmit
   whatsAppAudioToTextAccount?: Prisma.WhatsAppAudioToTextAccountOmit
   whatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageOmit
+  salaoReservas?: Prisma.SalaoReservasOmit
+  salaoReservasLog?: Prisma.SalaoReservasLogOmit
 }
 
 /* Types for Logging */
