@@ -32,6 +32,7 @@ export type SalaoReservasAvgAggregateOutputType = {
   convidadosEst: number | null
   valorTotal: runtime.Decimal | null
   valorSinal: runtime.Decimal | null
+  temaId: number | null
 }
 
 export type SalaoReservasSumAggregateOutputType = {
@@ -40,6 +41,7 @@ export type SalaoReservasSumAggregateOutputType = {
   convidadosEst: number | null
   valorTotal: runtime.Decimal | null
   valorSinal: runtime.Decimal | null
+  temaId: number | null
 }
 
 export type SalaoReservasMinAggregateOutputType = {
@@ -50,13 +52,13 @@ export type SalaoReservasMinAggregateOutputType = {
   horarioFim: string | null
   tipoLocacao: string | null
   convidadosEst: number | null
-  tema: string | null
   sinalPago: boolean | null
   valorTotal: runtime.Decimal | null
   valorSinal: runtime.Decimal | null
   status: $Enums.SalaoStatusReservaEnum | null
   criadoEm: Date | null
   notas: string | null
+  temaId: number | null
 }
 
 export type SalaoReservasMaxAggregateOutputType = {
@@ -67,13 +69,13 @@ export type SalaoReservasMaxAggregateOutputType = {
   horarioFim: string | null
   tipoLocacao: string | null
   convidadosEst: number | null
-  tema: string | null
   sinalPago: boolean | null
   valorTotal: runtime.Decimal | null
   valorSinal: runtime.Decimal | null
   status: $Enums.SalaoStatusReservaEnum | null
   criadoEm: Date | null
   notas: string | null
+  temaId: number | null
 }
 
 export type SalaoReservasCountAggregateOutputType = {
@@ -84,13 +86,13 @@ export type SalaoReservasCountAggregateOutputType = {
   horarioFim: number
   tipoLocacao: number
   convidadosEst: number
-  tema: number
   sinalPago: number
   valorTotal: number
   valorSinal: number
   status: number
   criadoEm: number
   notas: number
+  temaId: number
   _all: number
 }
 
@@ -101,6 +103,7 @@ export type SalaoReservasAvgAggregateInputType = {
   convidadosEst?: true
   valorTotal?: true
   valorSinal?: true
+  temaId?: true
 }
 
 export type SalaoReservasSumAggregateInputType = {
@@ -109,6 +112,7 @@ export type SalaoReservasSumAggregateInputType = {
   convidadosEst?: true
   valorTotal?: true
   valorSinal?: true
+  temaId?: true
 }
 
 export type SalaoReservasMinAggregateInputType = {
@@ -119,13 +123,13 @@ export type SalaoReservasMinAggregateInputType = {
   horarioFim?: true
   tipoLocacao?: true
   convidadosEst?: true
-  tema?: true
   sinalPago?: true
   valorTotal?: true
   valorSinal?: true
   status?: true
   criadoEm?: true
   notas?: true
+  temaId?: true
 }
 
 export type SalaoReservasMaxAggregateInputType = {
@@ -136,13 +140,13 @@ export type SalaoReservasMaxAggregateInputType = {
   horarioFim?: true
   tipoLocacao?: true
   convidadosEst?: true
-  tema?: true
   sinalPago?: true
   valorTotal?: true
   valorSinal?: true
   status?: true
   criadoEm?: true
   notas?: true
+  temaId?: true
 }
 
 export type SalaoReservasCountAggregateInputType = {
@@ -153,13 +157,13 @@ export type SalaoReservasCountAggregateInputType = {
   horarioFim?: true
   tipoLocacao?: true
   convidadosEst?: true
-  tema?: true
   sinalPago?: true
   valorTotal?: true
   valorSinal?: true
   status?: true
   criadoEm?: true
   notas?: true
+  temaId?: true
   _all?: true
 }
 
@@ -257,13 +261,13 @@ export type SalaoReservasGroupByOutputType = {
   horarioFim: string | null
   tipoLocacao: string | null
   convidadosEst: number | null
-  tema: string | null
   sinalPago: boolean
   valorTotal: runtime.Decimal | null
   valorSinal: runtime.Decimal | null
   status: $Enums.SalaoStatusReservaEnum
   criadoEm: Date
   notas: string | null
+  temaId: number | null
   _count: SalaoReservasCountAggregateOutputType | null
   _avg: SalaoReservasAvgAggregateOutputType | null
   _sum: SalaoReservasSumAggregateOutputType | null
@@ -297,14 +301,15 @@ export type SalaoReservasWhereInput = {
   horarioFim?: Prisma.StringNullableFilter<"SalaoReservas"> | string | null
   tipoLocacao?: Prisma.StringNullableFilter<"SalaoReservas"> | string | null
   convidadosEst?: Prisma.IntNullableFilter<"SalaoReservas"> | number | null
-  tema?: Prisma.StringNullableFilter<"SalaoReservas"> | string | null
   sinalPago?: Prisma.BoolFilter<"SalaoReservas"> | boolean
   valorTotal?: Prisma.DecimalNullableFilter<"SalaoReservas"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: Prisma.DecimalNullableFilter<"SalaoReservas"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: Prisma.EnumSalaoStatusReservaEnumFilter<"SalaoReservas"> | $Enums.SalaoStatusReservaEnum
   criadoEm?: Prisma.DateTimeFilter<"SalaoReservas"> | Date | string
   notas?: Prisma.StringNullableFilter<"SalaoReservas"> | string | null
+  temaId?: Prisma.IntNullableFilter<"SalaoReservas"> | number | null
   lead?: Prisma.XOR<Prisma.LeadsScalarRelationFilter, Prisma.LeadsWhereInput>
+  tema?: Prisma.XOR<Prisma.SalaoTemasNullableScalarRelationFilter, Prisma.SalaoTemasWhereInput> | null
   salaoReservasLogs?: Prisma.SalaoReservasLogListRelationFilter
 }
 
@@ -316,14 +321,15 @@ export type SalaoReservasOrderByWithRelationInput = {
   horarioFim?: Prisma.SortOrderInput | Prisma.SortOrder
   tipoLocacao?: Prisma.SortOrderInput | Prisma.SortOrder
   convidadosEst?: Prisma.SortOrderInput | Prisma.SortOrder
-  tema?: Prisma.SortOrderInput | Prisma.SortOrder
   sinalPago?: Prisma.SortOrder
   valorTotal?: Prisma.SortOrderInput | Prisma.SortOrder
   valorSinal?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   notas?: Prisma.SortOrderInput | Prisma.SortOrder
+  temaId?: Prisma.SortOrderInput | Prisma.SortOrder
   lead?: Prisma.LeadsOrderByWithRelationInput
+  tema?: Prisma.SalaoTemasOrderByWithRelationInput
   salaoReservasLogs?: Prisma.SalaoReservasLogOrderByRelationAggregateInput
 }
 
@@ -338,14 +344,15 @@ export type SalaoReservasWhereUniqueInput = Prisma.AtLeast<{
   horarioFim?: Prisma.StringNullableFilter<"SalaoReservas"> | string | null
   tipoLocacao?: Prisma.StringNullableFilter<"SalaoReservas"> | string | null
   convidadosEst?: Prisma.IntNullableFilter<"SalaoReservas"> | number | null
-  tema?: Prisma.StringNullableFilter<"SalaoReservas"> | string | null
   sinalPago?: Prisma.BoolFilter<"SalaoReservas"> | boolean
   valorTotal?: Prisma.DecimalNullableFilter<"SalaoReservas"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: Prisma.DecimalNullableFilter<"SalaoReservas"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: Prisma.EnumSalaoStatusReservaEnumFilter<"SalaoReservas"> | $Enums.SalaoStatusReservaEnum
   criadoEm?: Prisma.DateTimeFilter<"SalaoReservas"> | Date | string
   notas?: Prisma.StringNullableFilter<"SalaoReservas"> | string | null
+  temaId?: Prisma.IntNullableFilter<"SalaoReservas"> | number | null
   lead?: Prisma.XOR<Prisma.LeadsScalarRelationFilter, Prisma.LeadsWhereInput>
+  tema?: Prisma.XOR<Prisma.SalaoTemasNullableScalarRelationFilter, Prisma.SalaoTemasWhereInput> | null
   salaoReservasLogs?: Prisma.SalaoReservasLogListRelationFilter
 }, "id">
 
@@ -357,13 +364,13 @@ export type SalaoReservasOrderByWithAggregationInput = {
   horarioFim?: Prisma.SortOrderInput | Prisma.SortOrder
   tipoLocacao?: Prisma.SortOrderInput | Prisma.SortOrder
   convidadosEst?: Prisma.SortOrderInput | Prisma.SortOrder
-  tema?: Prisma.SortOrderInput | Prisma.SortOrder
   sinalPago?: Prisma.SortOrder
   valorTotal?: Prisma.SortOrderInput | Prisma.SortOrder
   valorSinal?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   notas?: Prisma.SortOrderInput | Prisma.SortOrder
+  temaId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.SalaoReservasCountOrderByAggregateInput
   _avg?: Prisma.SalaoReservasAvgOrderByAggregateInput
   _max?: Prisma.SalaoReservasMaxOrderByAggregateInput
@@ -382,13 +389,13 @@ export type SalaoReservasScalarWhereWithAggregatesInput = {
   horarioFim?: Prisma.StringNullableWithAggregatesFilter<"SalaoReservas"> | string | null
   tipoLocacao?: Prisma.StringNullableWithAggregatesFilter<"SalaoReservas"> | string | null
   convidadosEst?: Prisma.IntNullableWithAggregatesFilter<"SalaoReservas"> | number | null
-  tema?: Prisma.StringNullableWithAggregatesFilter<"SalaoReservas"> | string | null
   sinalPago?: Prisma.BoolWithAggregatesFilter<"SalaoReservas"> | boolean
   valorTotal?: Prisma.DecimalNullableWithAggregatesFilter<"SalaoReservas"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: Prisma.DecimalNullableWithAggregatesFilter<"SalaoReservas"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: Prisma.EnumSalaoStatusReservaEnumWithAggregatesFilter<"SalaoReservas"> | $Enums.SalaoStatusReservaEnum
   criadoEm?: Prisma.DateTimeWithAggregatesFilter<"SalaoReservas"> | Date | string
   notas?: Prisma.StringNullableWithAggregatesFilter<"SalaoReservas"> | string | null
+  temaId?: Prisma.IntNullableWithAggregatesFilter<"SalaoReservas"> | number | null
 }
 
 export type SalaoReservasCreateInput = {
@@ -397,7 +404,6 @@ export type SalaoReservasCreateInput = {
   horarioFim?: string | null
   tipoLocacao?: string | null
   convidadosEst?: number | null
-  tema?: string | null
   sinalPago?: boolean
   valorTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -405,6 +411,7 @@ export type SalaoReservasCreateInput = {
   criadoEm?: Date | string
   notas?: string | null
   lead: Prisma.LeadsCreateNestedOneWithoutSalaoReservasInput
+  tema?: Prisma.SalaoTemasCreateNestedOneWithoutSalaoReservasInput
   salaoReservasLogs?: Prisma.SalaoReservasLogCreateNestedManyWithoutReservaInput
 }
 
@@ -416,13 +423,13 @@ export type SalaoReservasUncheckedCreateInput = {
   horarioFim?: string | null
   tipoLocacao?: string | null
   convidadosEst?: number | null
-  tema?: string | null
   sinalPago?: boolean
   valorTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.SalaoStatusReservaEnum
   criadoEm?: Date | string
   notas?: string | null
+  temaId?: number | null
   salaoReservasLogs?: Prisma.SalaoReservasLogUncheckedCreateNestedManyWithoutReservaInput
 }
 
@@ -432,7 +439,6 @@ export type SalaoReservasUpdateInput = {
   horarioFim?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tipoLocacao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convidadosEst?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sinalPago?: Prisma.BoolFieldUpdateOperationsInput | boolean
   valorTotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -440,6 +446,7 @@ export type SalaoReservasUpdateInput = {
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lead?: Prisma.LeadsUpdateOneRequiredWithoutSalaoReservasNestedInput
+  tema?: Prisma.SalaoTemasUpdateOneWithoutSalaoReservasNestedInput
   salaoReservasLogs?: Prisma.SalaoReservasLogUpdateManyWithoutReservaNestedInput
 }
 
@@ -451,13 +458,13 @@ export type SalaoReservasUncheckedUpdateInput = {
   horarioFim?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tipoLocacao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convidadosEst?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sinalPago?: Prisma.BoolFieldUpdateOperationsInput | boolean
   valorTotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: Prisma.EnumSalaoStatusReservaEnumFieldUpdateOperationsInput | $Enums.SalaoStatusReservaEnum
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   salaoReservasLogs?: Prisma.SalaoReservasLogUncheckedUpdateManyWithoutReservaNestedInput
 }
 
@@ -469,13 +476,13 @@ export type SalaoReservasCreateManyInput = {
   horarioFim?: string | null
   tipoLocacao?: string | null
   convidadosEst?: number | null
-  tema?: string | null
   sinalPago?: boolean
   valorTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.SalaoStatusReservaEnum
   criadoEm?: Date | string
   notas?: string | null
+  temaId?: number | null
 }
 
 export type SalaoReservasUpdateManyMutationInput = {
@@ -484,7 +491,6 @@ export type SalaoReservasUpdateManyMutationInput = {
   horarioFim?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tipoLocacao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convidadosEst?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sinalPago?: Prisma.BoolFieldUpdateOperationsInput | boolean
   valorTotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -501,13 +507,13 @@ export type SalaoReservasUncheckedUpdateManyInput = {
   horarioFim?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tipoLocacao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convidadosEst?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sinalPago?: Prisma.BoolFieldUpdateOperationsInput | boolean
   valorTotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: Prisma.EnumSalaoStatusReservaEnumFieldUpdateOperationsInput | $Enums.SalaoStatusReservaEnum
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type SalaoReservasListRelationFilter = {
@@ -528,13 +534,13 @@ export type SalaoReservasCountOrderByAggregateInput = {
   horarioFim?: Prisma.SortOrder
   tipoLocacao?: Prisma.SortOrder
   convidadosEst?: Prisma.SortOrder
-  tema?: Prisma.SortOrder
   sinalPago?: Prisma.SortOrder
   valorTotal?: Prisma.SortOrder
   valorSinal?: Prisma.SortOrder
   status?: Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   notas?: Prisma.SortOrder
+  temaId?: Prisma.SortOrder
 }
 
 export type SalaoReservasAvgOrderByAggregateInput = {
@@ -543,6 +549,7 @@ export type SalaoReservasAvgOrderByAggregateInput = {
   convidadosEst?: Prisma.SortOrder
   valorTotal?: Prisma.SortOrder
   valorSinal?: Prisma.SortOrder
+  temaId?: Prisma.SortOrder
 }
 
 export type SalaoReservasMaxOrderByAggregateInput = {
@@ -553,13 +560,13 @@ export type SalaoReservasMaxOrderByAggregateInput = {
   horarioFim?: Prisma.SortOrder
   tipoLocacao?: Prisma.SortOrder
   convidadosEst?: Prisma.SortOrder
-  tema?: Prisma.SortOrder
   sinalPago?: Prisma.SortOrder
   valorTotal?: Prisma.SortOrder
   valorSinal?: Prisma.SortOrder
   status?: Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   notas?: Prisma.SortOrder
+  temaId?: Prisma.SortOrder
 }
 
 export type SalaoReservasMinOrderByAggregateInput = {
@@ -570,13 +577,13 @@ export type SalaoReservasMinOrderByAggregateInput = {
   horarioFim?: Prisma.SortOrder
   tipoLocacao?: Prisma.SortOrder
   convidadosEst?: Prisma.SortOrder
-  tema?: Prisma.SortOrder
   sinalPago?: Prisma.SortOrder
   valorTotal?: Prisma.SortOrder
   valorSinal?: Prisma.SortOrder
   status?: Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   notas?: Prisma.SortOrder
+  temaId?: Prisma.SortOrder
 }
 
 export type SalaoReservasSumOrderByAggregateInput = {
@@ -585,6 +592,7 @@ export type SalaoReservasSumOrderByAggregateInput = {
   convidadosEst?: Prisma.SortOrder
   valorTotal?: Prisma.SortOrder
   valorSinal?: Prisma.SortOrder
+  temaId?: Prisma.SortOrder
 }
 
 export type SalaoReservasScalarRelationFilter = {
@@ -668,19 +676,61 @@ export type SalaoReservasUpdateOneRequiredWithoutSalaoReservasLogsNestedInput = 
   update?: Prisma.XOR<Prisma.XOR<Prisma.SalaoReservasUpdateToOneWithWhereWithoutSalaoReservasLogsInput, Prisma.SalaoReservasUpdateWithoutSalaoReservasLogsInput>, Prisma.SalaoReservasUncheckedUpdateWithoutSalaoReservasLogsInput>
 }
 
+export type SalaoReservasCreateNestedManyWithoutTemaInput = {
+  create?: Prisma.XOR<Prisma.SalaoReservasCreateWithoutTemaInput, Prisma.SalaoReservasUncheckedCreateWithoutTemaInput> | Prisma.SalaoReservasCreateWithoutTemaInput[] | Prisma.SalaoReservasUncheckedCreateWithoutTemaInput[]
+  connectOrCreate?: Prisma.SalaoReservasCreateOrConnectWithoutTemaInput | Prisma.SalaoReservasCreateOrConnectWithoutTemaInput[]
+  createMany?: Prisma.SalaoReservasCreateManyTemaInputEnvelope
+  connect?: Prisma.SalaoReservasWhereUniqueInput | Prisma.SalaoReservasWhereUniqueInput[]
+}
+
+export type SalaoReservasUncheckedCreateNestedManyWithoutTemaInput = {
+  create?: Prisma.XOR<Prisma.SalaoReservasCreateWithoutTemaInput, Prisma.SalaoReservasUncheckedCreateWithoutTemaInput> | Prisma.SalaoReservasCreateWithoutTemaInput[] | Prisma.SalaoReservasUncheckedCreateWithoutTemaInput[]
+  connectOrCreate?: Prisma.SalaoReservasCreateOrConnectWithoutTemaInput | Prisma.SalaoReservasCreateOrConnectWithoutTemaInput[]
+  createMany?: Prisma.SalaoReservasCreateManyTemaInputEnvelope
+  connect?: Prisma.SalaoReservasWhereUniqueInput | Prisma.SalaoReservasWhereUniqueInput[]
+}
+
+export type SalaoReservasUpdateManyWithoutTemaNestedInput = {
+  create?: Prisma.XOR<Prisma.SalaoReservasCreateWithoutTemaInput, Prisma.SalaoReservasUncheckedCreateWithoutTemaInput> | Prisma.SalaoReservasCreateWithoutTemaInput[] | Prisma.SalaoReservasUncheckedCreateWithoutTemaInput[]
+  connectOrCreate?: Prisma.SalaoReservasCreateOrConnectWithoutTemaInput | Prisma.SalaoReservasCreateOrConnectWithoutTemaInput[]
+  upsert?: Prisma.SalaoReservasUpsertWithWhereUniqueWithoutTemaInput | Prisma.SalaoReservasUpsertWithWhereUniqueWithoutTemaInput[]
+  createMany?: Prisma.SalaoReservasCreateManyTemaInputEnvelope
+  set?: Prisma.SalaoReservasWhereUniqueInput | Prisma.SalaoReservasWhereUniqueInput[]
+  disconnect?: Prisma.SalaoReservasWhereUniqueInput | Prisma.SalaoReservasWhereUniqueInput[]
+  delete?: Prisma.SalaoReservasWhereUniqueInput | Prisma.SalaoReservasWhereUniqueInput[]
+  connect?: Prisma.SalaoReservasWhereUniqueInput | Prisma.SalaoReservasWhereUniqueInput[]
+  update?: Prisma.SalaoReservasUpdateWithWhereUniqueWithoutTemaInput | Prisma.SalaoReservasUpdateWithWhereUniqueWithoutTemaInput[]
+  updateMany?: Prisma.SalaoReservasUpdateManyWithWhereWithoutTemaInput | Prisma.SalaoReservasUpdateManyWithWhereWithoutTemaInput[]
+  deleteMany?: Prisma.SalaoReservasScalarWhereInput | Prisma.SalaoReservasScalarWhereInput[]
+}
+
+export type SalaoReservasUncheckedUpdateManyWithoutTemaNestedInput = {
+  create?: Prisma.XOR<Prisma.SalaoReservasCreateWithoutTemaInput, Prisma.SalaoReservasUncheckedCreateWithoutTemaInput> | Prisma.SalaoReservasCreateWithoutTemaInput[] | Prisma.SalaoReservasUncheckedCreateWithoutTemaInput[]
+  connectOrCreate?: Prisma.SalaoReservasCreateOrConnectWithoutTemaInput | Prisma.SalaoReservasCreateOrConnectWithoutTemaInput[]
+  upsert?: Prisma.SalaoReservasUpsertWithWhereUniqueWithoutTemaInput | Prisma.SalaoReservasUpsertWithWhereUniqueWithoutTemaInput[]
+  createMany?: Prisma.SalaoReservasCreateManyTemaInputEnvelope
+  set?: Prisma.SalaoReservasWhereUniqueInput | Prisma.SalaoReservasWhereUniqueInput[]
+  disconnect?: Prisma.SalaoReservasWhereUniqueInput | Prisma.SalaoReservasWhereUniqueInput[]
+  delete?: Prisma.SalaoReservasWhereUniqueInput | Prisma.SalaoReservasWhereUniqueInput[]
+  connect?: Prisma.SalaoReservasWhereUniqueInput | Prisma.SalaoReservasWhereUniqueInput[]
+  update?: Prisma.SalaoReservasUpdateWithWhereUniqueWithoutTemaInput | Prisma.SalaoReservasUpdateWithWhereUniqueWithoutTemaInput[]
+  updateMany?: Prisma.SalaoReservasUpdateManyWithWhereWithoutTemaInput | Prisma.SalaoReservasUpdateManyWithWhereWithoutTemaInput[]
+  deleteMany?: Prisma.SalaoReservasScalarWhereInput | Prisma.SalaoReservasScalarWhereInput[]
+}
+
 export type SalaoReservasCreateWithoutLeadInput = {
   dataEvento: Date | string
   horarioInicio?: string | null
   horarioFim?: string | null
   tipoLocacao?: string | null
   convidadosEst?: number | null
-  tema?: string | null
   sinalPago?: boolean
   valorTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.SalaoStatusReservaEnum
   criadoEm?: Date | string
   notas?: string | null
+  tema?: Prisma.SalaoTemasCreateNestedOneWithoutSalaoReservasInput
   salaoReservasLogs?: Prisma.SalaoReservasLogCreateNestedManyWithoutReservaInput
 }
 
@@ -691,13 +741,13 @@ export type SalaoReservasUncheckedCreateWithoutLeadInput = {
   horarioFim?: string | null
   tipoLocacao?: string | null
   convidadosEst?: number | null
-  tema?: string | null
   sinalPago?: boolean
   valorTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.SalaoStatusReservaEnum
   criadoEm?: Date | string
   notas?: string | null
+  temaId?: number | null
   salaoReservasLogs?: Prisma.SalaoReservasLogUncheckedCreateNestedManyWithoutReservaInput
 }
 
@@ -738,13 +788,13 @@ export type SalaoReservasScalarWhereInput = {
   horarioFim?: Prisma.StringNullableFilter<"SalaoReservas"> | string | null
   tipoLocacao?: Prisma.StringNullableFilter<"SalaoReservas"> | string | null
   convidadosEst?: Prisma.IntNullableFilter<"SalaoReservas"> | number | null
-  tema?: Prisma.StringNullableFilter<"SalaoReservas"> | string | null
   sinalPago?: Prisma.BoolFilter<"SalaoReservas"> | boolean
   valorTotal?: Prisma.DecimalNullableFilter<"SalaoReservas"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: Prisma.DecimalNullableFilter<"SalaoReservas"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: Prisma.EnumSalaoStatusReservaEnumFilter<"SalaoReservas"> | $Enums.SalaoStatusReservaEnum
   criadoEm?: Prisma.DateTimeFilter<"SalaoReservas"> | Date | string
   notas?: Prisma.StringNullableFilter<"SalaoReservas"> | string | null
+  temaId?: Prisma.IntNullableFilter<"SalaoReservas"> | number | null
 }
 
 export type SalaoReservasCreateWithoutSalaoReservasLogsInput = {
@@ -753,7 +803,6 @@ export type SalaoReservasCreateWithoutSalaoReservasLogsInput = {
   horarioFim?: string | null
   tipoLocacao?: string | null
   convidadosEst?: number | null
-  tema?: string | null
   sinalPago?: boolean
   valorTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -761,6 +810,7 @@ export type SalaoReservasCreateWithoutSalaoReservasLogsInput = {
   criadoEm?: Date | string
   notas?: string | null
   lead: Prisma.LeadsCreateNestedOneWithoutSalaoReservasInput
+  tema?: Prisma.SalaoTemasCreateNestedOneWithoutSalaoReservasInput
 }
 
 export type SalaoReservasUncheckedCreateWithoutSalaoReservasLogsInput = {
@@ -771,13 +821,13 @@ export type SalaoReservasUncheckedCreateWithoutSalaoReservasLogsInput = {
   horarioFim?: string | null
   tipoLocacao?: string | null
   convidadosEst?: number | null
-  tema?: string | null
   sinalPago?: boolean
   valorTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.SalaoStatusReservaEnum
   criadoEm?: Date | string
   notas?: string | null
+  temaId?: number | null
 }
 
 export type SalaoReservasCreateOrConnectWithoutSalaoReservasLogsInput = {
@@ -802,7 +852,6 @@ export type SalaoReservasUpdateWithoutSalaoReservasLogsInput = {
   horarioFim?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tipoLocacao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convidadosEst?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sinalPago?: Prisma.BoolFieldUpdateOperationsInput | boolean
   valorTotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -810,6 +859,7 @@ export type SalaoReservasUpdateWithoutSalaoReservasLogsInput = {
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lead?: Prisma.LeadsUpdateOneRequiredWithoutSalaoReservasNestedInput
+  tema?: Prisma.SalaoTemasUpdateOneWithoutSalaoReservasNestedInput
 }
 
 export type SalaoReservasUncheckedUpdateWithoutSalaoReservasLogsInput = {
@@ -820,13 +870,72 @@ export type SalaoReservasUncheckedUpdateWithoutSalaoReservasLogsInput = {
   horarioFim?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tipoLocacao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convidadosEst?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sinalPago?: Prisma.BoolFieldUpdateOperationsInput | boolean
   valorTotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: Prisma.EnumSalaoStatusReservaEnumFieldUpdateOperationsInput | $Enums.SalaoStatusReservaEnum
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type SalaoReservasCreateWithoutTemaInput = {
+  dataEvento: Date | string
+  horarioInicio?: string | null
+  horarioFim?: string | null
+  tipoLocacao?: string | null
+  convidadosEst?: number | null
+  sinalPago?: boolean
+  valorTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  valorSinal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.SalaoStatusReservaEnum
+  criadoEm?: Date | string
+  notas?: string | null
+  lead: Prisma.LeadsCreateNestedOneWithoutSalaoReservasInput
+  salaoReservasLogs?: Prisma.SalaoReservasLogCreateNestedManyWithoutReservaInput
+}
+
+export type SalaoReservasUncheckedCreateWithoutTemaInput = {
+  id?: number
+  leadId: number
+  dataEvento: Date | string
+  horarioInicio?: string | null
+  horarioFim?: string | null
+  tipoLocacao?: string | null
+  convidadosEst?: number | null
+  sinalPago?: boolean
+  valorTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  valorSinal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.SalaoStatusReservaEnum
+  criadoEm?: Date | string
+  notas?: string | null
+  salaoReservasLogs?: Prisma.SalaoReservasLogUncheckedCreateNestedManyWithoutReservaInput
+}
+
+export type SalaoReservasCreateOrConnectWithoutTemaInput = {
+  where: Prisma.SalaoReservasWhereUniqueInput
+  create: Prisma.XOR<Prisma.SalaoReservasCreateWithoutTemaInput, Prisma.SalaoReservasUncheckedCreateWithoutTemaInput>
+}
+
+export type SalaoReservasCreateManyTemaInputEnvelope = {
+  data: Prisma.SalaoReservasCreateManyTemaInput | Prisma.SalaoReservasCreateManyTemaInput[]
+  skipDuplicates?: boolean
+}
+
+export type SalaoReservasUpsertWithWhereUniqueWithoutTemaInput = {
+  where: Prisma.SalaoReservasWhereUniqueInput
+  update: Prisma.XOR<Prisma.SalaoReservasUpdateWithoutTemaInput, Prisma.SalaoReservasUncheckedUpdateWithoutTemaInput>
+  create: Prisma.XOR<Prisma.SalaoReservasCreateWithoutTemaInput, Prisma.SalaoReservasUncheckedCreateWithoutTemaInput>
+}
+
+export type SalaoReservasUpdateWithWhereUniqueWithoutTemaInput = {
+  where: Prisma.SalaoReservasWhereUniqueInput
+  data: Prisma.XOR<Prisma.SalaoReservasUpdateWithoutTemaInput, Prisma.SalaoReservasUncheckedUpdateWithoutTemaInput>
+}
+
+export type SalaoReservasUpdateManyWithWhereWithoutTemaInput = {
+  where: Prisma.SalaoReservasScalarWhereInput
+  data: Prisma.XOR<Prisma.SalaoReservasUpdateManyMutationInput, Prisma.SalaoReservasUncheckedUpdateManyWithoutTemaInput>
 }
 
 export type SalaoReservasCreateManyLeadInput = {
@@ -836,13 +945,13 @@ export type SalaoReservasCreateManyLeadInput = {
   horarioFim?: string | null
   tipoLocacao?: string | null
   convidadosEst?: number | null
-  tema?: string | null
   sinalPago?: boolean
   valorTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.SalaoStatusReservaEnum
   criadoEm?: Date | string
   notas?: string | null
+  temaId?: number | null
 }
 
 export type SalaoReservasUpdateWithoutLeadInput = {
@@ -851,13 +960,13 @@ export type SalaoReservasUpdateWithoutLeadInput = {
   horarioFim?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tipoLocacao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convidadosEst?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sinalPago?: Prisma.BoolFieldUpdateOperationsInput | boolean
   valorTotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: Prisma.EnumSalaoStatusReservaEnumFieldUpdateOperationsInput | $Enums.SalaoStatusReservaEnum
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tema?: Prisma.SalaoTemasUpdateOneWithoutSalaoReservasNestedInput
   salaoReservasLogs?: Prisma.SalaoReservasLogUpdateManyWithoutReservaNestedInput
 }
 
@@ -868,13 +977,13 @@ export type SalaoReservasUncheckedUpdateWithoutLeadInput = {
   horarioFim?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tipoLocacao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convidadosEst?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sinalPago?: Prisma.BoolFieldUpdateOperationsInput | boolean
   valorTotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: Prisma.EnumSalaoStatusReservaEnumFieldUpdateOperationsInput | $Enums.SalaoStatusReservaEnum
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   salaoReservasLogs?: Prisma.SalaoReservasLogUncheckedUpdateManyWithoutReservaNestedInput
 }
 
@@ -885,7 +994,72 @@ export type SalaoReservasUncheckedUpdateManyWithoutLeadInput = {
   horarioFim?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tipoLocacao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   convidadosEst?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  tema?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sinalPago?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  valorTotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  valorSinal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumSalaoStatusReservaEnumFieldUpdateOperationsInput | $Enums.SalaoStatusReservaEnum
+  criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  temaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type SalaoReservasCreateManyTemaInput = {
+  id?: number
+  leadId: number
+  dataEvento: Date | string
+  horarioInicio?: string | null
+  horarioFim?: string | null
+  tipoLocacao?: string | null
+  convidadosEst?: number | null
+  sinalPago?: boolean
+  valorTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  valorSinal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.SalaoStatusReservaEnum
+  criadoEm?: Date | string
+  notas?: string | null
+}
+
+export type SalaoReservasUpdateWithoutTemaInput = {
+  dataEvento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  horarioInicio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  horarioFim?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipoLocacao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  convidadosEst?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sinalPago?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  valorTotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  valorSinal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumSalaoStatusReservaEnumFieldUpdateOperationsInput | $Enums.SalaoStatusReservaEnum
+  criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lead?: Prisma.LeadsUpdateOneRequiredWithoutSalaoReservasNestedInput
+  salaoReservasLogs?: Prisma.SalaoReservasLogUpdateManyWithoutReservaNestedInput
+}
+
+export type SalaoReservasUncheckedUpdateWithoutTemaInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  leadId?: Prisma.IntFieldUpdateOperationsInput | number
+  dataEvento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  horarioInicio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  horarioFim?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipoLocacao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  convidadosEst?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  sinalPago?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  valorTotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  valorSinal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumSalaoStatusReservaEnumFieldUpdateOperationsInput | $Enums.SalaoStatusReservaEnum
+  criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaoReservasLogs?: Prisma.SalaoReservasLogUncheckedUpdateManyWithoutReservaNestedInput
+}
+
+export type SalaoReservasUncheckedUpdateManyWithoutTemaInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  leadId?: Prisma.IntFieldUpdateOperationsInput | number
+  dataEvento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  horarioInicio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  horarioFim?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tipoLocacao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  convidadosEst?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   sinalPago?: Prisma.BoolFieldUpdateOperationsInput | boolean
   valorTotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   valorSinal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -933,14 +1107,15 @@ export type SalaoReservasSelect<ExtArgs extends runtime.Types.Extensions.Interna
   horarioFim?: boolean
   tipoLocacao?: boolean
   convidadosEst?: boolean
-  tema?: boolean
   sinalPago?: boolean
   valorTotal?: boolean
   valorSinal?: boolean
   status?: boolean
   criadoEm?: boolean
   notas?: boolean
+  temaId?: boolean
   lead?: boolean | Prisma.LeadsDefaultArgs<ExtArgs>
+  tema?: boolean | Prisma.SalaoReservas$temaArgs<ExtArgs>
   salaoReservasLogs?: boolean | Prisma.SalaoReservas$salaoReservasLogsArgs<ExtArgs>
   _count?: boolean | Prisma.SalaoReservasCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["salaoReservas"]>
@@ -953,14 +1128,15 @@ export type SalaoReservasSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   horarioFim?: boolean
   tipoLocacao?: boolean
   convidadosEst?: boolean
-  tema?: boolean
   sinalPago?: boolean
   valorTotal?: boolean
   valorSinal?: boolean
   status?: boolean
   criadoEm?: boolean
   notas?: boolean
+  temaId?: boolean
   lead?: boolean | Prisma.LeadsDefaultArgs<ExtArgs>
+  tema?: boolean | Prisma.SalaoReservas$temaArgs<ExtArgs>
 }, ExtArgs["result"]["salaoReservas"]>
 
 export type SalaoReservasSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -971,14 +1147,15 @@ export type SalaoReservasSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   horarioFim?: boolean
   tipoLocacao?: boolean
   convidadosEst?: boolean
-  tema?: boolean
   sinalPago?: boolean
   valorTotal?: boolean
   valorSinal?: boolean
   status?: boolean
   criadoEm?: boolean
   notas?: boolean
+  temaId?: boolean
   lead?: boolean | Prisma.LeadsDefaultArgs<ExtArgs>
+  tema?: boolean | Prisma.SalaoReservas$temaArgs<ExtArgs>
 }, ExtArgs["result"]["salaoReservas"]>
 
 export type SalaoReservasSelectScalar = {
@@ -989,32 +1166,36 @@ export type SalaoReservasSelectScalar = {
   horarioFim?: boolean
   tipoLocacao?: boolean
   convidadosEst?: boolean
-  tema?: boolean
   sinalPago?: boolean
   valorTotal?: boolean
   valorSinal?: boolean
   status?: boolean
   criadoEm?: boolean
   notas?: boolean
+  temaId?: boolean
 }
 
-export type SalaoReservasOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "leadId" | "dataEvento" | "horarioInicio" | "horarioFim" | "tipoLocacao" | "convidadosEst" | "tema" | "sinalPago" | "valorTotal" | "valorSinal" | "status" | "criadoEm" | "notas", ExtArgs["result"]["salaoReservas"]>
+export type SalaoReservasOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "leadId" | "dataEvento" | "horarioInicio" | "horarioFim" | "tipoLocacao" | "convidadosEst" | "sinalPago" | "valorTotal" | "valorSinal" | "status" | "criadoEm" | "notas" | "temaId", ExtArgs["result"]["salaoReservas"]>
 export type SalaoReservasInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   lead?: boolean | Prisma.LeadsDefaultArgs<ExtArgs>
+  tema?: boolean | Prisma.SalaoReservas$temaArgs<ExtArgs>
   salaoReservasLogs?: boolean | Prisma.SalaoReservas$salaoReservasLogsArgs<ExtArgs>
   _count?: boolean | Prisma.SalaoReservasCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SalaoReservasIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   lead?: boolean | Prisma.LeadsDefaultArgs<ExtArgs>
+  tema?: boolean | Prisma.SalaoReservas$temaArgs<ExtArgs>
 }
 export type SalaoReservasIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   lead?: boolean | Prisma.LeadsDefaultArgs<ExtArgs>
+  tema?: boolean | Prisma.SalaoReservas$temaArgs<ExtArgs>
 }
 
 export type $SalaoReservasPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "SalaoReservas"
   objects: {
     lead: Prisma.$LeadsPayload<ExtArgs>
+    tema: Prisma.$SalaoTemasPayload<ExtArgs> | null
     salaoReservasLogs: Prisma.$SalaoReservasLogPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1025,13 +1206,13 @@ export type $SalaoReservasPayload<ExtArgs extends runtime.Types.Extensions.Inter
     horarioFim: string | null
     tipoLocacao: string | null
     convidadosEst: number | null
-    tema: string | null
     sinalPago: boolean
     valorTotal: runtime.Decimal | null
     valorSinal: runtime.Decimal | null
     status: $Enums.SalaoStatusReservaEnum
     criadoEm: Date
     notas: string | null
+    temaId: number | null
   }, ExtArgs["result"]["salaoReservas"]>
   composites: {}
 }
@@ -1427,6 +1608,7 @@ readonly fields: SalaoReservasFieldRefs;
 export interface Prisma__SalaoReservasClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   lead<T extends Prisma.LeadsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LeadsDefaultArgs<ExtArgs>>): Prisma.Prisma__LeadsClient<runtime.Types.Result.GetResult<Prisma.$LeadsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  tema<T extends Prisma.SalaoReservas$temaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SalaoReservas$temaArgs<ExtArgs>>): Prisma.Prisma__SalaoTemasClient<runtime.Types.Result.GetResult<Prisma.$SalaoTemasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   salaoReservasLogs<T extends Prisma.SalaoReservas$salaoReservasLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SalaoReservas$salaoReservasLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalaoReservasLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1464,13 +1646,13 @@ export interface SalaoReservasFieldRefs {
   readonly horarioFim: Prisma.FieldRef<"SalaoReservas", 'String'>
   readonly tipoLocacao: Prisma.FieldRef<"SalaoReservas", 'String'>
   readonly convidadosEst: Prisma.FieldRef<"SalaoReservas", 'Int'>
-  readonly tema: Prisma.FieldRef<"SalaoReservas", 'String'>
   readonly sinalPago: Prisma.FieldRef<"SalaoReservas", 'Boolean'>
   readonly valorTotal: Prisma.FieldRef<"SalaoReservas", 'Decimal'>
   readonly valorSinal: Prisma.FieldRef<"SalaoReservas", 'Decimal'>
   readonly status: Prisma.FieldRef<"SalaoReservas", 'SalaoStatusReservaEnum'>
   readonly criadoEm: Prisma.FieldRef<"SalaoReservas", 'DateTime'>
   readonly notas: Prisma.FieldRef<"SalaoReservas", 'String'>
+  readonly temaId: Prisma.FieldRef<"SalaoReservas", 'Int'>
 }
     
 
@@ -1864,6 +2046,25 @@ export type SalaoReservasDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many SalaoReservas to delete.
    */
   limit?: number
+}
+
+/**
+ * SalaoReservas.tema
+ */
+export type SalaoReservas$temaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SalaoTemas
+   */
+  select?: Prisma.SalaoTemasSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SalaoTemas
+   */
+  omit?: Prisma.SalaoTemasOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SalaoTemasInclude<ExtArgs> | null
+  where?: Prisma.SalaoTemasWhereInput
 }
 
 /**

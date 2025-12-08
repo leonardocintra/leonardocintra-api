@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.0.1
- * Query Engine version: f09f2815f091dbba658cdcd2264306d88bb5bda6
+ * Prisma Client JS version: 7.1.0
+ * Query Engine version: ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.0.1",
-  engine: "f09f2815f091dbba658cdcd2264306d88bb5bda6"
+  client: "7.1.0",
+  engine: "ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba"
 }
 
 /**
@@ -393,7 +393,9 @@ export const ModelName = {
   WhatsAppAudioToTextAccount: 'WhatsAppAudioToTextAccount',
   WhatsAppAudioToTextAccountUsage: 'WhatsAppAudioToTextAccountUsage',
   SalaoReservas: 'SalaoReservas',
-  SalaoReservasLog: 'SalaoReservasLog'
+  SalaoReservasLog: 'SalaoReservasLog',
+  SalaoTemas: 'SalaoTemas',
+  SalaoTemaImagens: 'SalaoTemaImagens'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -409,7 +411,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "product" | "plan" | "subscription" | "whatsappGroups" | "whatsAppAudioToText" | "leads" | "whatsAppAudioToTextAccount" | "whatsAppAudioToTextAccountUsage" | "salaoReservas" | "salaoReservasLog"
+    modelProps: "product" | "plan" | "subscription" | "whatsappGroups" | "whatsAppAudioToText" | "leads" | "whatsAppAudioToTextAccount" | "whatsAppAudioToTextAccountUsage" | "salaoReservas" | "salaoReservasLog" | "salaoTemas" | "salaoTemaImagens"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1153,6 +1155,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    SalaoTemas: {
+      payload: Prisma.$SalaoTemasPayload<ExtArgs>
+      fields: Prisma.SalaoTemasFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SalaoTemasFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemasPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SalaoTemasFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemasPayload>
+        }
+        findFirst: {
+          args: Prisma.SalaoTemasFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemasPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SalaoTemasFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemasPayload>
+        }
+        findMany: {
+          args: Prisma.SalaoTemasFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemasPayload>[]
+        }
+        create: {
+          args: Prisma.SalaoTemasCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemasPayload>
+        }
+        createMany: {
+          args: Prisma.SalaoTemasCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SalaoTemasCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemasPayload>[]
+        }
+        delete: {
+          args: Prisma.SalaoTemasDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemasPayload>
+        }
+        update: {
+          args: Prisma.SalaoTemasUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemasPayload>
+        }
+        deleteMany: {
+          args: Prisma.SalaoTemasDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SalaoTemasUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SalaoTemasUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemasPayload>[]
+        }
+        upsert: {
+          args: Prisma.SalaoTemasUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemasPayload>
+        }
+        aggregate: {
+          args: Prisma.SalaoTemasAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSalaoTemas>
+        }
+        groupBy: {
+          args: Prisma.SalaoTemasGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SalaoTemasGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SalaoTemasCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SalaoTemasCountAggregateOutputType> | number
+        }
+      }
+    }
+    SalaoTemaImagens: {
+      payload: Prisma.$SalaoTemaImagensPayload<ExtArgs>
+      fields: Prisma.SalaoTemaImagensFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SalaoTemaImagensFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemaImagensPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SalaoTemaImagensFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemaImagensPayload>
+        }
+        findFirst: {
+          args: Prisma.SalaoTemaImagensFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemaImagensPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SalaoTemaImagensFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemaImagensPayload>
+        }
+        findMany: {
+          args: Prisma.SalaoTemaImagensFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemaImagensPayload>[]
+        }
+        create: {
+          args: Prisma.SalaoTemaImagensCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemaImagensPayload>
+        }
+        createMany: {
+          args: Prisma.SalaoTemaImagensCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SalaoTemaImagensCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemaImagensPayload>[]
+        }
+        delete: {
+          args: Prisma.SalaoTemaImagensDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemaImagensPayload>
+        }
+        update: {
+          args: Prisma.SalaoTemaImagensUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemaImagensPayload>
+        }
+        deleteMany: {
+          args: Prisma.SalaoTemaImagensDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SalaoTemaImagensUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SalaoTemaImagensUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemaImagensPayload>[]
+        }
+        upsert: {
+          args: Prisma.SalaoTemaImagensUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SalaoTemaImagensPayload>
+        }
+        aggregate: {
+          args: Prisma.SalaoTemaImagensAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSalaoTemaImagens>
+        }
+        groupBy: {
+          args: Prisma.SalaoTemaImagensGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SalaoTemaImagensGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SalaoTemaImagensCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SalaoTemaImagensCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1308,13 +1458,13 @@ export const SalaoReservasScalarFieldEnum = {
   horarioFim: 'horarioFim',
   tipoLocacao: 'tipoLocacao',
   convidadosEst: 'convidadosEst',
-  tema: 'tema',
   sinalPago: 'sinalPago',
   valorTotal: 'valorTotal',
   valorSinal: 'valorSinal',
   status: 'status',
   criadoEm: 'criadoEm',
-  notas: 'notas'
+  notas: 'notas',
+  temaId: 'temaId'
 } as const
 
 export type SalaoReservasScalarFieldEnum = (typeof SalaoReservasScalarFieldEnum)[keyof typeof SalaoReservasScalarFieldEnum]
@@ -1329,6 +1479,25 @@ export const SalaoReservasLogScalarFieldEnum = {
 } as const
 
 export type SalaoReservasLogScalarFieldEnum = (typeof SalaoReservasLogScalarFieldEnum)[keyof typeof SalaoReservasLogScalarFieldEnum]
+
+
+export const SalaoTemasScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome',
+  descricao: 'descricao'
+} as const
+
+export type SalaoTemasScalarFieldEnum = (typeof SalaoTemasScalarFieldEnum)[keyof typeof SalaoTemasScalarFieldEnum]
+
+
+export const SalaoTemaImagensScalarFieldEnum = {
+  id: 'id',
+  temaId: 'temaId',
+  imagem: 'imagem',
+  descricao: 'descricao'
+} as const
+
+export type SalaoTemaImagensScalarFieldEnum = (typeof SalaoTemaImagensScalarFieldEnum)[keyof typeof SalaoTemaImagensScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1544,7 +1713,7 @@ export type PrismaClientOptions = ({
    *  { emit: 'stdout', level: 'error' }
    * 
    * ```
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
+   * Read more in our [docs](https://pris.ly/d/logging).
    */
   log?: (LogLevel | LogDefinition)[]
   /**
@@ -1572,6 +1741,22 @@ export type PrismaClientOptions = ({
    * ```
    */
   omit?: GlobalOmitConfig
+  /**
+   * SQL commenter plugins that add metadata to SQL queries as comments.
+   * Comments follow the sqlcommenter format: https://google.github.io/sqlcommenter/
+   * 
+   * @example
+   * ```
+   * const prisma = new PrismaClient({
+   *   adapter,
+   *   comments: [
+   *     traceContext(),
+   *     queryInsights(),
+   *   ],
+   * })
+   * ```
+   */
+  comments?: runtime.SqlCommenterPlugin[]
 }
 export type GlobalOmitConfig = {
   product?: Prisma.ProductOmit
@@ -1584,6 +1769,8 @@ export type GlobalOmitConfig = {
   whatsAppAudioToTextAccountUsage?: Prisma.WhatsAppAudioToTextAccountUsageOmit
   salaoReservas?: Prisma.SalaoReservasOmit
   salaoReservasLog?: Prisma.SalaoReservasLogOmit
+  salaoTemas?: Prisma.SalaoTemasOmit
+  salaoTemaImagens?: Prisma.SalaoTemaImagensOmit
 }
 
 /* Types for Logging */

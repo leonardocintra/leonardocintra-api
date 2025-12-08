@@ -67,3 +67,13 @@ export type SalaoReservas = Prisma.SalaoReservasModel
  * 
  */
 export type SalaoReservasLog = Prisma.SalaoReservasLogModel
+/**
+ * Model SalaoTemas
+ * 
+ */
+export type SalaoTemas = Prisma.SalaoTemasModel
+/**
+ * Model SalaoTemaImagens
+ * 
+ */
+export type SalaoTemaImagens = Prisma.SalaoTemaImagensModel

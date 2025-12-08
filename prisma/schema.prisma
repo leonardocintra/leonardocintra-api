@@ -124,13 +124,14 @@ model SalaoReservas {
   horarioFim        String?                @db.VarChar(10)
   tipoLocacao       String?                @db.VarChar(50)
   convidadosEst     Int?
-  tema              String?                @db.VarChar(100)
   sinalPago         Boolean                @default(false)
   valorTotal        Decimal?               @db.Decimal
   valorSinal        Decimal?               @db.Decimal
   status            SalaoStatusReservaEnum @default(proposta)
   criadoEm          DateTime               @default(now())
   notas             String?                @db.Text
+  temaId            Int?
+  tema              SalaoTemas?            @relation(fields: [temaId], references: [id], onDelete: SetNull)
   salaoReservasLogs SalaoReservasLog[]
 }
 
@@ -141,4 +142,20 @@ model SalaoReservasLog {
   evento    String        @db.Text
   payload   Json
   criadoEm  DateTime      @default(now())
+}
+
+model SalaoTemas {
+  id               Int                @id @default(autoincrement())
+  nome             String             @db.VarChar(100)
+  descricao        String?            @db.Text
+  salaoTemaImagens SalaoTemaImagens[]
+  salaoReservas    SalaoReservas[]
+}
+
+model SalaoTemaImagens {
+  id        Int        @id @default(autoincrement())
+  temaId    Int
+  tema      SalaoTemas @relation(fields: [temaId], references: [id], onDelete: Cascade)
+  imagem    String     @db.VarChar(255)
+  descricao String?    @db.VarChar(255)
 }
