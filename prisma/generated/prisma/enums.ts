@@ -26,3 +26,12 @@ export const SalaoStatusReservaEnum = {
 } as const
 
 export type SalaoStatusReservaEnum = (typeof SalaoStatusReservaEnum)[keyof typeof SalaoStatusReservaEnum]
+
+
+export const PostStatus = {
+  draft: 'draft',
+  published: 'published',
+  archived: 'archived'
+} as const
+
+export type PostStatus = (typeof PostStatus)[keyof typeof PostStatus]

@@ -62,7 +62,11 @@ export const ModelName = {
   SalaoReservas: 'SalaoReservas',
   SalaoReservasLog: 'SalaoReservasLog',
   SalaoTemas: 'SalaoTemas',
-  SalaoTemaImagens: 'SalaoTemaImagens'
+  SalaoTemaImagens: 'SalaoTemaImagens',
+  Posts: 'Posts',
+  PostContents: 'PostContents',
+  PostTags: 'PostTags',
+  PostComments: 'PostComments'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -71,12 +75,12 @@ export type ModelName = (typeof ModelName)[keyof typeof ModelName]
  * Enums
  */
 
-export const TransactionIsolationLevel = {
+export const TransactionIsolationLevel = runtime.makeStrictEnum({
   ReadUncommitted: 'ReadUncommitted',
   ReadCommitted: 'ReadCommitted',
   RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
-} as const
+} as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
@@ -239,6 +243,52 @@ export const SalaoTemaImagensScalarFieldEnum = {
 export type SalaoTemaImagensScalarFieldEnum = (typeof SalaoTemaImagensScalarFieldEnum)[keyof typeof SalaoTemaImagensScalarFieldEnum]
 
 
+export const PostsScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  status: 'status',
+  publicoAlvo: 'publicoAlvo',
+  createdAt: 'createdAt',
+  publishedAt: 'publishedAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PostsScalarFieldEnum = (typeof PostsScalarFieldEnum)[keyof typeof PostsScalarFieldEnum]
+
+
+export const PostContentsScalarFieldEnum = {
+  id: 'id',
+  postId: 'postId',
+  contentMarkdown: 'contentMarkdown',
+  version: 'version',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PostContentsScalarFieldEnum = (typeof PostContentsScalarFieldEnum)[keyof typeof PostContentsScalarFieldEnum]
+
+
+export const PostTagsScalarFieldEnum = {
+  id: 'id',
+  postId: 'postId',
+  tag: 'tag'
+} as const
+
+export type PostTagsScalarFieldEnum = (typeof PostTagsScalarFieldEnum)[keyof typeof PostTagsScalarFieldEnum]
+
+
+export const PostCommentsScalarFieldEnum = {
+  id: 'id',
+  postId: 'postId',
+  author: 'author',
+  content: 'content',
+  createdAt: 'createdAt'
+} as const
+
+export type PostCommentsScalarFieldEnum = (typeof PostCommentsScalarFieldEnum)[keyof typeof PostCommentsScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -248,7 +298,7 @@ export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
 export const JsonNullValueInput = {
-  JsonNull: 'JsonNull'
+  JsonNull: JsonNull
 } as const
 
 export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
@@ -271,9 +321,9 @@ export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 export const JsonNullValueFilter = {
-  DbNull: 'DbNull',
-  JsonNull: 'JsonNull',
-  AnyNull: 'AnyNull'
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
 } as const
 
 export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
