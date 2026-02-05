@@ -159,3 +159,53 @@ model SalaoTemaImagens {
   imagem    String     @db.VarChar(255)
   descricao String?    @db.VarChar(255)
 }
+
+enum PostStatus {
+  draft
+  published
+  archived
+}
+
+model Posts {
+  id           Int            @id @default(autoincrement())
+  title        String         @db.VarChar(200)
+  slug         String         @unique @db.VarChar(200)
+  status       PostStatus     @default(draft)
+  publicoAlvo  String?        @db.VarChar(100)
+  createdAt    DateTime       @default(now())
+  publishedAt  DateTime?
+  updatedAt    DateTime       @updatedAt
+  postContents PostContents?
+  postComments PostComments[]
+
+  @@index([slug])
+  @@index([publishedAt(sort: Desc)], map: "idx_posts_published_at")
+}
+
+model PostContents {
+  id              Int      @id @default(autoincrement())
+  postId          Int      @unique
+  post            Posts    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  contentMarkdown String   @db.Text
+  version         Int      @default(1)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model PostTags {
+  id     Int    @id @default(autoincrement())
+  postId Int
+  tag    String @db.VarChar(50)
+
+  @@unique([postId, tag])
+}
+
+model PostComments {
+  id        Int      @id @default(autoincrement())
+  postId    Int
+  author    String   @db.VarChar(100)
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+
+  post Posts @relation(fields: [postId], references: [id], onDelete: Cascade)
+}

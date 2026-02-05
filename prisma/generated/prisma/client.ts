@@ -97,3 +97,23 @@ export type SalaoTemas = Prisma.SalaoTemasModel
  * 
  */
 export type SalaoTemaImagens = Prisma.SalaoTemaImagensModel
+/**
+ * Model Posts
+ * 
+ */
+export type Posts = Prisma.PostsModel
+/**
+ * Model PostContents
+ * 
+ */
+export type PostContents = Prisma.PostContentsModel
+/**
+ * Model PostTags
+ * 
+ */
+export type PostTags = Prisma.PostTagsModel
+/**
+ * Model PostComments
+ * 
+ */
+export type PostComments = Prisma.PostCommentsModel
