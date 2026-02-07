@@ -117,3 +117,8 @@ export type PostTags = Prisma.PostTagsModel
  * 
  */
 export type PostComments = Prisma.PostCommentsModel
+/**
+ * Model ApiClient
+ * 
+ */
+export type ApiClient = Prisma.ApiClientModel

@@ -399,7 +399,8 @@ export const ModelName = {
   Posts: 'Posts',
   PostContents: 'PostContents',
   PostTags: 'PostTags',
-  PostComments: 'PostComments'
+  PostComments: 'PostComments',
+  ApiClient: 'ApiClient'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -415,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "product" | "plan" | "subscription" | "whatsappGroups" | "whatsAppAudioToText" | "leads" | "whatsAppAudioToTextAccount" | "whatsAppAudioToTextAccountUsage" | "salaoReservas" | "salaoReservasLog" | "salaoTemas" | "salaoTemaImagens" | "posts" | "postContents" | "postTags" | "postComments"
+    modelProps: "product" | "plan" | "subscription" | "whatsappGroups" | "whatsAppAudioToText" | "leads" | "whatsAppAudioToTextAccount" | "whatsAppAudioToTextAccountUsage" | "salaoReservas" | "salaoReservasLog" | "salaoTemas" | "salaoTemaImagens" | "posts" | "postContents" | "postTags" | "postComments" | "apiClient"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1603,6 +1604,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ApiClient: {
+      payload: Prisma.$ApiClientPayload<ExtArgs>
+      fields: Prisma.ApiClientFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ApiClientFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiClientPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ApiClientFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiClientPayload>
+        }
+        findFirst: {
+          args: Prisma.ApiClientFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiClientPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ApiClientFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiClientPayload>
+        }
+        findMany: {
+          args: Prisma.ApiClientFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiClientPayload>[]
+        }
+        create: {
+          args: Prisma.ApiClientCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiClientPayload>
+        }
+        createMany: {
+          args: Prisma.ApiClientCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ApiClientCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiClientPayload>[]
+        }
+        delete: {
+          args: Prisma.ApiClientDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiClientPayload>
+        }
+        update: {
+          args: Prisma.ApiClientUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiClientPayload>
+        }
+        deleteMany: {
+          args: Prisma.ApiClientDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ApiClientUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ApiClientUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiClientPayload>[]
+        }
+        upsert: {
+          args: Prisma.ApiClientUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiClientPayload>
+        }
+        aggregate: {
+          args: Prisma.ApiClientAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateApiClient>
+        }
+        groupBy: {
+          args: Prisma.ApiClientGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApiClientGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ApiClientCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApiClientCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1844,6 +1919,17 @@ export const PostCommentsScalarFieldEnum = {
 } as const
 
 export type PostCommentsScalarFieldEnum = (typeof PostCommentsScalarFieldEnum)[keyof typeof PostCommentsScalarFieldEnum]
+
+
+export const ApiClientScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  tokenHash: 'tokenHash',
+  isActive: 'isActive',
+  createdAt: 'createdAt'
+} as const
+
+export type ApiClientScalarFieldEnum = (typeof ApiClientScalarFieldEnum)[keyof typeof ApiClientScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2135,6 +2221,7 @@ export type GlobalOmitConfig = {
   postContents?: Prisma.PostContentsOmit
   postTags?: Prisma.PostTagsOmit
   postComments?: Prisma.PostCommentsOmit
+  apiClient?: Prisma.ApiClientOmit
 }
 
 /* Types for Logging */

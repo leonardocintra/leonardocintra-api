@@ -209,3 +209,11 @@ model PostComments {
 
   post Posts @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
+
+model ApiClient {
+  id        String   @id @default(uuid())
+  name      String
+  tokenHash String   @unique
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+}

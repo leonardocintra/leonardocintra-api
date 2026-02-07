@@ -66,7 +66,8 @@ export const ModelName = {
   Posts: 'Posts',
   PostContents: 'PostContents',
   PostTags: 'PostTags',
-  PostComments: 'PostComments'
+  PostComments: 'PostComments',
+  ApiClient: 'ApiClient'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -287,6 +288,17 @@ export const PostCommentsScalarFieldEnum = {
 } as const
 
 export type PostCommentsScalarFieldEnum = (typeof PostCommentsScalarFieldEnum)[keyof typeof PostCommentsScalarFieldEnum]
+
+
+export const ApiClientScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  tokenHash: 'tokenHash',
+  isActive: 'isActive',
+  createdAt: 'createdAt'
+} as const
+
+export type ApiClientScalarFieldEnum = (typeof ApiClientScalarFieldEnum)[keyof typeof ApiClientScalarFieldEnum]
 
 
 export const SortOrder = {
