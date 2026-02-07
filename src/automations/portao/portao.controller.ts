@@ -4,11 +4,14 @@ import {
   InternalServerErrorException,
   Post,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { PortaoService } from './portao.service';
 import { RequestWithUser } from 'src/commons/IRequestWithUserClerk';
+import { ClerkAuthGuard } from 'src/auth/clerk/clerk.guard';
 
 @Controller('portao')
+@UseGuards(ClerkAuthGuard)
 export class PortaoController {
   constructor(private readonly portaoService: PortaoService) {}
 
