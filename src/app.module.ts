@@ -13,6 +13,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './auth/jwt/jwt.strategy';
 import { JwtAuthGuard } from './auth/jwt/jwt.guard';
 import { TokenController } from './auth/token/token.controller';
+import { MultiAuthGuard } from './auth/guards/multi-auth.guard';
 
 @Module({
   imports: [
@@ -51,9 +52,10 @@ import { TokenController } from './auth/token/token.controller';
     ClerkAuthGuard,
     JwtAuthGuard,
     JwtStrategy,
+    MultiAuthGuard,
     {
       provide: APP_GUARD,
-      useClass: JwtAuthGuard,
+      useClass: MultiAuthGuard,
     },
   ],
 })
