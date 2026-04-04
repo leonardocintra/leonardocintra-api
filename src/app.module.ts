@@ -14,6 +14,7 @@ import { JwtStrategy } from './auth/jwt/jwt.strategy';
 import { JwtAuthGuard } from './auth/jwt/jwt.guard';
 import { TokenController } from './auth/token/token.controller';
 import { MultiAuthGuard } from './auth/guards/multi-auth.guard';
+import { GuardianTubeModule } from './guardian-tube/guardian-tube.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { MultiAuthGuard } from './auth/guards/multi-auth.guard';
     PrismaModule,
     MqttModule,
     BlogModule,
+    GuardianTubeModule,
   ],
   controllers: [AppController, TokenController],
   providers: [

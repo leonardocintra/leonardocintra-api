@@ -217,3 +217,70 @@ model ApiClient {
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
 }
+
+model HomeFeedResponse {
+  id        Int           @id @default(autoincrement())
+  createdAt DateTime      @default(now())
+  rows      CategoryRow[]
+
+  @@map("home_feed_response")
+}
+
+model CategoryRow {
+  id         Int              @id @default(autoincrement())
+  title      String           @db.VarChar(150)
+  homeFeedId Int
+  homeFeed   HomeFeedResponse @relation(fields: [homeFeedId], references: [id], onDelete: Cascade)
+  videos     Video[]
+
+  @@index([homeFeedId], map: "idx_category_row_home_feed")
+  @@map("category_row")
+}
+
+model Video {
+  id            Int         @id @default(autoincrement())
+  videoId       String      @unique @db.VarChar(100)
+  title         String      @db.VarChar(200)
+  thumbnail     String      @db.VarChar(500)
+  categoryRowId Int
+  categoryRow   CategoryRow @relation(fields: [categoryRowId], references: [id], onDelete: Cascade)
+
+  @@index([categoryRowId], map: "idx_video_category_row")
+  @@map("video")
+}
+
+model PadreRamonContato {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(100)
+  email     String   @db.VarChar(100)
+  phone     String   @db.VarChar(20)
+  message   String   @db.Text
+  createdAt DateTime @default(now())
+
+  @@map("padre_ramon_contato")
+}
+
+model PadreRamonRegistroGraca {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(100)
+  email     String?  @db.VarChar(100)
+  whatsapp  String?  @db.VarChar(20)
+  message   String?  @db.Text
+  createdAt DateTime @default(now())
+
+  @@map("padre_ramon_registro_graca")
+}
+
+model PadreRamonRegistroVisitaTumulo {
+  id              Int       @id @default(autoincrement())
+  name            String    @db.VarChar(100)
+  email           String?   @db.VarChar(100)
+  whatsapp        String?   @db.VarChar(20)
+  message         String?   @db.Text
+  pais            String?   @default("Brasil") @db.VarChar(50)
+  numeroDePessoas Int?      @default(1)
+  dataDaVisita    DateTime?
+  createdAt       DateTime  @default(now())
+
+  @@map("padre_ramon_registro_visita_tumulo")
+}
