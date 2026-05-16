@@ -1,10 +1,5 @@
-import {
-  Injectable,
-  Logger,
-  OnModuleInit,
-  OnModuleDestroy,
-} from '@nestjs/common';
-import mqtt, { MqttClient } from 'mqtt';
+import { Injectable, Logger, type OnModuleDestroy, type OnModuleInit } from '@nestjs/common';
+import mqtt, { type MqttClient } from 'mqtt';
 
 @Injectable()
 export class MqttService implements OnModuleInit, OnModuleDestroy {

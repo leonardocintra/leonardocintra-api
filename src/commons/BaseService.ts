@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import type { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export abstract class BaseService {

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "files": {
+    "include": ["src/**", "test/**", "prisma/**/*.prisma"],
+    "ignore": ["dist/**", "node_modules/**", "prisma/generated/**"]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "lineWidth": 100
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "javascript": {
+    "parser": {
+      "unsafeParameterDecoratorsEnabled": true
+    },
+    "formatter": {
+      "quoteStyle": "single",
+      "trailingCommas": "all"
+    }
+  }
+}

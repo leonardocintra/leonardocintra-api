@@ -1,7 +1,7 @@
-import slugify from 'slugify';
 import { Injectable } from '@nestjs/common';
+import slugify from 'slugify';
 import { BaseService } from 'src/commons/BaseService';
-import { CreatePostDto } from '../dto/create-post.dto';
+import type { CreatePostDto } from '../dto/create-post.dto';
 
 @Injectable()
 export class PostService extends BaseService {
@@ -38,10 +38,7 @@ export class PostService extends BaseService {
         content: dto.content,
       };
     } catch (error) {
-      this.logger.error(
-        'Failed to create post content, rolling back post creation',
-        error,
-      );
+      this.logger.error('Failed to create post content, rolling back post creation', error);
       await this.prismaService.posts.delete({ where: { id: post.id } });
       throw error;
     }

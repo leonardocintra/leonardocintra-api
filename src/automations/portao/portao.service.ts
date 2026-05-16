@@ -1,7 +1,7 @@
-import { createClerkClient, User } from '@clerk/backend';
+import { type User, createClerkClient } from '@clerk/backend';
 import { ForbiddenException, Injectable, Logger } from '@nestjs/common';
-import { LeadsService } from 'src/leads/leads.service';
-import { MqttService } from 'src/mqtt/mqtt.service';
+import type { LeadsService } from 'src/leads/leads.service';
+import type { MqttService } from 'src/mqtt/mqtt.service';
 
 @Injectable()
 export class PortaoService {
@@ -16,10 +16,7 @@ export class PortaoService {
     private readonly mqttService: MqttService,
   ) {}
 
-  private enviarComandoPortao(
-    comando: string,
-    acao: string,
-  ): { success: boolean; status: string } {
+  private enviarComandoPortao(comando: string, acao: string): { success: boolean; status: string } {
     try {
       this.mqttService.publish('casa/portao', comando);
       this.logger.log(`Comando enviado: ${acao} portão`);

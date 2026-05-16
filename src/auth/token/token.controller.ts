@@ -1,5 +1,5 @@
+import { createHash, randomBytes } from 'node:crypto';
 import { Controller, Post } from '@nestjs/common';
-import { randomBytes, createHash } from 'crypto';
 import { IsPublic } from 'src/decorators/public/public.decorator';
 
 @Controller('token')

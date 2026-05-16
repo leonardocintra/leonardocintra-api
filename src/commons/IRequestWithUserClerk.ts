@@ -1,5 +1,5 @@
-import { verifyToken } from '@clerk/backend';
-import { Request } from 'express';
+import type { verifyToken } from '@clerk/backend';
+import type { Request } from 'express';
 
 // Derivamos o tipo do payload diretamente do tipo de retorno da função verifyToken.
 // Isso é mais robusto e evita problemas de importação de tipos.

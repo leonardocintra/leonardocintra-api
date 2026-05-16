@@ -1,14 +1,14 @@
 import {
-  CanActivate,
-  ExecutionContext,
+  type CanActivate,
+  type ExecutionContext,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
-import { Observable, isObservable, lastValueFrom } from 'rxjs';
+import type { Reflector } from '@nestjs/core';
+import { type Observable, isObservable, lastValueFrom } from 'rxjs';
 import { IS_PUBLIC_KEY } from 'src/decorators/public/public.decorator';
-import { ClerkAuthGuard } from '../clerk/clerk.guard';
-import { JwtAuthGuard } from '../jwt/jwt.guard';
+import type { ClerkAuthGuard } from '../clerk/clerk.guard';
+import type { JwtAuthGuard } from '../jwt/jwt.guard';
 
 type GuardResult = boolean | Promise<boolean> | Observable<boolean>;
 
@@ -41,10 +41,7 @@ export class MultiAuthGuard implements CanActivate {
     throw new UnauthorizedException('Invalid or expired token.');
   }
 
-  private async tryActivate(
-    guard: CanActivate,
-    context: ExecutionContext,
-  ): Promise<boolean> {
+  private async tryActivate(guard: CanActivate, context: ExecutionContext): Promise<boolean> {
     try {
       const result = guard.canActivate(context) as GuardResult;
       return await this.unwrapResult(result);

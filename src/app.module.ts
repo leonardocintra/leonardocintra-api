@@ -1,20 +1,19 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtModule } from '@nestjs/jwt';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PortaoModule } from './automations/portao/portao.module';
-import { APP_GUARD } from '@nestjs/core';
 import { ClerkAuthGuard } from './auth/clerk/clerk.guard';
-import { LeadsModule } from './leads/leads.module';
-import { PrismaModule } from './prisma/prisma.module';
-import { MqttModule } from './mqtt/mqtt.module';
-import { BlogModule } from './blog/blog.module';
-import { JwtModule } from '@nestjs/jwt';
-import { JwtStrategy } from './auth/jwt/jwt.strategy';
-import { JwtAuthGuard } from './auth/jwt/jwt.guard';
-import { TokenController } from './auth/token/token.controller';
 import { MultiAuthGuard } from './auth/guards/multi-auth.guard';
-import { GuardianTubeModule } from './guardian-tube/guardian-tube.module';
+import { JwtAuthGuard } from './auth/jwt/jwt.guard';
+import { JwtStrategy } from './auth/jwt/jwt.strategy';
+import { TokenController } from './auth/token/token.controller';
+import { PortaoModule } from './automations/portao/portao.module';
+import { BlogModule } from './blog/blog.module';
+import { LeadsModule } from './leads/leads.module';
+import { MqttModule } from './mqtt/mqtt.module';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
@@ -25,13 +24,9 @@ import { GuardianTubeModule } from './guardian-tube/guardian-tube.module';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
-        const expiresInConfig = configService.get<string | number>(
-          'JWT_EXPIRES_IN',
-        );
+        const expiresInConfig = configService.get<string | number>('JWT_EXPIRES_IN');
         const expiresIn =
-          typeof expiresInConfig === 'number'
-            ? expiresInConfig
-            : Number(expiresInConfig);
+          typeof expiresInConfig === 'number' ? expiresInConfig : Number(expiresInConfig);
 
         return {
           secret: configService.get<string>('JWT_SECRET'),
@@ -46,7 +41,6 @@ import { GuardianTubeModule } from './guardian-tube/guardian-tube.module';
     PrismaModule,
     MqttModule,
     BlogModule,
-    GuardianTubeModule,
   ],
   controllers: [AppController, TokenController],
   providers: [
