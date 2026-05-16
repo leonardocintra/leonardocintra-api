@@ -1,8 +1,16 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
   "files": {
-    "include": ["src/**", "test/**", "prisma/**/*.prisma"],
-    "ignore": ["dist/**", "node_modules/**", "prisma/generated/**"]
+    "include": [
+      "src/**",
+      "test/**",
+      "prisma/**/*.prisma"
+    ],
+    "ignore": [
+      "dist/**",
+      "node_modules/**",
+      "prisma/generated/**"
+    ]
   },
   "formatter": {
     "enabled": true,
