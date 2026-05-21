@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import slugify from 'slugify';
 import { BaseService } from 'src/commons/BaseService';
-import type { CreatePostDto } from '../dto/create-post.dto';
+import { CreatePostDto } from '../dto/create-post.dto';
 
 @Injectable()
 export class PostService extends BaseService {

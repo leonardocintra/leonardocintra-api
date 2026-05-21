@@ -1,8 +1,8 @@
 import { createHash } from 'node:crypto';
 import { type CanActivate, type ExecutionContext, Injectable, Logger } from '@nestjs/common';
-import type { Request } from 'express';
-import type { ApiClient } from 'prisma/generated/prisma/client';
-import type { PrismaService } from 'src/prisma/prisma.service';
+import { Request } from 'express';
+import { ApiClient } from 'prisma/generated/prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 type RequestWithApiClient = Request & { apiClient?: ApiClient };
 

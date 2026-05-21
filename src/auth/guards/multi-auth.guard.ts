@@ -4,11 +4,11 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import type { Reflector } from '@nestjs/core';
+import { Reflector } from '@nestjs/core';
 import { type Observable, isObservable, lastValueFrom } from 'rxjs';
 import { IS_PUBLIC_KEY } from 'src/decorators/public/public.decorator';
-import type { ClerkAuthGuard } from '../clerk/clerk.guard';
-import type { JwtAuthGuard } from '../jwt/jwt.guard';
+import { ClerkAuthGuard } from '../clerk/clerk.guard';
+import { JwtAuthGuard } from '../jwt/jwt.guard';
 
 type GuardResult = boolean | Promise<boolean> | Observable<boolean>;
 

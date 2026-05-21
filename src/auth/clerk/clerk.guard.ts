@@ -5,8 +5,8 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import type { ConfigService } from '@nestjs/config';
-import type { Reflector } from '@nestjs/core';
+import { ConfigService } from '@nestjs/config';
+import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from 'src/decorators/public/public.decorator';
 
 @Injectable()

@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { ApiTokenGuard } from 'src/auth/guards/api-token.guard';
 import { IsPublic } from 'src/decorators/public/public.decorator';
-import type { CreatePostDto } from '../dto/create-post.dto';
-import type { PostService } from './post.service';
+import { CreatePostDto } from '../dto/create-post.dto';
+import { PostService } from './post.service';
 
 @Controller('post')
 @IsPublic()

@@ -1,7 +1,7 @@
 import { type User, createClerkClient } from '@clerk/backend';
 import { ForbiddenException, Injectable, Logger } from '@nestjs/common';
-import type { LeadsService } from 'src/leads/leads.service';
-import type { MqttService } from 'src/mqtt/mqtt.service';
+import { LeadsService } from 'src/leads/leads.service';
+import { MqttService } from 'src/mqtt/mqtt.service';
 
 @Injectable()
 export class PortaoService {

@@ -1,6 +1,6 @@
 import { Controller, Get, InternalServerErrorException, Post, Req } from '@nestjs/common';
-import type { RequestWithUser } from 'src/commons/IRequestWithUserClerk';
-import type { PortaoService } from './portao.service';
+import { RequestWithUser } from 'src/commons/IRequestWithUserClerk';
+import { PortaoService } from './portao.service';
 
 @Controller('portao')
 export class PortaoController {
