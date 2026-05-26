@@ -14,6 +14,7 @@ import { BlogModule } from './blog/blog.module';
 import { LeadsModule } from './leads/leads.module';
 import { MqttModule } from './mqtt/mqtt.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { PoscrismaModule } from './poscrisma/poscrisma.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { PrismaModule } from './prisma/prisma.module';
     PrismaModule,
     MqttModule,
     BlogModule,
+    PoscrismaModule,
   ],
   controllers: [AppController, TokenController],
   providers: [
@@ -55,4 +57,4 @@ import { PrismaModule } from './prisma/prisma.module';
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }
