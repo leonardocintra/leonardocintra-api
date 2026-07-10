@@ -24,6 +24,50 @@ $ npm run start:prod
 $ npx prisma migrate deploy
 ```
 
+## API token (Padre Ramon)
+
+Use this flow to authenticate requests to `POST /padre-ramon/registro-visita`.
+
+### 1) Generate a token
+
+Call:
+
+```bash
+curl -X POST http://localhost:3005/token
+```
+
+Response example:
+
+```json
+{
+	"token": "<TOKEN_RAW>",
+	"tokenHash": "<TOKEN_HASH_SHA256>"
+}
+```
+
+### 2) Save only `tokenHash` in database
+
+Create an active `ApiClient` row with `name`, `tokenHash`, and `isActive = true`.
+
+Important: do not send `tokenHash` in request headers. Keep and send only `token` (raw value).
+
+### 3) Use the token in Authorization header
+
+```bash
+curl -X POST http://localhost:3005/padre-ramon/registro-visita \
+	-H "Content-Type: application/json" \
+	-H "Authorization: Bearer <TOKEN_RAW>" \
+	-d '{
+		"name": "Teste",
+		"email": "teste@example.com"
+	}'
+```
+
+### Notes
+
+- This API token does not expire by time by default.
+- Access is denied if the `ApiClient` does not exist, `tokenHash` does not match, or `isActive` is `false`.
+
 ## Run tests
 
 ```bash

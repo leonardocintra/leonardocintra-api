@@ -14,6 +14,7 @@ import { BlogModule } from './blog/blog.module';
 import { LeadsModule } from './leads/leads.module';
 import { MqttModule } from './mqtt/mqtt.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { PadreRamonModule } from './padre-ramon/padre-ramon.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { PrismaModule } from './prisma/prisma.module';
     PrismaModule,
     MqttModule,
     BlogModule,
+    PadreRamonModule,
   ],
   controllers: [AppController, TokenController],
   providers: [

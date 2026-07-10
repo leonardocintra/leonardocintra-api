@@ -275,6 +275,7 @@ model PadreRamonRegistroVisitaTumulo {
   id              Int       @id @default(autoincrement())
   name            String    @db.VarChar(100)
   email           String?   @db.VarChar(100)
+  cidade          String?   @db.VarChar(100)
   whatsapp        String?   @db.VarChar(20)
   message         String?   @db.Text
   pais            String?   @default("Brasil") @db.VarChar(50)
