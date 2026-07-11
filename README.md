@@ -94,6 +94,17 @@ $ mau deploy
 
 With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
 
+## Integração SQS - Padre Ramon
+
+O módulo `PadreRamon` agora consome uma fila AWS SQS a cada hora (por padrão) e encaminha o payload para o webhook `https://n8n.leonardocintra.com.br/webhook-test/10830890-4cb5-44d5-bef3-6d64fcdfb758`. O body enviado segue o DTO `src/padre-ramon/dtos/create-registro-visita.dto.ts`, com o campo `type` sempre fixado como `registro-visita`.
+
+As seguintes variáveis de ambiente controlam o comportamento do cron:
+
+- `PADRE_RAMON_SQS_QUEUE_URL`: URL da fila SQS onde as mensagens são lidas. Sem essa variável, não há leitura.
+- `PADRE_RAMON_SQS_CRON`: expressão cron que define a frequência da verificação. O valor padrão é `0 0 * * * *` (todo topo de hora).
+
+Ao ocorrer erro na leitura da fila ou na chamada ao webhook, o erro é logado e a mensagem permanece na fila para nova tentativa.
+
 ## Resources
 
 Check out a few resources that may come in handy when working with NestJS:

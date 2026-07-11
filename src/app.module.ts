@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import { AppController } from './app.controller';
@@ -11,6 +12,7 @@ import { JwtStrategy } from './auth/jwt/jwt.strategy';
 import { TokenController } from './auth/token/token.controller';
 import { PortaoModule } from './automations/portao/portao.module';
 import { BlogModule } from './blog/blog.module';
+import { CronModule } from './cron/cron.module';
 import { LeadsModule } from './leads/leads.module';
 import { MqttModule } from './mqtt/mqtt.module';
 import { PrismaModule } from './prisma/prisma.module';
@@ -21,6 +23,7 @@ import { PadreRamonModule } from './padre-ramon/padre-ramon.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    ScheduleModule.forRoot(),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -42,6 +45,7 @@ import { PadreRamonModule } from './padre-ramon/padre-ramon.module';
     PrismaModule,
     MqttModule,
     BlogModule,
+    CronModule,
     PadreRamonModule,
   ],
   controllers: [AppController, TokenController],

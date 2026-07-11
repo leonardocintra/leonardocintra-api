@@ -5,12 +5,10 @@ import { CreateRegistroVisitaDto } from './dtos/create-registro-visita.dto';
 @Injectable()
 export class PadreRamonService {
   private readonly logger = new Logger(PadreRamonService.name);
-
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async createRegistroVisita(createRegistroVisitaDto: CreateRegistroVisitaDto) {
     this.logger.log('Creating registro visita');
-    // Logic to create a registro visita in the database
     return this.prisma.padreRamonRegistroVisitaTumulo.create({
       data: {
         name: createRegistroVisitaDto.nome,
@@ -21,7 +19,7 @@ export class PadreRamonService {
         message: createRegistroVisitaDto.mensagem,
         email: createRegistroVisitaDto.email,
         whatsapp: createRegistroVisitaDto.whatsapp,
-      }
-    })
+      },
+    });
   }
 }
