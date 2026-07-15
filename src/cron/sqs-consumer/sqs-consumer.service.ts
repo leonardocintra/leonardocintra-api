@@ -53,45 +53,53 @@ export class SqsConsumerService implements OnApplicationBootstrap {
       return;
     }
 
-    let message: Message | undefined;
+    let hasMessages = true;
 
-    try {
-      message = await this.awsSqsService.receiveMessage(queueUrl);
-    } catch (error) {
-      this.logger.error('Erro ao ler mensagem da fila SQS Padre Ramon', error);
-      return;
-    }
+    while (hasMessages) {
+      let message: Message | undefined;
 
-    if (!message?.Body) {
-      this.logger.debug('Nenhuma mensagem na fila SQS Padre Ramon no momento.');
-      return;
-    }
+      try {
+        message = await this.awsSqsService.receiveMessage(queueUrl);
+      } catch (error) {
+        this.logger.error('Erro ao ler mensagem da fila SQS Padre Ramon', error);
+        break;
+      }
 
-    let payload: CreateRegistroVisitaDto;
+      if (!message?.Body) {
+        this.logger.debug('Nenhuma (nova) mensagem na fila SQS Padre Ramon no momento.');
+        hasMessages = false;
+        break;
+      }
 
-    try {
-      payload = JSON.parse(message.Body) as CreateRegistroVisitaDto;
-    } catch (error) {
-      this.logger.error('Payload da fila SQS inválido', error);
-      return;
-    }
+      let payload: CreateRegistroVisitaDto;
+      try {
+        payload = JSON.parse(message.Body) as CreateRegistroVisitaDto;
+      } catch (error) {
+        this.logger.error('Payload da fila SQS inválido', error);
+        continue;
+      }
 
-    const webhookPayload = {
-      ...payload,
-      type: 'registro-visita' as const,
-    };
+      const webhookPayload = {
+        ...payload,
+        type: 'registro-visita' as const,
+      };
 
-    try {
-      await firstValueFrom(this.httpService.post(this.webhookUrl, webhookPayload));
-    } catch (error) {
-      this.logger.error('Falha ao notificar webhook do registro de visita', error);
-      return;
-    }
+      try {
+        await firstValueFrom(this.httpService.post(this.webhookUrl, webhookPayload));
+      } catch (error) {
+        this.logger.error('Falha ao notificar webhook do registro de visita', error);
+        continue;
+      }
 
-    try {
-      await this.awsSqsService.deleteMessage(queueUrl, message.ReceiptHandle);
-    } catch (error) {
-      this.logger.error('Falha ao deletar mensagem da fila SQS após envio do webhook', error);
+      try {
+        if (message.ReceiptHandle) {
+          await this.awsSqsService.deleteMessage(queueUrl, message.ReceiptHandle);
+        }
+      } catch (error) {
+        this.logger.error('Falha ao deletar mensagem da fila SQS após envio do webhook', error);
+      }
+
+      await new Promise(resolve => setTimeout(resolve, 60000));
     }
   }
 }
