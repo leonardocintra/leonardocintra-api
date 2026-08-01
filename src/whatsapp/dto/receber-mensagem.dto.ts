@@ -32,15 +32,109 @@ export class KeyDto {
 export class MessageDto {
   @IsOptional()
   @IsObject()
-  senderKeyDistributionMessage?: Record<string, unknown>;
-
-  @IsOptional()
-  @IsObject()
   messageContextInfo?: Record<string, unknown>;
 
   @IsOptional()
   @IsString()
   conversation?: string;
+}
+
+export class ContextInfoDto {
+  @IsOptional()
+  @IsObject()
+  mentionedJid?: unknown[];
+
+  @IsOptional()
+  @IsObject()
+  groupMentions?: unknown[];
+
+  @IsOptional()
+  @IsObject()
+  statusAttributions?: unknown[];
+
+  @IsOptional()
+  @IsString()
+  stanzaId?: string;
+
+  @IsOptional()
+  @IsString()
+  participant?: string;
+
+  @IsOptional()
+  @IsObject()
+  quotedMessage?: Record<string, unknown>;
+
+  @IsOptional()
+  @IsNumber()
+  pairedMediaType?: number;
+
+  @IsOptional()
+  @IsObject()
+  contextInfo?: Record<string, unknown>;
+
+  @IsOptional()
+  @IsObject()
+  scansSidecar?: Record<string, number>;
+
+  @IsOptional()
+  @IsObject()
+  midQualityFileSha256?: Record<string, number>;
+
+  @IsOptional()
+  @IsObject()
+  fileSha256?: Record<string, number>;
+
+  @IsOptional()
+  @IsObject()
+  mediaKey?: Record<string, number>;
+
+  @IsOptional()
+  @IsObject()
+  fileEncSha256?: Record<string, number>;
+
+  @IsOptional()
+  @IsObject()
+  fileLength?: Record<string, unknown>;
+
+  @IsOptional()
+  @IsObject()
+  mediaKeyTimestamp?: Record<string, unknown>;
+
+  @IsOptional()
+  @IsObject()
+  jpegThumbnail?: Record<string, number>;
+
+  @IsOptional()
+  @IsString()
+  url?: string;
+
+  @IsOptional()
+  @IsString()
+  mimetype?: string;
+
+  @IsOptional()
+  @IsString()
+  directPath?: string;
+
+  @IsOptional()
+  @IsNumber()
+  height?: number;
+
+  @IsOptional()
+  @IsNumber()
+  width?: number;
+
+  @IsOptional()
+  @IsObject()
+  interactiveAnnotations?: unknown[];
+
+  @IsOptional()
+  @IsObject()
+  annotations?: unknown[];
+
+  @IsOptional()
+  @IsObject()
+  scanLengths?: number[];
 }
 
 export class DataDto {
@@ -59,8 +153,9 @@ export class DataDto {
   message!: MessageDto;
 
   @IsOptional()
-  @IsObject()
-  contextInfo?: Record<string, unknown> | null;
+  @ValidateNested()
+  @Type(() => ContextInfoDto)
+  contextInfo?: ContextInfoDto;
 
   @IsString()
   messageType!: string;
@@ -75,7 +170,7 @@ export class DataDto {
   source!: string;
 }
 
-export class BodyDto {
+export class ReceberMensagemDto {
   @IsString()
   event!: string;
 
@@ -100,25 +195,4 @@ export class BodyDto {
 
   @IsString()
   apikey!: string;
-}
-
-export class ReceberMensagemDto {
-  @IsObject()
-  headers!: Record<string, string>;
-
-  @IsObject()
-  params!: Record<string, unknown>;
-
-  @IsObject()
-  query!: Record<string, unknown>;
-
-  @ValidateNested()
-  @Type(() => BodyDto)
-  body!: BodyDto;
-
-  @IsString()
-  webhookUrl!: string;
-
-  @IsString()
-  executionMode!: string;
 }

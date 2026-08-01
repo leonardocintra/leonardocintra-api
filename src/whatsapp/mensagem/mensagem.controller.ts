@@ -1,6 +1,4 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { plainToInstance } from 'class-transformer';
-import { validateOrReject } from 'class-validator';
 import { ReceberMensagemDto } from '../dto/receber-mensagem.dto';
 import { IsPublic } from 'src/decorators/public/public.decorator';
 import { MensagemService } from './mensagem.service';
@@ -11,11 +9,7 @@ export class MensagemController {
   constructor(private readonly mensagemService: MensagemService) { }
 
   @Post('receber')
-  async receberMensagem(@Body() payload: unknown) {
-    console.log('Recebendo mensagem do WhatsApp:', JSON.stringify(payload));
-    const item = Array.isArray(payload) ? payload[0] : payload;
-    const mensagem = plainToInstance(ReceberMensagemDto, item);
-    await validateOrReject(mensagem);
+  receberMensagem(@Body() mensagem: ReceberMensagemDto) {
     return this.mensagemService.receberMensagem(mensagem);
   }
 }
