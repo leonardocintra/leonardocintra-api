@@ -11,7 +11,7 @@ export class MensagemService extends BaseService {
 
   receberMensagem(mensagem: ReceberMensagemDto) {
     // Lógica para processar a mensagem recebida
-    this.logger.debug(`Mensagem recebida: ${JSON.stringify(mensagem)}`);
+    this.logger.debug(`Mensagem recebida: ${JSON.stringify(mensagem.body.server_url)}`);
     return { success: true };
   }
 }
