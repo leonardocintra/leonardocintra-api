@@ -12,6 +12,7 @@ export class MensagemController {
 
   @Post('receber')
   async receberMensagem(@Body() payload: unknown) {
+    console.log('Recebendo mensagem do WhatsApp:', JSON.stringify(payload));
     const item = Array.isArray(payload) ? payload[0] : payload;
     const mensagem = plainToInstance(ReceberMensagemDto, item);
     await validateOrReject(mensagem);
