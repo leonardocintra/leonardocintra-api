@@ -17,6 +17,7 @@ import { LeadsModule } from './leads/leads.module';
 import { MqttModule } from './mqtt/mqtt.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { PadreRamonModule } from './padre-ramon/padre-ramon.module';
+import { WhatsappModule } from './whatsapp/whatsapp.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { PadreRamonModule } from './padre-ramon/padre-ramon.module';
     BlogModule,
     CronModule,
     PadreRamonModule,
+    WhatsappModule,
   ],
   controllers: [AppController, TokenController],
   providers: [
@@ -61,4 +63,4 @@ import { PadreRamonModule } from './padre-ramon/padre-ramon.module';
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }
