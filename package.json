@@ -17,7 +17,7 @@
     "postinstall": "prisma generate",
     "build": "nest build",
     "format": "biome format --write .",
-    "start": "nest start",
+    "start": "node dist/main",
     "start:dev": "nest start --watch",
     "dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
