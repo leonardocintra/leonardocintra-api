@@ -86,6 +86,7 @@ export class SqsConsumerService implements OnApplicationBootstrap {
 
       try {
         await firstValueFrom(this.httpService.post(this.webhookUrl, webhookPayload));
+        this.logger.debug(`Registro de visita notificado com sucesso de ${JSON.stringify(webhookPayload.nome)}`);
       } catch (error) {
         this.logger.error('Falha ao notificar webhook do registro de visita', error);
         continue;
