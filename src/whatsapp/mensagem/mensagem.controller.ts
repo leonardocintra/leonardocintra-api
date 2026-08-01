@@ -9,8 +9,7 @@ export class MensagemController {
   constructor(private readonly mensagemService: MensagemService) { }
 
   @Post('receber')
-  receberMensagem(@Body() mensagem: any) {
-    console.log('Mensagem recebida:', mensagem);
+  receberMensagem(@Body() mensagem: ReceberMensagemDto) {
     return this.mensagemService.receberMensagem(mensagem);
   }
 }
