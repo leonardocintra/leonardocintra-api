@@ -9,10 +9,10 @@ export class MensagemController {
   constructor(private readonly mensagemService: MensagemService) { }
 
   @Post('receber')
-  receberMensagem(@Body() body: unknown) {
+  async receberMensagem(@Body() body: unknown) {
     try {
       const mensagem = body as ReceberMensagemDto;
-      return this.mensagemService.receberMensagem(mensagem);
+      return await this.mensagemService.receberMensagem(mensagem);
     } catch (error) {
       console.error('Erro ao receber mensagem whatsapp:', error);
       throw error;
