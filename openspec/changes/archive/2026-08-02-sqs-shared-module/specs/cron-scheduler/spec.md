@@ -1,8 +1,4 @@
-## Purpose
-
-Definir os requisitos do agendamento centralizado de jobs cron da aplicacao, incluindo o consumidor SQS do modulo Padre Ramon.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Modulo centralizado de cron jobs
 O sistema DEVE possuir um modulo `CronModule` em `src/cron/` responsavel por registrar e gerenciar todos os jobs agendados da aplicacao. O modulo DEVE importar `HttpModule`, `AwsModule` e `ScheduleModule` conforme necessario para cada job.
@@ -33,20 +29,3 @@ O job de consumo da fila SQS do Padre Ramon DEVE permanecer em `src/cron/sqs-con
 #### Scenario: Job nao executa sem queue URL
 - **WHEN** a env `PADRE_RAMON_SQS_QUEUE_URL` nao estiver configurada
 - **THEN** o cron DEVE logar um aviso e pular a execucao sem erro
-
-### Requirement: PadreRamonService sem responsabilidade de cron
-O `PadreRamonService` NAO DEVE mais conter logica de agendamento (`OnModuleInit`, `CronJob`, `processSqsQueue`). Ele DEVE permanecer apenas com o metodo `createRegistroVisita()` e suas dependencias originais (`PrismaService`).
-
-#### Scenario: PadreRamonService limpo
-- **WHEN** a aplicacao inicializar
-- **THEN** o `PadreRamonService` NAO DEVE implementar `OnModuleInit`
-- **AND** NAO DEVE importar `CronJob` de `@nestjs/schedule`
-- **AND** NAO DEVE importar `HttpService` de `@nestjs/axios`
-- **AND** NAO DEVE importar `AwsSqsService`
-
-### Requirement: Cron module exposto globalmente
-O `CronModule` DEVE ser importado no `AppModule` para que os jobs sejam registrados na inicializacao da aplicacao.
-
-#### Scenario: AppModule importa CronModule
-- **WHEN** a aplicacao e iniciada
-- **THEN** o `AppModule` DEVE conter `CronModule` na lista de `imports`

@@ -1,10 +1,8 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { AwsSqsService } from './aws-sqs.service';
+import { SqsModule } from './sqs/sqs.module';
 
 @Module({
-  imports: [ConfigModule],
-  providers: [AwsSqsService],
-  exports: [AwsSqsService],
+  imports: [SqsModule],
+  exports: [SqsModule],
 })
 export class AwsModule {}

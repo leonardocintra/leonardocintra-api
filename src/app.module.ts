@@ -18,6 +18,7 @@ import { MqttModule } from './mqtt/mqtt.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { PadreRamonModule } from './padre-ramon/padre-ramon.module';
 import { WhatsappModule } from './whatsapp/whatsapp.module';
+import { WorkerModule } from './worker/worker.module';
 
 @Module({
   imports: [
@@ -49,6 +50,7 @@ import { WhatsappModule } from './whatsapp/whatsapp.module';
     CronModule,
     PadreRamonModule,
     WhatsappModule,
+    WorkerModule,
   ],
   controllers: [AppController, TokenController],
   providers: [

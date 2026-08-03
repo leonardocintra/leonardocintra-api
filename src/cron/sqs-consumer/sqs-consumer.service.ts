@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { Cron, SchedulerRegistry } from '@nestjs/schedule';
 import { CronTime } from 'cron';
 import { firstValueFrom } from 'rxjs';
-import { AwsSqsService } from 'src/aws/aws-sqs.service';
+import { SqsService } from 'src/aws/sqs/sqs.service';
 import { CreateRegistroVisitaDto } from 'src/padre-ramon/dtos/create-registro-visita.dto';
 
 @Injectable()
@@ -17,7 +17,7 @@ export class SqsConsumerService implements OnApplicationBootstrap {
 
   constructor(
     private readonly configService: ConfigService,
-    private readonly awsSqsService: AwsSqsService,
+    private readonly sqsService: SqsService,
     private readonly httpService: HttpService,
     private readonly schedulerRegistry: SchedulerRegistry,
   ) { }
@@ -59,7 +59,7 @@ export class SqsConsumerService implements OnApplicationBootstrap {
       let message: Message | undefined;
 
       try {
-        message = await this.awsSqsService.receiveMessage(queueUrl);
+        message = await this.sqsService.receiveMessage(queueUrl);
       } catch (error) {
         this.logger.error('Erro ao ler mensagem da fila SQS Padre Ramon', error);
         break;
@@ -94,7 +94,7 @@ export class SqsConsumerService implements OnApplicationBootstrap {
 
       try {
         if (message.ReceiptHandle) {
-          await this.awsSqsService.deleteMessage(queueUrl, message.ReceiptHandle);
+          await this.sqsService.deleteMessage(queueUrl, message.ReceiptHandle);
         }
       } catch (error) {
         this.logger.error('Falha ao deletar mensagem da fila SQS após envio do webhook', error);
