@@ -3,6 +3,7 @@ import {
   type CanActivate,
   type ExecutionContext,
   Injectable,
+  Logger,
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -11,10 +12,12 @@ import { IS_PUBLIC_KEY } from 'src/decorators/public/public.decorator';
 
 @Injectable()
 export class ClerkAuthGuard implements CanActivate {
+  protected readonly logger = new Logger(ClerkAuthGuard.name);
+
   constructor(
     private readonly configService: ConfigService,
     private readonly reflector: Reflector,
-  ) {}
+  ) { }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     // Verifica se a rota está marcada com o decorator @Public
@@ -59,7 +62,8 @@ export class ClerkAuthGuard implements CanActivate {
 
       return true;
     } catch (error) {
-      console.error('Token verification failed:', error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.error('Token verification failed:', errorMessage);
       throw new UnauthorizedException('Invalid or expired token.');
     }
   }

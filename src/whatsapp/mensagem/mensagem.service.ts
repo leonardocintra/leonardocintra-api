@@ -27,7 +27,8 @@ export class MensagemService extends BaseService {
       return { success: true };
     }
 
-    if (mensagem.data.key.remoteJid !== allowedGroups) {
+    const allowedGroupsArray = allowedGroups?.split(',') ?? [];
+    if (!allowedGroupsArray.includes(mensagem.data.key.remoteJid)) {
       return { success: true };
     }
 

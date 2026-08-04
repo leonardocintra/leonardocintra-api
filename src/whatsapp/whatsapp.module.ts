@@ -8,5 +8,6 @@ import { MensagemController } from './mensagem/mensagem.controller';
   imports: [AwsModule, HttpModule],
   providers: [MensagemService],
   controllers: [MensagemController],
+  exports: [MensagemService],
 })
 export class WhatsappModule {}
