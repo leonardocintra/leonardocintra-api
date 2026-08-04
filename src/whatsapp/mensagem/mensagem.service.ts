@@ -41,7 +41,6 @@ export class MensagemService extends BaseService {
 
     try {
       await this.sqsService.sendMessage(queueUrl, JSON.stringify(mensagem));
-      this.logger.debug(`Mensagem enviada para SQS: ${JSON.stringify(mensagem.instance)}`);
     } catch (error) {
       this.logger.error('Falha ao enviar mensagem para SQS', error);
     }
