@@ -27,6 +27,7 @@ export class MensagemService extends BaseService {
       return { success: true };
     }
 
+    // Verifica se a mensagem veio de um grupo permitido
     const allowedGroupsArray = allowedGroups?.split(',') ?? [];
     if (!allowedGroupsArray.includes(mensagem.data.key.remoteJid)) {
       return { success: true };
@@ -37,6 +38,11 @@ export class MensagemService extends BaseService {
         'ACHE_PRECO_BOM_SQS_QUEUE_URL não configurada. Mensagem não enviada para SQS.',
       );
       return { success: true };
+    }
+
+    if (mensagem.data.message.conversation && this.filtrarMensagem(mensagem.data.message.conversation)) {
+      this.logger.debug('Mensagem filtrada e não enviada para WhatsApp');
+      return { success: true, message: 'Mensagem filtrada e não enviada para WhatsApp' };
     }
 
     try {
@@ -79,5 +85,9 @@ export class MensagemService extends BaseService {
       );
       throw error;
     }
+  }
+
+  private filtrarMensagem(mensagem: string): boolean {
+    return mensagem.includes('Achado Amazon');
   }
 }

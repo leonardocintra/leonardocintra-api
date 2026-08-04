@@ -19,6 +19,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { PadreRamonModule } from './padre-ramon/padre-ramon.module';
 import { WhatsappModule } from './whatsapp/whatsapp.module';
 import { WorkerModule } from './worker/worker.module';
+import { AfiliadosModule } from './afiliados/afiliados.module';
 
 @Module({
   imports: [
@@ -51,6 +52,7 @@ import { WorkerModule } from './worker/worker.module';
     PadreRamonModule,
     WhatsappModule,
     WorkerModule,
+    AfiliadosModule,
   ],
   controllers: [AppController, TokenController],
   providers: [

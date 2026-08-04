@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { SqsService } from 'src/aws/sqs/sqs.service';
 import { MensagemService } from 'src/whatsapp/mensagem/mensagem.service';
 import { ReceberMensagemDto } from 'src/whatsapp/dto/receber-mensagem.dto';
+import { AfiliadosService } from 'src/afiliados/afiliados.service';
 
 @Injectable()
 export class WhatsAppWorkerService implements OnApplicationBootstrap {
@@ -15,7 +16,8 @@ export class WhatsAppWorkerService implements OnApplicationBootstrap {
     private readonly configService: ConfigService,
     private readonly sqsService: SqsService,
     private readonly mensagemService: MensagemService,
-  ) {}
+    private readonly afiliadosService: AfiliadosService,
+  ) { }
 
   onApplicationBootstrap() {
     const queueUrl = this.configService.get<string>('ACHE_PRECO_BOM_SQS_QUEUE_URL');
@@ -74,7 +76,8 @@ export class WhatsAppWorkerService implements OnApplicationBootstrap {
     }
 
     try {
-      await this.mensagemService.enviarMensagem(text);
+      const mensagemConvertida = this.afiliadosService.converterMensagem(text);
+      await this.mensagemService.enviarMensagem(mensagemConvertida);
       this.logger.debug('Mensagem enviada para WhatsApp com sucesso.');
     } catch (error) {
       this.logger.error('Falha ao enviar mensagem para WhatsApp', error);
