@@ -88,6 +88,6 @@ export class MensagemService extends BaseService {
   }
 
   private filtrarMensagem(mensagem: string): boolean {
-    return mensagem.includes('Achado Amazon');
+    return mensagem.includes('Achado Amazon') || mensagem.includes('Achado Netshoes') || mensagem.includes('Achado Kabum') || mensagem.includes('Achado Submarino') || mensagem.includes('Achado Americanas') || mensagem.includes('Achado Magazine Luiza') || mensagem.includes('Achado Magazine Luiza');
   }
 }
