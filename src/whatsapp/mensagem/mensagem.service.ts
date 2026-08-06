@@ -19,9 +19,14 @@ export class MensagemService extends BaseService {
   }
 
   async receberMensagem(mensagem: ReceberMensagemDto) {
+    const acheiPrecoBomEnabled = this.configService.get<boolean>('ACHEI_PRECO_BOM_ENABLED');
     const instanceId = this.configService.get<string>('EVOLUTION_INSTANCE_LEONARDO_ID');
     const allowedGroups = this.configService.get<string>('EVOLUTION_ALLOWED_GROUPS');
-    const queueUrl = this.configService.get<string>('ACHE_PRECO_BOM_SQS_QUEUE_URL');
+    const queueUrl = this.configService.get<string>('ACHEI_PRECO_BOM_SQS_QUEUE_URL');
+
+    if (!acheiPrecoBomEnabled) {
+      return { success: true, message: 'Recebimento de mensagem desativado' };
+    }
 
     if (mensagem.instance !== instanceId) {
       return { success: true };
@@ -35,7 +40,7 @@ export class MensagemService extends BaseService {
 
     if (!queueUrl) {
       this.logger.warn(
-        'ACHE_PRECO_BOM_SQS_QUEUE_URL não configurada. Mensagem não enviada para SQS.',
+        'ACHEI_PRECO_BOM_SQS_QUEUE_URL não configurada. Mensagem não enviada para SQS.',
       );
       return { success: true };
     }
@@ -76,7 +81,6 @@ export class MensagemService extends BaseService {
 
     try {
       const response = await firstValueFrom(this.httpService.post(url, body, { headers }));
-      this.logger.debug(`Mensagem enviada para WhatsApp: ${number}`);
       return response.data;
     } catch (error) {
       this.logger.error(

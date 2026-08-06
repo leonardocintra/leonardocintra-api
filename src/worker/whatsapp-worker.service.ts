@@ -20,10 +20,10 @@ export class WhatsAppWorkerService implements OnApplicationBootstrap {
   ) { }
 
   onApplicationBootstrap() {
-    const queueUrl = this.configService.get<string>('ACHE_PRECO_BOM_SQS_QUEUE_URL');
+    const queueUrl = this.configService.get<string>('ACHEI_PRECO_BOM_SQS_QUEUE_URL');
 
     if (!queueUrl) {
-      this.logger.warn('ACHE_PRECO_BOM_SQS_QUEUE_URL não configurada. Worker não iniciado.');
+      this.logger.warn('ACHEI_PRECO_BOM_SQS_QUEUE_URL não configurada. Worker não iniciado.');
       return;
     }
 

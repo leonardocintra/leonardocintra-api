@@ -1,11 +1,11 @@
 ## Context
 
-O `MensagemService.receberMensagem` já envia mensagens WhatsApp recebidas para a fila SQS (`ACHE_PRECO_BOM_SQS_QUEUE_URL`). O projeto já possui um padrão de consumer SQS em `src/cron/sqs-consumer/sqs-consumer.service.ts` que faz polling via cron e processa mensagens com delete após sucesso. O novo worker segue o mesmo padrão de polling, mas é disparado no bootstrap da aplicação (`OnApplicationBootstrap`) em vez de cron, e chama `MensagemService.enviarMensagem` em vez de um webhook HTTP.
+O `MensagemService.receberMensagem` já envia mensagens WhatsApp recebidas para a fila SQS (`ACHEI_PRECO_BOM_SQS_QUEUE_URL`). O projeto já possui um padrão de consumer SQS em `src/cron/sqs-consumer/sqs-consumer.service.ts` que faz polling via cron e processa mensagens com delete após sucesso. O novo worker segue o mesmo padrão de polling, mas é disparado no bootstrap da aplicação (`OnApplicationBootstrap`) em vez de cron, e chama `MensagemService.enviarMensagem` em vez de um webhook HTTP.
 
 ## Goals / Non-Goals
 
 **Goals:**
-- Consumir mensagens da fila SQS `ACHE_PRECO_BOM_SQS_QUEUE_URL` automaticamente na inicialização da aplicação
+- Consumir mensagens da fila SQS `ACHEI_PRECO_BOM_SQS_QUEUE_URL` automaticamente na inicialização da aplicação
 - Desserializar cada mensagem como `ReceberMensagemDto` e extrair o texto de `data.message.conversation`
 - Chamar `enviarMensagem(text)` para reencaminhar a mensagem ao WhatsApp
 - Excluir a mensagem da fila após processamento bem-sucedido

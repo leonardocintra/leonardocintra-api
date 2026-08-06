@@ -6,7 +6,7 @@
 ## 2. Implementação do WhatsAppWorkerService
 
 - [x] 2.1 Criar `src/worker/whatsapp-worker.service.ts` com classe `WhatsAppWorkerService` que implementa `OnApplicationBootstrap`, injetando `ConfigService`, `SqsService` e `MensagemService` no construtor
-- [x] 2.2 Implementar `onApplicationBootstrap()`: ler `ACHE_PRECO_BOM_SQS_QUEUE_URL` do `ConfigService`; se não configurada, logar warning e retornar; se configurada, iniciar `setInterval` que chama o método de polling
+- [x] 2.2 Implementar `onApplicationBootstrap()`: ler `ACHEI_PRECO_BOM_SQS_QUEUE_URL` do `ConfigService`; se não configurada, logar warning e retornar; se configurada, iniciar `setInterval` que chama o método de polling
 - [x] 2.3 Implementar o método de polling: chamar `sqsService.receiveMessage(queueUrl, { waitTimeSeconds: 20 })` para long polling; se não houver mensagem, retornar; se houver, desserializar o body com `JSON.parse` como `ReceberMensagemDto`
 - [x] 2.4 Extrair o texto de `data.message.conversation` do payload desserializado; se for vazio/undefined, logar warning com o `messageType` e chamar `sqsService.deleteMessage` para remover a mensagem inválida da fila
 - [x] 2.5 Chamar `mensagemService.enviarMensagem(text)` com o texto extraído; após sucesso, chamar `sqsService.deleteMessage(queueUrl, message.ReceiptHandle)` para eliminar a mensagem da fila
