@@ -58,7 +58,10 @@ export class WhatsAppWorkerService implements OnApplicationBootstrap {
       this.logger.error('Payload da fila SQS inválido', error);
       return;
     }
+    await this.processMessage(payload, message, queueUrl);
+  }
 
+  private async processMessage(payload: ReceberMensagemDto, message: Message, queueUrl: string): Promise<void> {
     const text = payload?.data?.message?.conversation;
 
     if (!text) {
@@ -76,11 +79,10 @@ export class WhatsAppWorkerService implements OnApplicationBootstrap {
     }
 
     try {
-      const mensagemConvertida = this.afiliadosService.converterMensagem(text);
-      await this.mensagemService.enviarMensagem(mensagemConvertida);
-      this.logger.debug('Mensagem enviada para WhatsApp com sucesso.');
+      await this.afiliadosService.salvarMensagemExterna('Pechinchou', text);
+      this.logger.debug('Mensagem salva no banco com sucesso.');
     } catch (error) {
-      this.logger.error('Falha ao enviar mensagem para WhatsApp', error);
+      this.logger.error('Falha ao salvar mensagem no banco', error);
       return;
     }
 

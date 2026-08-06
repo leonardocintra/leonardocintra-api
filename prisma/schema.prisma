@@ -285,3 +285,13 @@ model PadreRamonRegistroVisitaTumulo {
 
   @@map("padre_ramon_registro_visita_tumulo")
 }
+
+model AfiliadosMensagemExterna {
+  id        Int      @id @default(autoincrement())
+  origem    String   @db.VarChar(100)
+  message   String   @db.Text
+  createdAt DateTime @default(now())
+  status    String   @default("pending") @db.VarChar(20)
+
+  @@map("afiliados_mensagem_externa")
+}

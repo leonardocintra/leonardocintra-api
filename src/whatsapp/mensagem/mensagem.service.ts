@@ -19,12 +19,12 @@ export class MensagemService extends BaseService {
   }
 
   async receberMensagem(mensagem: ReceberMensagemDto) {
-    const acheiPrecoBomEnabled = this.configService.get<boolean>('ACHEI_PRECO_BOM_ENABLED');
+    const acheiPrecoBomEnabled = this.configService.get<boolean>('ACHEI_PRECO_BOM_ENABLED', false);
     const instanceId = this.configService.get<string>('EVOLUTION_INSTANCE_LEONARDO_ID');
     const allowedGroups = this.configService.get<string>('EVOLUTION_ALLOWED_GROUPS');
     const queueUrl = this.configService.get<string>('ACHEI_PRECO_BOM_SQS_QUEUE_URL');
 
-    if (!acheiPrecoBomEnabled) {
+    if (false === acheiPrecoBomEnabled) {
       return { success: true, message: 'Recebimento de mensagem desativado' };
     }
 
