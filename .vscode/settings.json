@@ -3,5 +3,32 @@
   "editor.formatOnSave": true,
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma-insider"
-  }
+  },
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#4dba15",
+    "activityBar.background": "#4dba15",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#e2ebfc",
+    "activityBarBadge.foreground": "#15202b",
+    "activityBarTop.activeBackground": "#4dba15",
+    "activityBarTop.background": "#4dba15",
+    "activityBarTop.foreground": "#15202b",
+    "activityBarTop.inactiveForeground": "#15202b99",
+    "commandCenter.border": "#e7e7e799",
+    "commandCenter.foreground": "#e7e7e7",
+    "sash.hoverBorder": "#4dba15",
+    "statusBar.background": "#3a8c10",
+    "statusBar.debuggingBackground": "#3a8c10",
+    "statusBar.debuggingForeground": "#e7e7e7",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#4dba15",
+    "statusBarItem.remoteBackground": "#a9c3f5",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "titleBar.activeBackground": "#3a8c10",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#3a8c1099",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "peacock.color": "#3a8c10"
 }

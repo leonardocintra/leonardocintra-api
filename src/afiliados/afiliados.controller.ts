@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { AfiliadosService } from './afiliados.service';
 import { IsPublic } from 'src/decorators/public/public.decorator';
 
@@ -11,5 +11,11 @@ export class AfiliadosController {
   @Get('/mensagem-externa')
   async getAfiliados(@Query('origem') origem?: string, @Query('status') status?: string) {
     return this.afiliadosService.buscarMensagemExterna(origem, status);
+  }
+
+  @IsPublic()
+  @Get('/mensagem-externa/:id')
+  async getAfiliadosById(@Param('id') id: string) {
+    return this.afiliadosService.buscarMensagemExternaById(id);
   }
 }

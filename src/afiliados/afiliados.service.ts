@@ -9,6 +9,12 @@ export class AfiliadosService extends BaseService {
     super(prismaService);
   }
 
+  async buscarMensagemExternaById(id: string) {
+    return await this.prismaService.afiliadosMensagemExterna.findUnique({
+      where: { id: +id },
+    });
+  }
+
   async buscarMensagemExterna(origem?: string, status?: string) {
     const where = origem ? { origem } : {};
     if (status) {
