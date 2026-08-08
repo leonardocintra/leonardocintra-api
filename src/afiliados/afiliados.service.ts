@@ -1,12 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { BaseService } from 'src/commons/BaseService';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { UpdateMensagemExternaDto } from './dto/update-mensagem.dto';
 
 @Injectable()
 export class AfiliadosService extends BaseService {
 
   constructor(protected readonly prismaService: PrismaService) {
     super(prismaService);
+  }
+
+  async atualizarMensagemExternaById(id: number, updateMensagemExternaDto: UpdateMensagemExternaDto) {
+    const updateData = updateMensagemExternaDto;
+    return await this.prismaService.afiliadosMensagemExterna.update({
+      where: { id: +id },
+      data: updateData,
+    });
   }
 
   async buscarMensagemExternaById(id: string) {
@@ -36,6 +45,16 @@ export class AfiliadosService extends BaseService {
       this.logger.debug(`Mensagem externa salva com sucesso. Origem: ${origem}`);
     }).catch((error) => {
       this.logger.error(`Erro ao salvar mensagem externa. Origem: ${origem}`, error);
+    });
+  }
+
+  async deleteMensagemExternaById(id: number): Promise<void> {
+    return await this.prismaService.afiliadosMensagemExterna.delete({
+      where: { id: +id },
+    }).then(() => {
+      this.logger.debug(`Mensagem externa deletada com sucesso. ID: ${id}`);
+    }).catch((error) => {
+      this.logger.error(`Erro ao deletar mensagem externa. ID: ${id}`, error);
     });
   }
 }
