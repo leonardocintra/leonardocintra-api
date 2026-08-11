@@ -19,12 +19,20 @@ export class MensagemService extends BaseService {
   }
 
   async receberMensagem(mensagem: ReceberMensagemDto) {
-    const acheiPrecoBomEnabled = this.configService.get<boolean>('ACHEI_PRECO_BOM_ENABLED', false);
+    const sqsBaseUrl = this.configService.get<string>('AVISEI_PRECO_BOM_BASE_SQS_QUEUE_URL');
+    const aviseiPrecoBomEnabled = this.configService.get<boolean>('AVISEI_PRECO_BOM_ENABLED', false);
     const instanceId = this.configService.get<string>('EVOLUTION_INSTANCE_LEONARDO_ID');
     const allowedGroups = this.configService.get<string>('EVOLUTION_ALLOWED_GROUPS');
-    const queueUrl = this.configService.get<string>('ACHEI_PRECO_BOM_SQS_QUEUE_URL');
+    const queueName = this.configService.get<string>('AVISEI_PRECO_BOM_MENSAGENS_SQS_QUEUE_NAME');
 
-    if (false === acheiPrecoBomEnabled) {
+    const queueUrl = sqsBaseUrl && queueName ? `${sqsBaseUrl}${queueName}` : 'ERRO';
+
+    if (queueUrl === 'ERRO') {
+      this.logger.error('AVISEI_PRECO_BOM_BASE_SQS_QUEUE_URL ou AVISEI_PRECO_BOM_MENSAGENS_SQS_QUEUE_NAME não configurada');
+      return { success: false, message: 'AVISEI_PRECO_BOM_BASE_SQS_QUEUE_URL ou AVISEI_PRECO_BOM_MENSAGENS_SQS_QUEUE_NAME não configurada' };
+    }
+
+    if (false === aviseiPrecoBomEnabled) {
       return { success: true, message: 'Recebimento de mensagem desativado' };
     }
 
@@ -35,13 +43,6 @@ export class MensagemService extends BaseService {
     // Verifica se a mensagem veio de um grupo permitido
     const allowedGroupsArray = allowedGroups?.split(',') ?? [];
     if (!allowedGroupsArray.includes(mensagem.data.key.remoteJid)) {
-      return { success: true };
-    }
-
-    if (!queueUrl) {
-      this.logger.warn(
-        'ACHEI_PRECO_BOM_SQS_QUEUE_URL não configurada. Mensagem não enviada para SQS.',
-      );
       return { success: true };
     }
 
@@ -77,7 +78,7 @@ export class MensagemService extends BaseService {
 
     const url = `${apiUrl}/message/sendText/${instance}`;
     const headers = { apikey: apiKey };
-    const body = { number: number, text, name: 'Juliana - Achei Preço Bom!' };
+    const body = { number: number, text, name: 'Juliana - Avisei Preço Bom!' };
 
     try {
       const response = await firstValueFrom(this.httpService.post(url, body, { headers }));

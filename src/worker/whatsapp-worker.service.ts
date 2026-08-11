@@ -20,10 +20,12 @@ export class WhatsAppWorkerService implements OnApplicationBootstrap {
   ) { }
 
   onApplicationBootstrap() {
-    const queueUrl = this.configService.get<string>('ACHEI_PRECO_BOM_SQS_QUEUE_URL');
+    const sqsBaseUrl = this.configService.get<string>('AWS_SQS_BASE_URL');
+    const sqsQueueName = this.configService.get<string>('AVISEI_PRECO_BOM_MENSAGENS_SQS_QUEUE_NAME');
 
-    if (!queueUrl) {
-      this.logger.warn('ACHEI_PRECO_BOM_SQS_QUEUE_URL não configurada. Worker não iniciado.');
+    const queueUrl = `${sqsBaseUrl}/${sqsQueueName}`;
+    if (!sqsBaseUrl || !sqsQueueName) {
+      this.logger.warn('AWS_SQS_BASE_URL ou AVISEI_PRECO_BOM_MENSAGENS_SQS_QUEUE_NAME não configurada. Worker não iniciado.');
       return;
     }
 
@@ -79,7 +81,7 @@ export class WhatsAppWorkerService implements OnApplicationBootstrap {
     }
 
     try {
-      await this.afiliadosService.salvarMensagemExterna('Pechinchou', text);
+      await this.afiliadosService.salvarMensagemExterna('WhatsApp', text);
       this.logger.debug('Mensagem salva no banco com sucesso.');
     } catch (error) {
       this.logger.error('Falha ao salvar mensagem no banco', error);

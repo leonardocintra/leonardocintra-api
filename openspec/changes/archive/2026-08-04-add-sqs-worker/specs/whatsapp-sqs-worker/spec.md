@@ -1,7 +1,7 @@
 ## ADDED Requirements
 
 ### Requirement: WhatsAppWorkerService consome mensagens da fila SQS
-O sistema SHALL possuir um `WhatsAppWorkerService` em `src/worker/whatsapp-worker.service.ts` que implementa `OnApplicationBootstrap` e faz polling contínuo da fila SQS configurada pela variável de ambiente `ACHEI_PRECO_BOM_SQS_QUEUE_URL`.
+O sistema SHALL possuir um `WhatsAppWorkerService` em `src/worker/whatsapp-worker.service.ts` que implementa `OnApplicationBootstrap` e faz polling contínuo da fila SQS configurada pela variável de ambiente `AVISEI_PRECO_BOM_SQS_QUEUE_URL`.
 
 #### Scenario: Polling iniciado no bootstrap da aplicação
 - **WHEN** a aplicação NestJS inicializa
@@ -9,7 +9,7 @@ O sistema SHALL possuir um `WhatsAppWorkerService` em `src/worker/whatsapp-worke
 - **AND** usa long polling com `WaitTimeSeconds: 20` para reduzir requests vazios
 
 #### Scenario: Queue URL não configurada
-- **WHEN** a variável de ambiente `ACHEI_PRECO_BOM_SQS_QUEUE_URL` não está configurada
+- **WHEN** a variável de ambiente `AVISEI_PRECO_BOM_SQS_QUEUE_URL` não está configurada
 - **THEN** o worker loga um warning e não inicia o polling
 - **AND** a aplicação continua funcionando normalmente
 

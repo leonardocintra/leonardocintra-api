@@ -1,21 +1,44 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { BaseService } from 'src/commons/BaseService';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { SqsService } from 'src/aws/sqs/sqs.service';
 import { UpdateMensagemExternaDto } from './dto/update-mensagem.dto';
 
 @Injectable()
 export class AfiliadosService extends BaseService {
 
-  constructor(protected readonly prismaService: PrismaService) {
+  constructor(
+    protected readonly prismaService: PrismaService,
+    private readonly sqsService: SqsService,
+    private readonly configService: ConfigService,
+  ) {
     super(prismaService);
   }
 
   async atualizarMensagemExternaById(id: number, updateMensagemExternaDto: UpdateMensagemExternaDto) {
     const updateData = updateMensagemExternaDto;
-    return await this.prismaService.afiliadosMensagemExterna.update({
+    const mensagemAtualizada = await this.prismaService.afiliadosMensagemExterna.update({
       where: { id: +id },
       data: updateData,
     });
+
+    const sqsBaseUrl = this.configService.get<string>('AWS_SQS_BASE_URL');
+    const queueName = this.configService.get<string>('AVISEI_PRECO_BOM_AFILIADOS_ID_SQS_QUEUE_NAME');
+
+    if (sqsBaseUrl && queueName) {
+      const url = `${sqsBaseUrl}/${queueName}`;
+      try {
+        await this.sqsService.sendMessage(url, JSON.stringify({ id: mensagemAtualizada.id }));
+        this.logger.debug(`Mensagem ${mensagemAtualizada.id} enviada para a fila SQS afiliados-id-mensagem`);
+      } catch (error) {
+        this.logger.error(`Falha ao enviar mensagem ${mensagemAtualizada.id} para a fila SQS afiliados-id-mensagem`, error);
+      }
+    } else {
+      this.logger.warn('AWS_SQS_BASE_URL ou AVISEI_PRECO_BOM_AFILIADOS_ID_SQS_QUEUE_NAME não configurada. Mensagem não enviada para SQS.');
+    }
+
+    return mensagemAtualizada;
   }
 
   async buscarMensagemExternaById(id: string) {
