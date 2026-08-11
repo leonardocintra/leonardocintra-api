@@ -115,6 +115,8 @@ export class WhatsAppWorkerService implements OnApplicationBootstrap {
     try {
       await this.mensagemService.enviarMensagem(mensagemExterna.message);
       this.logger.debug(`Mensagem ${payload.id} enviada para WhatsApp com sucesso.`);
+      await this.afiliadosService.deleteMensagemExternaById(payload.id);
+      this.logger.debug(`Mensagem ${payload.id} deletada do banco após envio bem-sucedido.`);
     } catch (error) {
       this.logger.error(`Falha ao enviar mensagem ${payload.id} para WhatsApp. Mantendo na fila SQS.`, error);
       return;
