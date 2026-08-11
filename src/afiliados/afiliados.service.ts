@@ -80,4 +80,21 @@ export class AfiliadosService extends BaseService {
       this.logger.error(`Erro ao deletar mensagem externa. ID: ${id}`, error);
     });
   }
+
+  async deleteMensagensAntigas(): Promise<void> {
+    const dataLimite = new Date();
+    dataLimite.setDate(dataLimite.getDate() - 1); // 1 dia atrás
+
+    return await this.prismaService.afiliadosMensagemExterna.deleteMany({
+      where: {
+        createdAt: {
+          lt: dataLimite,
+        },
+      },
+    }).then((result) => {
+      this.logger.debug(`Mensagens externas antigas deletadas com sucesso. Total deletado: ${result.count}`);
+    }).catch((error) => {
+      this.logger.error('Erro ao deletar mensagens externas antigas', error);
+    });
+  }
 }
