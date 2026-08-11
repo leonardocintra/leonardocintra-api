@@ -19,17 +19,17 @@ export class MensagemService extends BaseService {
   }
 
   async receberMensagem(mensagem: ReceberMensagemDto) {
-    const sqsBaseUrl = this.configService.get<string>('AVISEI_PRECO_BOM_BASE_SQS_QUEUE_URL');
+    const sqsBaseUrl = this.configService.get<string>('AWS_SQS_BASE_URL');
     const aviseiPrecoBomEnabled = this.configService.get<boolean>('AVISEI_PRECO_BOM_ENABLED', false);
     const instanceId = this.configService.get<string>('EVOLUTION_INSTANCE_LEONARDO_ID');
     const allowedGroups = this.configService.get<string>('EVOLUTION_ALLOWED_GROUPS');
     const queueName = this.configService.get<string>('AVISEI_PRECO_BOM_MENSAGENS_SQS_QUEUE_NAME');
 
-    const queueUrl = sqsBaseUrl && queueName ? `${sqsBaseUrl}${queueName}` : 'ERRO';
+    const queueUrl = sqsBaseUrl && queueName ? `${sqsBaseUrl}/${queueName}` : 'ERRO';
 
     if (queueUrl === 'ERRO') {
-      this.logger.error('AVISEI_PRECO_BOM_BASE_SQS_QUEUE_URL ou AVISEI_PRECO_BOM_MENSAGENS_SQS_QUEUE_NAME não configurada');
-      return { success: false, message: 'AVISEI_PRECO_BOM_BASE_SQS_QUEUE_URL ou AVISEI_PRECO_BOM_MENSAGENS_SQS_QUEUE_NAME não configurada' };
+      this.logger.error('AWS_SQS_BASE_URL ou AVISEI_PRECO_BOM_MENSAGENS_SQS_QUEUE_NAME não configurada');
+      return { success: false, message: 'AWS_SQS_BASE_URL ou AVISEI_PRECO_BOM_MENSAGENS_SQS_QUEUE_NAME não configurada' };
     }
 
     if (false === aviseiPrecoBomEnabled) {
