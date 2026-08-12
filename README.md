@@ -100,7 +100,7 @@ O módulo `PadreRamon` agora consome uma fila AWS SQS a cada hora (por padrão) 
 
 As seguintes variáveis de ambiente controlam o comportamento do cron:
 
-- `PADRE_RAMON_SQS_QUEUE_URL`: URL da fila SQS onde as mensagens são lidas. Sem essa variável, não há leitura.
+- `PADRE_RAMON_SQS_QUEUE_NAME`: URL da fila SQS onde as mensagens são lidas. Sem essa variável, não há leitura.
 - `PADRE_RAMON_SQS_CRON`: expressão cron que define a frequência da verificação. O valor padrão é `0 0 * * * *` (todo topo de hora).
 
 Ao ocorrer erro na leitura da fila ou na chamada ao webhook, o erro é logado e a mensagem permanece na fila para nova tentativa.

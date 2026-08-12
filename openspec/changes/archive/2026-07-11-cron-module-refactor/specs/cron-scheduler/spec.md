@@ -27,7 +27,7 @@ O job de consumo da fila SQS do Padre Ramon DEVE ser movido do `PadreRamonServic
 - **AND** DEVE logar erros sem deletar a mensagem em caso de falha
 
 #### Scenario: Job não executa sem queue URL
-- **WHEN** a env `PADRE_RAMON_SQS_QUEUE_URL` não estiver configurada
+- **WHEN** a env `PADRE_RAMON_SQS_QUEUE_NAME` não estiver configurada
 - **THEN** o cron DEVE logar um aviso e pular a execução sem erro
 
 ### Requirement: PadreRamonService sem responsabilidade de cron

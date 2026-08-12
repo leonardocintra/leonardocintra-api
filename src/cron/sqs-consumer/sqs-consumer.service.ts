@@ -46,12 +46,14 @@ export class SqsConsumerService implements OnApplicationBootstrap {
   }
 
   private async processSqsQueue() {
-    const queueUrl = this.configService.get<string>('PADRE_RAMON_SQS_QUEUE_URL');
+    const sqsBaseUrl = this.configService.get<string>('AWS_SQS_BASE_URL');
+    const queueName = this.configService.get<string>('PADRE_RAMON_SQS_QUEUE_NAME');
 
-    if (!queueUrl) {
-      this.logger.warn('PADRE_RAMON_SQS_QUEUE_URL não configurada. Pulando verificação da fila.');
+    if (!queueName || !sqsBaseUrl) {
+      this.logger.warn('PADRE_RAMON_SQS_QUEUE_NAME ou AWS_SQS_BASE_URL não configuradas. Pulando verificação da fila.');
       return;
     }
+    const queueUrl = `${sqsBaseUrl}/${queueName}`;
 
     let hasMessages = true;
 
