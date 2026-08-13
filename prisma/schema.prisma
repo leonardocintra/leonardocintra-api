@@ -292,6 +292,7 @@ model AfiliadosMensagemExterna {
   message   String   @db.Text
   createdAt DateTime @default(now())
   status    String   @default("pending") @db.VarChar(20)
+  imageUrl  String?  @db.VarChar(500)
 
   @@map("afiliados_mensagem_externa")
 }
