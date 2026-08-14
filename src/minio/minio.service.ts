@@ -35,7 +35,8 @@ export class MinioService {
       const buffer = await this.streamToBuffer(stream);
       const base64 = buffer.toString('base64');
 
-      return `data:${mimetype};base64,${base64}`;
+      //return `data:${mimetype};base64,${base64}`;
+      return base64;
     } catch (error) {
       this.logger.error(
         `Falha ao recuperar imagem do MinIO (bucket=${this.bucket}, objectKey=${objectKey})`,
