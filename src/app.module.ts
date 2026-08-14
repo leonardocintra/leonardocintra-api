@@ -20,6 +20,7 @@ import { PadreRamonModule } from './padre-ramon/padre-ramon.module';
 import { WhatsappModule } from './whatsapp/whatsapp.module';
 import { WorkerModule } from './worker/worker.module';
 import { AfiliadosModule } from './afiliados/afiliados.module';
+import { MinioModule } from './minio/minio.module';
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import { AfiliadosModule } from './afiliados/afiliados.module';
     WhatsappModule,
     WorkerModule,
     AfiliadosModule,
+    MinioModule,
   ],
   controllers: [AppController, TokenController],
   providers: [

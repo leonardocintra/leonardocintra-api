@@ -4,6 +4,7 @@ import { BaseService } from 'src/commons/BaseService';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SqsService } from 'src/aws/sqs/sqs.service';
 import { UpdateMensagemExternaDto } from './dto/update-mensagem.dto';
+import { AVISEI_PRECO_BOM_STATUS_PENDING } from 'src/utils/constants';
 
 @Injectable()
 export class AfiliadosService extends BaseService {
@@ -23,22 +24,27 @@ export class AfiliadosService extends BaseService {
       data: updateData,
     });
 
+    if (mensagemAtualizada.status === AVISEI_PRECO_BOM_STATUS_PENDING) {
+      await this.enviarParaFilaSQS(mensagemAtualizada.id);
+    }
+    return mensagemAtualizada;
+  }
+
+  private async enviarParaFilaSQS(mensagemId: number): Promise<void> {
     const sqsBaseUrl = this.configService.get<string>('AWS_SQS_BASE_URL');
     const queueName = this.configService.get<string>('AVISEI_PRECO_BOM_AFILIADOS_ID_SQS_QUEUE_NAME');
 
     if (sqsBaseUrl && queueName) {
       const url = `${sqsBaseUrl}/${queueName}`;
       try {
-        await this.sqsService.sendMessage(url, JSON.stringify({ id: mensagemAtualizada.id }));
-        this.logger.debug(`Mensagem ${mensagemAtualizada.id} enviada para a fila SQS afiliados-id-mensagem`);
+        await this.sqsService.sendMessage(url, JSON.stringify({ id: mensagemId }));
+        this.logger.debug(`Mensagem ${mensagemId} enviada para a fila SQS afiliados-id-mensagem`);
       } catch (error) {
-        this.logger.error(`Falha ao enviar mensagem ${mensagemAtualizada.id} para a fila SQS afiliados-id-mensagem`, error);
+        this.logger.error(`Falha ao enviar mensagem ${mensagemId} para a fila SQS afiliados-id-mensagem`, error);
       }
     } else {
       this.logger.warn('AWS_SQS_BASE_URL ou AVISEI_PRECO_BOM_AFILIADOS_ID_SQS_QUEUE_NAME não configurada. Mensagem não enviada para SQS.');
     }
-
-    return mensagemAtualizada;
   }
 
   async buscarMensagemExternaById(id: string) {
@@ -85,8 +91,11 @@ export class AfiliadosService extends BaseService {
     const dataLimite = new Date();
     dataLimite.setDate(dataLimite.getDate() - 1); // 1 dia atrás
 
+    // TODO: apagar a imagem do Minio também, se existir.
+
     return await this.prismaService.afiliadosMensagemExterna.deleteMany({
       where: {
+        status: AVISEI_PRECO_BOM_STATUS_PENDING,
         createdAt: {
           lt: dataLimite,
         },

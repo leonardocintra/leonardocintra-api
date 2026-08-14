@@ -5,6 +5,8 @@ import { SqsService } from 'src/aws/sqs/sqs.service';
 import { MensagemService } from 'src/whatsapp/mensagem/mensagem.service';
 import { ReceberMensagemDto } from 'src/whatsapp/dto/receber-mensagem.dto';
 import { AfiliadosService } from 'src/afiliados/afiliados.service';
+import { MinioService } from 'src/minio/minio.service';
+import { AVISEI_PRECO_BOM_STATUS_ONLINE } from 'src/utils/constants';
 
 @Injectable()
 export class WhatsAppWorkerService implements OnApplicationBootstrap {
@@ -18,6 +20,7 @@ export class WhatsAppWorkerService implements OnApplicationBootstrap {
     private readonly sqsService: SqsService,
     private readonly mensagemService: MensagemService,
     private readonly afiliadosService: AfiliadosService,
+    private readonly minioService: MinioService,
   ) { }
 
   onApplicationBootstrap() {
@@ -113,16 +116,25 @@ export class WhatsAppWorkerService implements OnApplicationBootstrap {
     }
 
     try {
+      let imageBase64: string | undefined;
+      if (mensagemExterna.imageUrl) {
+        try {
+          imageBase64 = await this.minioService.recuperarImagem(mensagemExterna.imageName);
+        } catch (error) {
+          this.logger.error(
+            `Falha ao recuperar imagem do MinIO para mensagem ${payload.id} (imageUrl=${mensagemExterna.imageUrl}). Mantendo na fila SQS.`,
+            error,
+          );
+          return;
+        }
+      }
 
-      // TODO: alterar a imagem com logo da marca
-      // TODO: enviar a mensagem com imagem, se houver, para o WhatsApp
+      // TODO: alterar a imagem com logo da marca Avisei Preço Bom!
 
-      await this.mensagemService.enviarMensagem(mensagemExterna.message);
+      await this.mensagemService.enviarMensagem(mensagemExterna.message, imageBase64);
       this.logger.debug(`Mensagem ${payload.id} enviada para WhatsApp com sucesso.`);
-      await this.afiliadosService.deleteMensagemExternaById(payload.id);
-      this.logger.debug(`Mensagem ${payload.id} deletada do banco após envio bem-sucedido.`);
 
-      // TODO: deletar a mensagem do Minio
+      await this.afiliadosService.atualizarMensagemExternaById(payload.id, { status: AVISEI_PRECO_BOM_STATUS_ONLINE });
     } catch (error) {
       this.logger.error(`Falha ao enviar mensagem ${payload.id} para WhatsApp. Mantendo na fila SQS.`, error);
       return;

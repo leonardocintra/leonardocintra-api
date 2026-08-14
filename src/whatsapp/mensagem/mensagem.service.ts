@@ -19,8 +19,13 @@ export class MensagemService extends BaseService {
   }
 
   async receberMensagem(mensagem: ReceberMensagemDto) {
-    const sqsBaseUrl = this.configService.get<string>('AWS_SQS_BASE_URL');
     const aviseiPrecoBomEnabled = this.configService.get<boolean>('AVISEI_PRECO_BOM_ENABLED', false);
+    if (!aviseiPrecoBomEnabled) {
+      this.logger.debug('Recebimento de mensagem desativado');
+      return { success: true, message: 'Recebimento de mensagem desativado' };
+    }
+
+    const sqsBaseUrl = this.configService.get<string>('AWS_SQS_BASE_URL');
     const instanceId = this.configService.get<string>('EVOLUTION_INSTANCE_LEONARDO_ID');
     const allowedGroups = this.configService.get<string>('EVOLUTION_ALLOWED_GROUPS');
     const queueName = this.configService.get<string>('AVISEI_PRECO_BOM_MENSAGENS_SQS_QUEUE_NAME');
@@ -32,9 +37,6 @@ export class MensagemService extends BaseService {
       return { success: false, message: 'AWS_SQS_BASE_URL ou AVISEI_PRECO_BOM_MENSAGENS_SQS_QUEUE_NAME não configurada' };
     }
 
-    if (false === aviseiPrecoBomEnabled) {
-      return { success: true, message: 'Recebimento de mensagem desativado' };
-    }
 
     if (mensagem.instance !== instanceId) {
       return { success: true };
@@ -60,7 +62,7 @@ export class MensagemService extends BaseService {
     return { success: true };
   }
 
-  async enviarMensagem(text: string) {
+  async enviarMensagem(text: string, imageBase64?: string): Promise<any> {
     const apiUrl = this.configService.get<string>('EVOLUTION_API_URL');
     const apiKey = this.configService.get<string>('EVOLUTION_API_KEY');
     const instance = this.configService.get<string>('EVOLUTION_INSTANCE_JULIANA_ID');
@@ -76,9 +78,18 @@ export class MensagemService extends BaseService {
       throw new Error('EVOLUTION_INSTANCE_JULIANA_ID não configurada');
     }
 
-    const url = `${apiUrl}/message/sendText/${instance}`;
+    const url = `${apiUrl}/message/sendMedia/${instance}`;
     const headers = { apikey: apiKey };
-    const body = { number: number, text, name: 'Juliana - Avisei Preço Bom!' };
+    const body = {
+      number,
+      mediatype: 'image',
+      mimetype: 'image/jpeg',
+      media: imageBase64,
+      caption: text,
+      fileName: 'imagem.jpg',
+    };
+
+    this.logger.debug(body);
 
     try {
       const response = await firstValueFrom(this.httpService.post(url, body, { headers }));
