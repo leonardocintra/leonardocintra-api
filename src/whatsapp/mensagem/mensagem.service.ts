@@ -19,8 +19,9 @@ export class MensagemService extends BaseService {
   }
 
   async receberMensagem(mensagem: ReceberMensagemDto) {
-    const aviseiPrecoBomEnabled = this.configService.get<boolean>('AVISEI_PRECO_BOM_ENABLED', false);
-    if (!aviseiPrecoBomEnabled) {
+    const aviseiPrecoBomEnabled = this.configService.get<string>('AVISEI_PRECO_BOM_ENABLED', 'false');
+    const isAviseiPrecoBomEnabled = aviseiPrecoBomEnabled === 'true';
+    if (!isAviseiPrecoBomEnabled) {
       this.logger.debug('Recebimento de mensagem desativado');
       return { success: true, message: 'Recebimento de mensagem desativado' };
     }
