@@ -1,28 +1,30 @@
 import { Injectable, Logger, type OnModuleDestroy, type OnModuleInit } from '@nestjs/common';
 import mqtt, { type MqttClient } from 'mqtt';
+import { EnvService } from 'src/config/env.service';
 
 @Injectable()
 export class MqttService implements OnModuleInit, OnModuleDestroy {
   private readonly logger = new Logger(MqttService.name);
-  private client: MqttClient;
+  private client?: MqttClient;
   private ultimoStatus: string | null = null;
 
+  constructor(private readonly env: EnvService) {}
+
   onModuleInit() {
-    const brokerUrl =
-      process.env.MQTT_BROKER_URL ||
-      'mqtts://246bc5a388ec4e978794cc3efb0d83b5.s1.eu.hivemq.cloud:8883';
+    const brokerUrl = this.env.MQTT_BROKER_URL as string;
 
     const options = {
-      username: process.env.MQTT_USERNAME,
-      password: process.env.MQTT_PASSWORD,
+      username: this.env.MQTT_USERNAME,
+      password: this.env.MQTT_PASSWORD,
       rejectUnauthorized: false,
     };
 
-    this.client = mqtt.connect(brokerUrl, options);
+    const client = mqtt.connect(brokerUrl, options);
+    this.client = client;
 
-    this.client.on('connect', () => {
+    client.on('connect', () => {
       this.logger.log('Conectado ao broker MQTT HiveMQ Cloud');
-      this.client.subscribe('casa/portao/status', (err) => {
+      client.subscribe('casa/portao/status', (err) => {
         if (err) {
           this.logger.error('Erro ao se inscrever em casa/portao/status:', err);
         } else {
@@ -31,22 +33,22 @@ export class MqttService implements OnModuleInit, OnModuleDestroy {
       });
     });
 
-    this.client.on('message', (topic, message) => {
+    client.on('message', (topic, message) => {
       if (topic === 'casa/portao/status') {
         this.ultimoStatus = message.toString();
         this.logger.log(`Feedback do portão: ${this.ultimoStatus}`);
       }
     });
 
-    this.client.on('error', (error) => {
+    client.on('error', (error) => {
       this.logger.error('Erro MQTT:', error);
     });
 
-    this.client.on('disconnect', () => {
+    client.on('disconnect', () => {
       this.logger.log('Desconectado do MQTT');
     });
 
-    this.client.on('reconnect', () => {
+    client.on('reconnect', () => {
       this.logger.log('Tentando reconectar MQTT...');
     });
   }

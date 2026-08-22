@@ -6,8 +6,8 @@ import {
   Logger,
   UnauthorizedException,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { Reflector } from '@nestjs/core';
+import { EnvService } from 'src/config/env.service';
 import { IS_PUBLIC_KEY } from 'src/decorators/public/public.decorator';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class ClerkAuthGuard implements CanActivate {
   protected readonly logger = new Logger(ClerkAuthGuard.name);
 
   constructor(
-    private readonly configService: ConfigService,
+    private readonly env: EnvService,
     private readonly reflector: Reflector,
   ) { }
 
@@ -46,7 +46,7 @@ export class ClerkAuthGuard implements CanActivate {
     }
 
     try {
-      const secretKey = this.configService.get<string>('CLERK_SECRET_KEY');
+      const secretKey = this.env.CLERK_SECRET_KEY;
       if (!secretKey) {
         throw new Error('CLERK_SECRET_KEY not found in environment variables.');
       }

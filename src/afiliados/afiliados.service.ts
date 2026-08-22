@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { BaseService } from 'src/commons/BaseService';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SqsService } from 'src/aws/sqs/sqs.service';
 import { UpdateMensagemExternaDto } from './dto/update-mensagem.dto';
 import { AVISEI_PRECO_BOM_STATUS_PENDING } from 'src/utils/constants';
+import { EnvService } from 'src/config/env.service';
 
 @Injectable()
 export class AfiliadosService extends BaseService {
@@ -12,7 +12,7 @@ export class AfiliadosService extends BaseService {
   constructor(
     protected readonly prismaService: PrismaService,
     private readonly sqsService: SqsService,
-    private readonly configService: ConfigService,
+    private readonly env: EnvService,
   ) {
     super(prismaService);
   }
@@ -31,14 +31,13 @@ export class AfiliadosService extends BaseService {
   }
 
   private async enviarParaFilaSQS(mensagemId: number): Promise<void> {
-    const sqsBaseUrl = this.configService.get<string>('AWS_SQS_BASE_URL');
-    const queueName = this.configService.get<string>('AVISEI_PRECO_BOM_AFILIADOS_ID_SQS_QUEUE_NAME');
+    const sqsBaseUrl = this.env.AWS_SQS_BASE_URL;
+    const queueName = this.env.AVISEI_PRECO_BOM_AFILIADOS_ID_SQS_QUEUE_NAME;
 
     if (sqsBaseUrl && queueName) {
       const url = `${sqsBaseUrl}/${queueName}`;
       try {
         await this.sqsService.sendMessage(url, JSON.stringify({ id: mensagemId }));
-        this.logger.debug(`Mensagem ${mensagemId} enviada para a fila SQS afiliados-id-mensagem`);
       } catch (error) {
         this.logger.error(`Falha ao enviar mensagem ${mensagemId} para a fila SQS afiliados-id-mensagem`, error);
       }
@@ -65,23 +64,19 @@ export class AfiliadosService extends BaseService {
   }
 
   async salvarMensagemExterna(origem: string, message: string): Promise<void> {
-    return await this.prismaService.afiliadosMensagemExterna.create({
+    await this.prismaService.afiliadosMensagemExterna.create({
       data: {
         origem,
         message,
       },
-    }).then(() => {
-      this.logger.debug(`Mensagem externa salva com sucesso. Origem: ${origem}`);
     }).catch((error) => {
       this.logger.error(`Erro ao salvar mensagem externa. Origem: ${origem}`, error);
     });
   }
 
   async deleteMensagemExternaById(id: number): Promise<void> {
-    return await this.prismaService.afiliadosMensagemExterna.delete({
+    await this.prismaService.afiliadosMensagemExterna.delete({
       where: { id: +id },
-    }).then(() => {
-      this.logger.debug(`Mensagem externa deletada com sucesso. ID: ${id}`);
     }).catch((error) => {
       this.logger.error(`Erro ao deletar mensagem externa. ID: ${id}`, error);
     });
@@ -93,15 +88,13 @@ export class AfiliadosService extends BaseService {
 
     // TODO: apagar a imagem do Minio também, se existir.
 
-    return await this.prismaService.afiliadosMensagemExterna.deleteMany({
+    await this.prismaService.afiliadosMensagemExterna.deleteMany({
       where: {
         status: AVISEI_PRECO_BOM_STATUS_PENDING,
         createdAt: {
           lt: dataLimite,
         },
       },
-    }).then((result) => {
-      this.logger.debug(`Mensagens externas antigas deletadas com sucesso. Total deletado: ${result.count}`);
     }).catch((error) => {
       this.logger.error('Erro ao deletar mensagens externas antigas', error);
     });

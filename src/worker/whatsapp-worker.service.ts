@@ -1,10 +1,10 @@
 import type { Message } from '@aws-sdk/client-sqs';
 import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { SqsService } from 'src/aws/sqs/sqs.service';
 import { MensagemService } from 'src/whatsapp/mensagem/mensagem.service';
 import { ReceberMensagemDto } from 'src/whatsapp/dto/receber-mensagem.dto';
 import { AfiliadosService } from 'src/afiliados/afiliados.service';
+import { EnvService } from 'src/config/env.service';
 import { MinioService } from 'src/minio/minio.service';
 import { AVISEI_PRECO_BOM_STATUS_ONLINE } from 'src/utils/constants';
 
@@ -16,7 +16,7 @@ export class WhatsAppWorkerService implements OnApplicationBootstrap {
   private afiliadosIdIntervalId: NodeJS.Timeout | undefined;
 
   constructor(
-    private readonly configService: ConfigService,
+    private readonly env: EnvService,
     private readonly sqsService: SqsService,
     private readonly mensagemService: MensagemService,
     private readonly afiliadosService: AfiliadosService,
@@ -24,8 +24,8 @@ export class WhatsAppWorkerService implements OnApplicationBootstrap {
   ) { }
 
   onApplicationBootstrap() {
-    const sqsBaseUrl = this.configService.get<string>('AWS_SQS_BASE_URL');
-    const sqsQueueName = this.configService.get<string>('AVISEI_PRECO_BOM_MENSAGENS_SQS_QUEUE_NAME');
+    const sqsBaseUrl = this.env.AWS_SQS_BASE_URL;
+    const sqsQueueName = this.env.AVISEI_PRECO_BOM_MENSAGENS_SQS_QUEUE_NAME;
 
     const queueUrl = `${sqsBaseUrl}/${sqsQueueName}`;
     if (!sqsBaseUrl || !sqsQueueName) {
@@ -43,7 +43,7 @@ export class WhatsAppWorkerService implements OnApplicationBootstrap {
   }
 
   private startAfiliadosIdWorker(sqsBaseUrl: string | undefined): void {
-    const afiliadosIdQueueName = this.configService.get<string>('AVISEI_PRECO_BOM_AFILIADOS_ID_SQS_QUEUE_NAME');
+    const afiliadosIdQueueName = this.env.AVISEI_PRECO_BOM_AFILIADOS_ID_SQS_QUEUE_NAME;
 
     if (!sqsBaseUrl || !afiliadosIdQueueName) {
       this.logger.warn('AWS_SQS_BASE_URL ou AVISEI_PRECO_BOM_AFILIADOS_ID_SQS_QUEUE_NAME não configurada. Worker de afiliados não iniciado.');

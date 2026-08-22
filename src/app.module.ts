@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
@@ -12,6 +12,8 @@ import { JwtStrategy } from './auth/jwt/jwt.strategy';
 import { TokenController } from './auth/token/token.controller';
 import { PortaoModule } from './automations/portao/portao.module';
 import { BlogModule } from './blog/blog.module';
+import { EnvModule } from './config/env.module';
+import { EnvService } from './config/env.service';
 import { CronModule } from './cron/cron.module';
 import { LeadsModule } from './leads/leads.module';
 import { MqttModule } from './mqtt/mqtt.module';
@@ -27,17 +29,18 @@ import { MinioModule } from './minio/minio.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    EnvModule,
     ScheduleModule.forRoot(),
     JwtModule.registerAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => {
-        const expiresInConfig = configService.get<string | number>('JWT_EXPIRES_IN');
+      imports: [EnvModule],
+      inject: [EnvService],
+      useFactory: (env: EnvService) => {
+        const expiresInConfig = env.JWT_EXPIRES_IN;
         const expiresIn =
           typeof expiresInConfig === 'number' ? expiresInConfig : Number(expiresInConfig);
 
         return {
-          secret: configService.get<string>('JWT_SECRET'),
+          secret: env.JWT_SECRET,
           signOptions: {
             expiresIn: Number.isFinite(expiresIn) ? expiresIn : 3600,
           },

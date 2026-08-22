@@ -1,20 +1,23 @@
 import { type User, createClerkClient } from '@clerk/backend';
 import { ForbiddenException, Injectable, Logger } from '@nestjs/common';
+import { EnvService } from 'src/config/env.service';
 import { LeadsService } from 'src/leads/leads.service';
 import { MqttService } from 'src/mqtt/mqtt.service';
 
 @Injectable()
 export class PortaoService {
   private readonly logger = new Logger(PortaoService.name);
-
-  private clerkClient = createClerkClient({
-    secretKey: process.env.CLERK_SECRET_KEY,
-  });
+  private readonly clerkClient: ReturnType<typeof createClerkClient>;
 
   constructor(
+    private readonly env: EnvService,
     private readonly leadService: LeadsService,
     private readonly mqttService: MqttService,
-  ) {}
+  ) {
+    this.clerkClient = createClerkClient({
+      secretKey: this.env.CLERK_SECRET_KEY,
+    });
+  }
 
   private enviarComandoPortao(comando: string, acao: string): { success: boolean; status: string } {
     try {

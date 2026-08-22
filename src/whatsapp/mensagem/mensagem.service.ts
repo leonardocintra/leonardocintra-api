@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
 import { SqsService } from 'src/aws/sqs/sqs.service';
 import { ReceberMensagemDto } from '../dto/receber-mensagem.dto';
 import { BaseService } from 'src/commons/BaseService';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { EnvService } from 'src/config/env.service';
 
 @Injectable()
 export class MensagemService extends BaseService {
@@ -13,23 +13,23 @@ export class MensagemService extends BaseService {
     protected readonly prismaService: PrismaService,
     private readonly sqsService: SqsService,
     private readonly httpService: HttpService,
-    private readonly configService: ConfigService,
+    private readonly env: EnvService,
   ) {
     super(prismaService);
   }
 
   async receberMensagem(mensagem: ReceberMensagemDto) {
-    const aviseiPrecoBomEnabled = this.configService.get<string>('AVISEI_PRECO_BOM_ENABLED', 'false');
+    const aviseiPrecoBomEnabled = this.env.AVISEI_PRECO_BOM_ENABLED;
     const isAviseiPrecoBomEnabled = aviseiPrecoBomEnabled === 'true';
     if (!isAviseiPrecoBomEnabled) {
-      this.logger.debug('Recebimento de mensagem desativado');
+      this.logger.warn('Recebimento de mensagem desativado');
       return { success: true, message: 'Recebimento de mensagem desativado' };
     }
 
-    const sqsBaseUrl = this.configService.get<string>('AWS_SQS_BASE_URL');
-    const instanceId = this.configService.get<string>('EVOLUTION_INSTANCE_LEONARDO_ID');
-    const allowedGroups = this.configService.get<string>('EVOLUTION_ALLOWED_GROUPS');
-    const queueName = this.configService.get<string>('AVISEI_PRECO_BOM_MENSAGENS_SQS_QUEUE_NAME');
+    const sqsBaseUrl = this.env.AWS_SQS_BASE_URL;
+    const instanceId = this.env.EVOLUTION_INSTANCE_LEONARDO_ID;
+    const allowedGroups = this.env.EVOLUTION_ALLOWED_GROUPS;
+    const queueName = this.env.AVISEI_PRECO_BOM_MENSAGENS_SQS_QUEUE_NAME;
 
     const queueUrl = sqsBaseUrl && queueName ? `${sqsBaseUrl}/${queueName}` : 'ERRO';
 
@@ -64,10 +64,10 @@ export class MensagemService extends BaseService {
   }
 
   async enviarMensagem(text: string, imageBase64?: string): Promise<any> {
-    const apiUrl = this.configService.get<string>('EVOLUTION_API_URL');
-    const apiKey = this.configService.get<string>('EVOLUTION_API_KEY');
-    const instance = this.configService.get<string>('EVOLUTION_INSTANCE_JULIANA_ID');
-    const number = this.configService.get<string>('EVOLUTION_WHATSAPP_NUMBER');
+    const apiUrl = this.env.EVOLUTION_API_URL;
+    const apiKey = this.env.EVOLUTION_API_KEY;
+    const instance = this.env.EVOLUTION_INSTANCE_JULIANA_ID;
+    const number = this.env.EVOLUTION_WHATSAPP_NUMBER;
 
     if (!apiUrl) {
       throw new Error('EVOLUTION_API_URL não configurada');
