@@ -1,11 +1,12 @@
 import { Injectable, Logger, type OnModuleInit } from '@nestjs/common';
 import { PrismaPg } from '@prisma/adapter-pg';
+import { EnvService } from 'src/config/env.service';
 import { PrismaClient } from 'prisma/generated/prisma/client';
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
-  constructor() {
-    const connectionString = process.env.DATABASE_URL;
+  constructor(env: EnvService) {
+    const connectionString = env.DATABASE_URL;
     if (!connectionString) {
       throw new Error('DATABASE_URL is not defined in environment variables');
     }

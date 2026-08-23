@@ -1,11 +1,11 @@
 import { HttpService } from '@nestjs/axios';
 import type { Message } from '@aws-sdk/client-sqs';
 import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { Cron, SchedulerRegistry } from '@nestjs/schedule';
 import { CronTime } from 'cron';
 import { firstValueFrom } from 'rxjs';
 import { SqsService } from 'src/aws/sqs/sqs.service';
+import { EnvService } from 'src/config/env.service';
 import { CreateRegistroVisitaDto } from 'src/padre-ramon/dtos/create-registro-visita.dto';
 
 @Injectable()
@@ -13,18 +13,20 @@ export class SqsConsumerService implements OnApplicationBootstrap {
   private readonly logger = new Logger(SqsConsumerService.name);
   private static readonly CRON_JOB_NAME = 'padre-ramon-sqs-consumer';
   private static readonly DEFAULT_CRON_EXPRESSION = '0 0 8-18/2 * * *';
-  private readonly webhookUrl = process.env.LEONARDO_N8N_WEBHOOK_URL as string;
+  private readonly webhookUrl: string;
 
   constructor(
-    private readonly configService: ConfigService,
+    private readonly env: EnvService,
     private readonly sqsService: SqsService,
     private readonly httpService: HttpService,
     private readonly schedulerRegistry: SchedulerRegistry,
-  ) { }
+  ) {
+    this.webhookUrl = this.env.LEONARDO_N8N_WEBHOOK_URL as string;
+  }
 
   async onApplicationBootstrap() {
     const cronExpression =
-      this.configService.get<string>('PADRE_RAMON_SQS_CRON') ?? SqsConsumerService.DEFAULT_CRON_EXPRESSION;
+      this.env.PADRE_RAMON_SQS_CRON ?? SqsConsumerService.DEFAULT_CRON_EXPRESSION;
 
     try {
       const job = this.schedulerRegistry.getCronJob(SqsConsumerService.CRON_JOB_NAME);
@@ -46,8 +48,8 @@ export class SqsConsumerService implements OnApplicationBootstrap {
   }
 
   private async processSqsQueue() {
-    const sqsBaseUrl = this.configService.get<string>('AWS_SQS_BASE_URL');
-    const queueName = this.configService.get<string>('PADRE_RAMON_SQS_QUEUE_NAME');
+    const sqsBaseUrl = this.env.AWS_SQS_BASE_URL;
+    const queueName = this.env.PADRE_RAMON_SQS_QUEUE_NAME;
 
     if (!queueName || !sqsBaseUrl) {
       this.logger.warn('PADRE_RAMON_SQS_QUEUE_NAME ou AWS_SQS_BASE_URL não configuradas. Pulando verificação da fila.');
@@ -68,7 +70,7 @@ export class SqsConsumerService implements OnApplicationBootstrap {
       }
 
       if (!message?.Body) {
-        this.logger.debug('Nenhuma (nova) mensagem na fila SQS Padre Ramon no momento.');
+        this.logger.warn('Nenhuma (nova) mensagem na fila SQS Padre Ramon no momento.');
         hasMessages = false;
         break;
       }
@@ -88,7 +90,7 @@ export class SqsConsumerService implements OnApplicationBootstrap {
 
       try {
         await firstValueFrom(this.httpService.post(this.webhookUrl, webhookPayload));
-        this.logger.debug(`Registro de visita notificado com sucesso de ${JSON.stringify(webhookPayload.nome)}`);
+        this.logger.log(`Registro de visita notificado com sucesso de ${JSON.stringify(webhookPayload.nome)}`);
       } catch (error) {
         this.logger.error('Falha ao notificar webhook do registro de visita', error);
         continue;

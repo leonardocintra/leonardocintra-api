@@ -1,5 +1,4 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import {
   DeleteMessageCommand,
   Message,
@@ -15,6 +14,7 @@ import {
   DEFAULT_MESSAGE_ATTRIBUTE_NAMES,
   DEFAULT_WAIT_TIME_SECONDS,
 } from './constants/sqs.constants';
+import { EnvService } from 'src/config/env.service';
 import type { SqsReceiveOptions } from './interfaces/sqs-receive-options.interface';
 import type { SqsSendOptions } from './interfaces/sqs-send-options.interface';
 
@@ -23,9 +23,9 @@ export class SqsService {
   private readonly logger = new Logger(SqsService.name);
   private readonly client: SQSClient;
 
-  constructor(private readonly configService: ConfigService) {
+  constructor(private readonly env: EnvService) {
     this.client = new SQSClient({
-      region: this.configService.get<string>('AWS_REGION', DEFAULT_AWS_REGION),
+      region: this.env.AWS_REGION ?? DEFAULT_AWS_REGION,
     });
   }
 
