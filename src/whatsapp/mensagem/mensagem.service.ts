@@ -105,6 +105,26 @@ export class MensagemService extends BaseService {
   }
 
   private filtrarMensagem(mensagem: string): boolean {
-    return mensagem.includes('Achado Amazon') || mensagem.includes('Achado Netshoes') || mensagem.includes('Achado Kabum') || mensagem.includes('Achado Submarino') || mensagem.includes('Achado Americanas') || mensagem.includes('Achado Magazine Luiza') || mensagem.includes('Achado Magazine Luiza');
+    return this.palavrasFiltradas.some((palavra) => mensagem.includes(palavra));
   }
+
+  private readonly palavrasFiltradas = [
+    'Amazon',
+    'Netshoes',
+    'Kabum',
+    'Achado Submarino',
+    'Achado Americanas',
+    'Achado Magazine Luiza',
+    'Magalu',
+    'Magazine Luiza',
+    'Americanas',
+    'Submarino',
+    'Shopee',
+    'Mercado Livre',
+    'AliExpress',
+    'Casas Bahia',
+    'Ponto Frio',
+    'Extra',
+    'Carrefour',
+  ];
 }
