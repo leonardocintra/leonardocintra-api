@@ -116,7 +116,7 @@ export class MensagemService extends BaseService {
     'Americanas',
     'Magazine Luiza',
     'Magalu',
-    'Shopee',
+    'shopee',
     'AliExpress',
     'Casas Bahia',
     'Ponto Frio',
