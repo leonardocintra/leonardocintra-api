@@ -194,7 +194,6 @@ export class WhatsAppWorkerService implements OnApplicationBootstrap {
 
     try {
       await this.afiliadosService.salvarMensagemExterna('WhatsApp', text);
-      this.logger.debug('Mensagem salva no banco com sucesso.');
     } catch (error) {
       this.logger.error('Falha ao salvar mensagem no banco', error);
       return;

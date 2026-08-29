@@ -66,3 +66,17 @@ npm run check         # Biome check
 - **MultiAuthGuard** is global — individual controllers/modules can override with `@Public()` or specific guards.
 - **CORS** is locked to `gate.leonardocintra.com.br` — don't widen without approval.
 - **SQS messages** that fail are left in the queue for retry (error is logged, not consumed).
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in GitHub Issues for `leonardocintra/leonardocintra-api`, via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default five-role vocabulary: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `CONTEXT.md` at the repo root, ADRs in `docs/adr/`. See `docs/agents/domain.md`.
