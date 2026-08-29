@@ -5,7 +5,7 @@ import { MelhorarMensagemDto, Tone } from './dto/melhorar-mensagem.dto';
 
 const IA_TIMEOUT_MS = 30_000;
 const IA_TEMPERATURE = 0.5;
-const IA_MAX_TOKENS = 300;
+const IA_MAX_TOKENS = 1300;
 
 const TONE_DESCRIPTIONS: Record<Tone, string> = {
   casual: 'casual e amigável, como um amigo recomendando para outro',
@@ -18,7 +18,7 @@ export class IaService {
   private readonly logger = new Logger(IaService.name);
   private client: OpenAI | undefined;
 
-  constructor(private readonly env: EnvService) {}
+  constructor(private readonly env: EnvService) { }
 
   async melhorarMensagem(dto: MelhorarMensagemDto): Promise<{ message: string }> {
     const tone: Tone = dto.tone ?? 'casual';
@@ -36,7 +36,25 @@ export class IaService {
           { role: 'user', content: dto.message },
         ],
       });
-      improved = response.choices[0]?.message?.content?.trim();
+      const choice = response.choices[0];
+
+      if (!choice) {
+        throw new BadGatewayException(
+          'A IA não retornou uma resposta válida.',
+        );
+      }
+
+      if (choice.finish_reason === 'length') {
+        this.logger.warn(
+          'IA atingiu o limite de tokens antes de finalizar a resposta',
+        );
+
+        throw new BadGatewayException(
+          'A IA não conseguiu finalizar a mensagem. Tente novamente.',
+        );
+      }
+
+      improved = choice.message?.content?.trim();
     } catch (error) {
       this.logger.error(
         'Falha ao melhorar mensagem com IA',
