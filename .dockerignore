@@ -1,0 +1,51 @@
+# Dependências
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Build
+dist
+build
+
+# Git
+.git
+.gitignore
+.github
+
+# Ambiente
+.env
+.env.*
+!.env.sample
+
+# Editor / IDE
+.vscode
+.idea
+
+# Testes / coverage
+coverage
+test
+*.spec.ts
+*.test.ts
+
+# Docs e agentes
+docs
+CLAUDE.md
+README.md
+CONTEXT.md
+
+# Automations / configs internos
+.omo
+.claude
+.cursor
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+Dockerfile
+docker-compose*.yml
+.dockerignore

@@ -120,4 +120,19 @@ export class EnvService {
   get PORT() {
     return this.configService.get<string | number>(ENV_KEYS.PORT, ENV_DEFAULTS.PORT);
   }
+
+  get VERBOO_API_BASE_URL() {
+    return this.configService.get<string>(
+      ENV_KEYS.VERBOO_API_BASE_URL,
+      ENV_DEFAULTS.VERBOO_API_BASE_URL,
+    );
+  }
+
+  get VERBOO_API_KEY() {
+    return this.configService.get<string>(ENV_KEYS.VERBOO_API_KEY);
+  }
+
+  get VERBOO_MODEL() {
+    return this.configService.get<string>(ENV_KEYS.VERBOO_MODEL, ENV_DEFAULTS.VERBOO_MODEL);
+  }
 }
