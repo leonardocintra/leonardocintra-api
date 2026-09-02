@@ -50,7 +50,6 @@ export class MensagemService extends BaseService {
     }
 
     if (mensagem.data.message.conversation && this.filtrarMensagem(mensagem.data.message.conversation)) {
-      this.logger.debug('Mensagem filtrada e não enviada para WhatsApp');
       return { success: true, message: 'Mensagem filtrada e não enviada para WhatsApp' };
     }
 
@@ -89,8 +88,6 @@ export class MensagemService extends BaseService {
       caption: text,
       fileName: 'imagem.jpg',
     };
-
-    this.logger.debug(body);
 
     try {
       const response = await firstValueFrom(this.httpService.post(url, body, { headers }));

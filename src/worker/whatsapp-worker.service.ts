@@ -132,8 +132,6 @@ export class WhatsAppWorkerService implements OnApplicationBootstrap {
       // TODO: alterar a imagem com logo da marca Avisei Preço Bom!
 
       await this.mensagemService.enviarMensagem(mensagemExterna.message, imageBase64);
-      this.logger.debug(`Mensagem ${payload.id} enviada para WhatsApp com sucesso.`);
-
       await this.afiliadosService.atualizarMensagemExternaById(payload.id, { status: AVISEI_PRECO_BOM_STATUS_ONLINE });
     } catch (error) {
       this.logger.error(`Falha ao enviar mensagem ${payload.id} para WhatsApp. Mantendo na fila SQS.`, error);

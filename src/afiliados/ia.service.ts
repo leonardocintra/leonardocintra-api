@@ -22,7 +22,6 @@ export class IaService {
 
   async melhorarMensagem(dto: MelhorarMensagemDto): Promise<{ message: string }> {
     const tone: Tone = dto.tone ?? 'casual';
-    this.logger.debug(`IA melhorar-mensagem - tone: ${tone}, entrada: ${dto.message}`);
 
     let improved: string | undefined;
     try {
@@ -67,8 +66,6 @@ export class IaService {
       this.logger.error('IA retornou resposta vazia');
       throw new BadGatewayException('Falha ao gerar a mensagem com IA. Tente novamente.');
     }
-
-    this.logger.debug(`IA saída: ${improved}`);
     return { message: improved };
   }
 
