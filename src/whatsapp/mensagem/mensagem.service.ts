@@ -109,7 +109,6 @@ export class MensagemService extends BaseService {
   }
 
   private readonly palavrasFiltradas = [
-    'Amazon',
     'Netshoes',
     'Kabum',
     'Submarino',
@@ -122,5 +121,6 @@ export class MensagemService extends BaseService {
     'Ponto Frio',
     'Extra',
     'Carrefour',
+    'Nike',
   ];
 }
