@@ -1,5 +1,5 @@
 import { Controller, Get, InternalServerErrorException, Post, Req } from '@nestjs/common';
-import { RequestWithUser } from 'src/commons/IRequestWithUserClerk';
+import type { RequestWithUser } from 'src/commons/IRequestWithUserClerk';
 import { PortaoService } from './portao.service';
 
 @Controller('portao')
