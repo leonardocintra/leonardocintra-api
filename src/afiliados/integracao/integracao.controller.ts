@@ -1,6 +1,8 @@
 import { Controller, Get, Query } from '@nestjs/common';
+import { IsPublic } from 'src/decorators/public/public.decorator';
 
-@Controller('integracao')
+@IsPublic()
+@Controller('integration')
 export class IntegracaoController {
 
   @Get('mercadolivre/callback')
