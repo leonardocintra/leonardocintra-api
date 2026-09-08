@@ -5,7 +5,7 @@ NestJS v11 API (TypeScript) for Leonardo Cintra's personal services — blog, le
 
 ## Tech Stack
 - **Framework**: NestJS 11 (Nest CLI, @nestjs/core, @nestjs/common)
-- **Language**: TypeScript 5.7, Node 24.18+
+- **Language**: Node 24.18+; TypeScript em dual-track: `typescript` (alias → TS 6.0, motor de build/teste) + `typescript-7` (TS 7.0 nativo Go, só typecheck)
 - **Database**: PostgreSQL via Prisma 7 (adapter-pg)
 - **Auth**: Clerk (backend SDK) + JWT (passport-jwt) via MultiAuthGuard
 - **Queue/Events**: AWS SQS (@aws-sdk/client-sqs), MQTT (HiveMQ)
@@ -49,7 +49,9 @@ NestJS v11 API (TypeScript) for Leonardo Cintra's personal services — blog, le
 ## Commands
 ```bash
 npm install          # Install + prisma generate
-npm run build         # Compile
+npm run build         # Compile (nest build, motor TS 6.0)
+npm run typecheck     # Typecheck gate com TS 7.0 (Go native, ~10x mais rápido)
+npm run typecheck:legacy # Typecheck com tsc6 (para diff durante a transição)
 npm run start         # Development
 npm run start:dev     # Watch mode
 npm run start:prod    # Production
@@ -58,6 +60,23 @@ npm run test          # Unit tests
 npm run test:e2e      # E2E tests
 npm run check         # Biome check
 ```
+
+## TypeScript dual-track (TS6 + TS7) — NÃO mudar sem entender
+- `typescript` no `package.json` é o alias `npm:@typescript/typescript6@^6.0.2`. **Não trocar para `^7`**: `nest build`, `ts-jest` e `ts-node` usam a API programática do compilador, que o TS 7.0 **não expõe** (chega no 7.1).
+- `typescript-7` é `npm:typescript@^7.0.2` (compilador nativo em Go, ~10x mais rápido) — usado **apenas** no script `typecheck`, que aponta direto para `node_modules/typescript-7/bin/tsc`. Motivo: o binário `tsc` do `.bin` resolve para `@typescript/old` (dependência interna do `@typescript/typescript6`), não para o TS7.
+- `typecheck:legacy` roda o `tsc6` para comparar diagnósticos; remover quando o 7.1 + tooling suportarem o TS7 como motor.
+- `tsconfig.json`: `module`/`moduleResolution` = `nodenext`; **sem `baseUrl`** (removido no TS7) — os aliases `src/*` e `prisma/*` vivem em `paths`. `types: ["node", "jest"]` é explícito (default do TS7 é `[]`). `isolatedModules: true` (exigido pelo ts-jest sob `nodenext`).
+
+## Prisma 7 — gotcha de module format
+- O generator `prisma-client` (Prisma 7) **infere** ESM quando o tsconfig usa `module: nodenext`, gerando client com `import.meta.url` → em runtime CJS quebra com `ReferenceError: exports is not defined in ES module scope`.
+- **`moduleFormat = "cjs"` no generator `client` do [prisma/schema.prisma](prisma/schema.prisma) é obrigatório** (fix oficial, ver prisma/prisma#27556 e #29710).
+- Sempre rodar `npx prisma generate` após mexer no schema.
+
+## Known issues (pré-existentes, fora do escopo TS7)
+- `npm run test` — não há testes unitários (0 `.spec.ts` em `src/`).
+- `npm run test:e2e` — quebrado: jest não resolve imports `src/*` (falta `moduleNameMapper` no config jest).
+- `npm run check` (Biome) — falha: `biome.json` usa schema 1.9.4, mas o Biome instalado é 2.x. Rodar `npx biome migrate`.
+- `start:prod` (`node dist/main`) — o build gera `dist/src/main.js`; o caminho real é `node dist/src/main`.
 
 ## Conventions
 - **No mocks in tests** — hit real DB when possible (team feedback).

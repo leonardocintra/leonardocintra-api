@@ -11,6 +11,7 @@ export class MensagemController {
   @Post('receber')
   async receberMensagem(@Body() body: unknown) {
     try {
+      console.log('Recebendo mensagem whatsapp:', body);
       const mensagem = body as ReceberMensagemDto;
       return await this.mensagemService.receberMensagem(mensagem);
     } catch (error) {
