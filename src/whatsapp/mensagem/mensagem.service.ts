@@ -19,6 +19,8 @@ export class MensagemService extends BaseService {
   }
 
   async receberMensagem(mensagem: ReceberMensagemDto) {
+    // Recebe mensagem do Evolution e envia para a fila SQS
+
     const aviseiPrecoBomEnabled = this.env.AVISEI_PRECO_BOM_ENABLED;
     const isAviseiPrecoBomEnabled = aviseiPrecoBomEnabled === 'true';
     if (!isAviseiPrecoBomEnabled) {

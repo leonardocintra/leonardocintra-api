@@ -191,7 +191,8 @@ export class WhatsAppWorkerService implements OnApplicationBootstrap {
     }
 
     try {
-      await this.afiliadosService.salvarMensagemExterna('WhatsApp', text);
+      const origem = this.getOrigem(text);
+      await this.afiliadosService.salvarMensagemExterna(origem, text);
     } catch (error) {
       this.logger.error('Falha ao salvar mensagem no banco', error);
       return;
@@ -204,5 +205,22 @@ export class WhatsAppWorkerService implements OnApplicationBootstrap {
     } catch (error) {
       this.logger.error('Falha ao deletar mensagem da fila SQS após envio bem-sucedido', error);
     }
+  }
+
+  private getOrigem(text: string) {
+    let origem = 'NAO_IDENTIFICADA';
+
+    if (text.toLowerCase().includes('amazon') || text.toLowerCase().includes('amzon.promo')) {
+      origem = 'AMAZON';
+    } else if (text.toLowerCase().includes('magazine luiza') || text.toLowerCase().includes('magalu')) {
+      origem = 'MAGAZINE_LUIZA';
+    } else if (text.toLowerCase().includes('mercado livre') || text.toLowerCase().includes('meli.la')) {
+      origem = 'MERCADO_LIVRE';
+    } else if (text.toLowerCase().includes('shopee')) {
+      origem = 'SHOPEE';
+    } else {
+      this.logger.warn(`Mensagem recebida sem identificação de origem. Texto: ${text}`);
+    }
+    return origem;
   }
 }
