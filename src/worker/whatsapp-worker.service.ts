@@ -212,8 +212,6 @@ export class WhatsAppWorkerService implements OnApplicationBootstrap {
 
     if (text.toLowerCase().includes('amazon') || text.toLowerCase().includes('amzon.promo')) {
       origem = 'AMAZON';
-    } else if (text.toLowerCase().includes('magazine luiza') || text.toLowerCase().includes('magalu')) {
-      origem = 'MAGAZINE_LUIZA';
     } else if (text.toLowerCase().includes('mercado livre') || text.toLowerCase().includes('meli.la')) {
       origem = 'MERCADO_LIVRE';
     } else if (text.toLowerCase().includes('shopee')) {
