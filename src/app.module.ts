@@ -11,7 +11,6 @@ import { JwtAuthGuard } from './auth/jwt/jwt.guard';
 import { JwtStrategy } from './auth/jwt/jwt.strategy';
 import { TokenController } from './auth/token/token.controller';
 import { PortaoModule } from './automations/portao/portao.module';
-import { BlogModule } from './blog/blog.module';
 import { EnvModule } from './config/env.module';
 import { EnvService } from './config/env.service';
 import { CronModule } from './cron/cron.module';
@@ -51,7 +50,6 @@ import { MinioModule } from './minio/minio.module';
     LeadsModule,
     PrismaModule,
     MqttModule,
-    BlogModule,
     CronModule,
     PadreRamonModule,
     WhatsappModule,
