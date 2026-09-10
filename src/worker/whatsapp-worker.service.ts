@@ -217,7 +217,7 @@ export class WhatsAppWorkerService implements OnApplicationBootstrap {
     } else if (text.toLowerCase().includes('shopee')) {
       origem = 'SHOPEE';
     } else {
-      this.logger.warn(`Mensagem recebida sem identificação de origem. Texto: ${text}`);
+      this.logger.warn(`Mensagem recebida sem identificação de origem.`);
     }
     return origem;
   }
