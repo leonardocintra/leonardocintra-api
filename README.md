@@ -23,6 +23,7 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 $ npx prisma migrate deploy
+$ npx prisma generate
 ```
 
 ## API token (Padre Ramon)

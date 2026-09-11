@@ -6,6 +6,10 @@ import { MelhorarMensagemDto, Tone } from './dto/melhorar-mensagem.dto';
 const IA_TIMEOUT_MS = 30_000;
 const IA_TEMPERATURE = 0.5;
 const IA_MAX_TOKENS = 2500;
+const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1';
+const OPENROUTER_FREE_MODEL = 'openrouter/free';
+const OPENROUTER_REFERER = 'https://leonardocintra.com.br';
+const OPENROUTER_TITLE = 'Leonardo Cintra API';
 
 const TONE_DESCRIPTIONS: Record<Tone, string> = {
   casual: 'casual e amigável, como um amigo recomendando para outro',
@@ -27,7 +31,7 @@ export class IaService {
     try {
       const client = this.getClient();
       const response = await client.chat.completions.create({
-        model: this.env.VERBOO_MODEL,
+        model: this.getModel(),
         temperature: IA_TEMPERATURE,
         max_tokens: IA_MAX_TOKENS,
         messages: [
@@ -71,19 +75,36 @@ export class IaService {
 
   private getClient(): OpenAI {
     if (!this.client) {
-      const apiKey = this.env.VERBOO_API_KEY;
+      const apiKey = this.env.OPENROUTER_API_KEY;
       if (!apiKey) {
-        this.logger.error('VERBOO_API_KEY não configurada');
-        throw new Error('VERBOO_API_KEY não configurada');
+        this.logger.error('OPENROUTER_API_KEY não configurada');
+        throw new Error('OPENROUTER_API_KEY não configurada');
       }
       this.client = new OpenAI({
         apiKey,
-        baseURL: this.env.VERBOO_API_BASE_URL,
+        baseURL: OPENROUTER_BASE_URL,
         timeout: IA_TIMEOUT_MS,
         maxRetries: 0,
+        defaultHeaders: {
+          'HTTP-Referer': OPENROUTER_REFERER,
+          'X-OpenRouter-Title': OPENROUTER_TITLE,
+        },
       });
     }
     return this.client;
+  }
+
+  private getModel(): string {
+    const model = this.env.OPENROUTER_MODEL;
+    if (model !== OPENROUTER_FREE_MODEL) {
+      this.logger.error(
+        `OPENROUTER_MODEL deve ser configurada como ${OPENROUTER_FREE_MODEL}`,
+      );
+      throw new Error(
+        `OPENROUTER_MODEL deve ser configurada como ${OPENROUTER_FREE_MODEL}`,
+      );
+    }
+    return model;
   }
 
   private buildSystemPrompt(tone: Tone): string {
@@ -206,6 +227,14 @@ export class IaService {
       '- Português do Brasil.',
       `- TOM: ${TONE_DESCRIPTIONS[tone]}.`,
       '',
+      'PÚBLICO E FORMA DE TRATAMENTO:',
+      '- Analise o produto e as informações recebidas para identificar se a comunicação é mais adequada ao público masculino, feminino ou a ambos.',
+      '- Para produtos claramente voltados ao público masculino, como ferramentas, peças e acessórios automotivos, mantenha uma comunicação de homem para homem.',
+      '- Para produtos claramente voltados ao público feminino, mantenha uma comunicação voltada para mulheres.',
+      '- Para produtos que possam interessar a qualquer público ou quando não houver indicação clara, use uma abertura neutra e inclusiva, como "Genteeee", "Pessoal" ou "Galeraaa".',
+      '- Nunca use uma abertura feminina como "Amigaaa" para um produto voltado ao público masculino.',
+      '- Nunca presuma que todo produto tem público feminino; escolha a forma de tratamento a partir das informações do produto.',
+      '',
       'EXEMPLO DE DESCRIÇÃO LONGA:',
       '',
       'Entrada:',
@@ -213,7 +242,7 @@ export class IaService {
       'Além de sua incrível potência de 350W, o mixer e processador Britânia foi projetado pensando no seu conforto e segurança. Seu design ergonômico proporciona um manuseio confortável, e seu sistema com lâmina em aço inoxidável garante durabilidade e eficiência.',
       '',
       'Saída esperada:',
-      'Amigaaaa 😍 olha esse achado pra cozinha!',
+      'Genteeee 😍 olha esse achado pra cozinha!',
       '',
       'Esse mixer e processador Britânia é super útil pra fazer sobremesas, molhos, cremes e muito mais! 💕',
       '',
