@@ -3,7 +3,7 @@ import OpenAI from 'openai';
 import { EnvService } from 'src/config/env.service';
 import { MelhorarMensagemDto, Tone } from './dto/melhorar-mensagem.dto';
 
-const IA_TIMEOUT_MS = 30_000;
+const IA_TIMEOUT_MS = 55_000;
 const IA_TEMPERATURE = 0.5;
 const IA_MAX_TOKENS = 2500;
 const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1';
