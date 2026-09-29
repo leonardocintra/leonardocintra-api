@@ -9,6 +9,7 @@ export class AfiliadosController {
 
   constructor(private readonly afiliadosService: AfiliadosService) { }
 
+  @IsPublic()
   @Patch('/status')
   async atualizarStatus(@Body() updateStatusDto: UpdateAfiliadosStatusDto) {
     return this.afiliadosService.atualizarStatus(updateStatusDto.active);
