@@ -1,10 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { BaseService } from 'src/commons/BaseService';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SqsService } from 'src/aws/sqs/sqs.service';
 import { UpdateMensagemExternaDto } from './dto/update-mensagem.dto';
 import { AVISEI_PRECO_BOM_STATUS_PENDING } from 'src/utils/constants';
 import { EnvService } from 'src/config/env.service';
+
+const AVISEI_PRECO_BOM_PRODUCT_NAME = 'afiliados-avisei-preco-bom';
 
 @Injectable()
 export class AfiliadosService extends BaseService {
@@ -28,6 +30,31 @@ export class AfiliadosService extends BaseService {
       await this.enviarParaFilaSQS(mensagemAtualizada.id);
     }
     return mensagemAtualizada;
+  }
+
+  async isAtivo(): Promise<boolean> {
+    const product = await this.prismaService.product.findFirst({
+      where: { name: AVISEI_PRECO_BOM_PRODUCT_NAME },
+      select: { active: true },
+    });
+
+    return product?.active ?? false;
+  }
+
+  async atualizarStatus(active: boolean) {
+    const product = await this.prismaService.product.findFirst({
+      where: { name: AVISEI_PRECO_BOM_PRODUCT_NAME },
+      select: { id: true },
+    });
+
+    if (!product) {
+      throw new NotFoundException(`Product '${AVISEI_PRECO_BOM_PRODUCT_NAME}' não encontrado`);
+    }
+
+    return this.prismaService.product.update({
+      where: { id: product.id },
+      data: { active },
+    });
   }
 
   private async enviarParaFilaSQS(mensagemId: number): Promise<void> {
@@ -84,7 +111,7 @@ export class AfiliadosService extends BaseService {
 
   async deleteMensagensAntigas(): Promise<void> {
     const dataLimite = new Date();
-    dataLimite.setDate(dataLimite.getDate() - 1); // 1 dia atrás
+    dataLimite.setHours(dataLimite.getHours() - 4); // 4 horas atrás
 
     // TODO: apagar a imagem do Minio também, se existir.
 

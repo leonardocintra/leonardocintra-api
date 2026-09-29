@@ -6,7 +6,7 @@ import { AfiliadosService } from 'src/afiliados/afiliados.service';
 export class CronWorkerService {
   private readonly logger = new Logger(CronWorkerService.name);
 
-  private static readonly CRON_EXPRESSION = '0 0 0 * * *';
+  private static readonly CRON_EXPRESSION = '0 0 */4 * * *';
 
   constructor(private readonly afiliadosService: AfiliadosService) { }
 

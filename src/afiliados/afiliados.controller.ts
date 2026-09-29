@@ -2,11 +2,17 @@ import { Body, Controller, Delete, Get, Param, Patch, Query } from '@nestjs/comm
 import { AfiliadosService } from './afiliados.service';
 import { IsPublic } from 'src/decorators/public/public.decorator';
 import { UpdateMensagemExternaDto } from './dto/update-mensagem.dto';
+import { UpdateAfiliadosStatusDto } from './dto/update-afiliados-status.dto';
 
 @Controller('afiliados')
 export class AfiliadosController {
 
   constructor(private readonly afiliadosService: AfiliadosService) { }
+
+  @Patch('/status')
+  async atualizarStatus(@Body() updateStatusDto: UpdateAfiliadosStatusDto) {
+    return this.afiliadosService.atualizarStatus(updateStatusDto.active);
+  }
 
   @IsPublic()
   @Get('/mensagem-externa')

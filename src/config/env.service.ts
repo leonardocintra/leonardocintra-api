@@ -4,17 +4,10 @@ import { ENV_DEFAULTS, ENV_KEYS } from './env.constants';
 
 @Injectable()
 export class EnvService {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) { }
 
   get AVISEI_PRECO_BOM_AFILIADOS_ID_SQS_QUEUE_NAME() {
     return this.configService.get<string>(ENV_KEYS.AVISEI_PRECO_BOM_AFILIADOS_ID_SQS_QUEUE_NAME);
-  }
-
-  get AVISEI_PRECO_BOM_ENABLED() {
-    return this.configService.get<string>(
-      ENV_KEYS.AVISEI_PRECO_BOM_ENABLED,
-      ENV_DEFAULTS.AVISEI_PRECO_BOM_ENABLED,
-    );
   }
 
   get AVISEI_PRECO_BOM_MENSAGENS_SQS_QUEUE_NAME() {

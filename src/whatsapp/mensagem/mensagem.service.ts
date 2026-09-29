@@ -6,6 +6,7 @@ import { ReceberMensagemDto } from '../dto/receber-mensagem.dto';
 import { BaseService } from 'src/commons/BaseService';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { EnvService } from 'src/config/env.service';
+import { AfiliadosService } from 'src/afiliados/afiliados.service';
 
 @Injectable()
 export class MensagemService extends BaseService {
@@ -14,6 +15,7 @@ export class MensagemService extends BaseService {
     private readonly sqsService: SqsService,
     private readonly httpService: HttpService,
     private readonly env: EnvService,
+    private readonly afiliadosService: AfiliadosService,
   ) {
     super(prismaService);
   }
@@ -21,9 +23,7 @@ export class MensagemService extends BaseService {
   async receberMensagem(mensagem: ReceberMensagemDto) {
     // Recebe mensagem do Evolution e envia para a fila SQS
 
-    const aviseiPrecoBomEnabled = this.env.AVISEI_PRECO_BOM_ENABLED;
-    const isAviseiPrecoBomEnabled = aviseiPrecoBomEnabled === 'true';
-    if (!isAviseiPrecoBomEnabled) {
+    if (!(await this.afiliadosService.isAtivo())) {
       this.logger.warn('Recebimento de mensagem desativado');
       return { success: true, message: 'Recebimento de mensagem desativado' };
     }
