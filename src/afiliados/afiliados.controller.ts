@@ -10,6 +10,12 @@ export class AfiliadosController {
   constructor(private readonly afiliadosService: AfiliadosService) { }
 
   @IsPublic()
+  @Get('/status')
+  async consultarStatus() {
+    return { active: await this.afiliadosService.isAtivo() };
+  }
+
+  @IsPublic()
   @Patch('/status')
   async atualizarStatus(@Body() updateStatusDto: UpdateAfiliadosStatusDto) {
     return this.afiliadosService.atualizarStatus(updateStatusDto.active);
