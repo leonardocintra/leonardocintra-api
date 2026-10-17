@@ -8,7 +8,7 @@ export class MqttService implements OnModuleInit, OnModuleDestroy {
   private client?: MqttClient;
   private ultimoStatus: string | null = null;
 
-  constructor(private readonly env: EnvService) {}
+  constructor(private readonly env: EnvService) { }
 
   onModuleInit() {
     const brokerUrl = this.env.MQTT_BROKER_URL as string;
@@ -17,13 +17,14 @@ export class MqttService implements OnModuleInit, OnModuleDestroy {
       username: this.env.MQTT_USERNAME,
       password: this.env.MQTT_PASSWORD,
       rejectUnauthorized: false,
+      clientId: `leonardocintra-api-${Math.random().toString(16).substr(2, 8)}`,
     };
 
     const client = mqtt.connect(brokerUrl, options);
     this.client = client;
 
     client.on('connect', () => {
-      this.logger.log('Conectado ao broker MQTT HiveMQ Cloud');
+      this.logger.log('Conectado ao broker MQTT EMQX Cloud');
       client.subscribe('casa/portao/status', (err) => {
         if (err) {
           this.logger.error('Erro ao se inscrever em casa/portao/status:', err);

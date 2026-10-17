@@ -8,7 +8,7 @@ NestJS v11 API (TypeScript) for Leonardo Cintra's personal services — blog, le
 - **Language**: Node 24.18+; TypeScript em dual-track: `typescript` (alias → TS 6.0, motor de build/teste) + `typescript-7` (TS 7.0 nativo Go, só typecheck)
 - **Database**: PostgreSQL via Prisma 7 (adapter-pg)
 - **Auth**: Clerk (backend SDK) + JWT (passport-jwt) via MultiAuthGuard
-- **Queue/Events**: AWS SQS (@aws-sdk/client-sqs), MQTT (HiveMQ)
+- **Queue/Events**: AWS SQS (@aws-sdk/client-sqs), MQTT (EMQX)
 - **Storage**: MinIO
 - **Messaging**: WhatsApp via Evolution API
 - **Formatting/Linting**: Biome
